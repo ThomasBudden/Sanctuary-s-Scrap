@@ -24,6 +24,7 @@ public class HitScanShootingScript : MonoBehaviour
     public GameObject lineTracer;
     private GameObject lastLine;
     private LineRenderer lineRenderer;
+    public GameObject bullet;
     public float recoilMult;
     public int maxAmmo;
     public int ammoCount;
@@ -55,6 +56,8 @@ public class HitScanShootingScript : MonoBehaviour
             float bulletRandVert = Random.Range(-bulletDiv, bulletDiv);
             float bulletRandHori = Random.Range(-bulletDiv, bulletDiv);
             currentEulerAngles = aimPoint.transform.forward + new Vector3(bulletRandHori * aimPoint.transform.forward.z,bulletRandVert, bulletRandHori * aimPoint.transform.forward.x);
+            GameObject lastBullet = Instantiate(bullet, muzzle.transform.position, Quaternion.identity, muzzle.transform);
+            lastBullet.transform.eulerAngles = currentEulerAngles;
             RaycastHit hit;
             if (Physics.Raycast(aimPoint.transform.position, currentEulerAngles, out hit, 100))
             {
