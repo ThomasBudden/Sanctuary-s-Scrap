@@ -53,11 +53,14 @@ public class HitScanShootingScript : MonoBehaviour
         }
         if (Input.GetMouseButton(0) && shotTime + shotSpeed < Time.time && ammoCount > 0 && reloading == false && canShoot == true)
         {
-            float bulletRandVert = Random.Range(-bulletDiv, bulletDiv);
-            float bulletRandHori = Random.Range(-bulletDiv, bulletDiv);
-            currentEulerAngles = aimPoint.transform.forward + new Vector3(bulletRandHori * aimPoint.transform.forward.z,bulletRandVert, bulletRandHori * aimPoint.transform.forward.x);
-            GameObject lastBullet = Instantiate(bullet, muzzle.transform.position, Quaternion.identity, muzzle.transform);
-            lastBullet.transform.eulerAngles = currentEulerAngles;
+            /*float bulletRandVert = Random.Range(-bulletDiv, bulletDiv);
+            float bulletRandHori = Random.Range(-bulletDiv, bulletDiv);*/
+            float bulletRand = Random.Range(-bulletDiv, bulletDiv);
+            float bulletRandAngle = Random.Range(0, 90);
+            float bulletRandY = (Mathf.Sin(bulletRandAngle) * bulletRand);
+            float bulletRandX = (Mathf.Cos(bulletRandAngle) * bulletRand);
+            currentEulerAngles = aimPoint.transform.forward + new Vector3(bulletRandX * aimPoint.transform.forward.z,bulletRandY, bulletRandX * aimPoint.transform.forward.x);
+            GameObject lastBullet = Instantiate(bullet, muzzle.transform.position, muzzle.transform.rotation);
             RaycastHit hit;
             if (Physics.Raycast(aimPoint.transform.position, currentEulerAngles, out hit, 100))
             {
@@ -69,7 +72,9 @@ public class HitScanShootingScript : MonoBehaviour
                     hit.collider.gameObject.GetComponent<TargetCubeScript>().dpsList.Add(damage);
                     hit.collider.gameObject.GetComponent<TargetCubeScript>().dpsTime.Add(Time.time);
                 }
-                lastLine = Instantiate(lineTracer, muzzle.transform.position, Quaternion.identity);
+                //float particalAngleX = Vector2.Angle(new Vector2(muzzle.forward.x,
+                //Debug.Log(particalAngleX);
+                /*lastLine = Instantiate(lineTracer, muzzle.transform.position, Quaternion.identity);
                 lineRenderer = lastLine.GetComponent<LineRenderer>();
                 lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
                 lineRenderer.widthMultiplier = 0.02f;
@@ -78,11 +83,12 @@ public class HitScanShootingScript : MonoBehaviour
                 lineRenderer.SetPosition(0, muzzle.transform.position);
                 lineRenderer.SetPosition(1, hitPoint);
                 timeList.Add(Time.time);
-                lineList.Add(lastLine);
+                lineList.Add(lastLine);*/
             }
             else
             {
-                lastLine = Instantiate(lineTracer, muzzle.transform.position, Quaternion.identity);
+                lastBullet.transform.forward = aimPoint.transform.forward + new Vector3(bulletRandX * aimPoint.transform.forward.z, bulletRandY, bulletRandX * aimPoint.transform.forward.x);
+                /*lastLine = Instantiate(lineTracer, muzzle.transform.position, Quaternion.identity);
                 lineRenderer = lastLine.GetComponent<LineRenderer>();
                 lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
                 lineRenderer.widthMultiplier = 0.02f;
@@ -91,7 +97,7 @@ public class HitScanShootingScript : MonoBehaviour
                 lineRenderer.SetPosition(0, muzzle.transform.position);
                 lineRenderer.SetPosition(1, muzzle.transform.forward * 100);
                 timeList.Add(Time.time);
-                lineList.Add(lastLine);
+                lineList.Add(lastLine);*/
             }
             ammoCount -= 1;
             /*float recoilRandHori = Random.Range(-0.5f, 0.5f);

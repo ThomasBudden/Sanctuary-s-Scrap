@@ -124,6 +124,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2612751508934299679, guid: 8a7c562285e30934f82f3786a6880e48, type: 3}
   m_PrefabInstance: {fileID: 618008438177547563}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &138629999 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2033906153326838127, guid: 8a7c562285e30934f82f3786a6880e48, type: 3}
+  m_PrefabInstance: {fileID: 618008438177547563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &141897875 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1183783103552515053, guid: 2c1224de79b561e47850716f11cf50f7, type: 3}
@@ -135,6 +140,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &240787010 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5790847125213250368, guid: 2c1224de79b561e47850716f11cf50f7, type: 3}
+  m_PrefabInstance: {fileID: 3365621266889273147}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &265638379
 GameObject:
   m_ObjectHideFlags: 0
@@ -1812,6 +1822,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8353645104161322172, guid: 8a7c562285e30934f82f3786a6880e48, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 4161829880401704214, guid: d078f3cb855f5794fa4867d06fdf51d0, type: 3}
+    - target: {fileID: 8353645104161322172, guid: 8a7c562285e30934f82f3786a6880e48, type: 3}
       propertyPath: ammoCountTxt
       value: 
       objectReference: {fileID: 141897875}
@@ -1833,7 +1847,10 @@ PrefabInstance:
       objectReference: {fileID: 1459156407}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2033906153326838127, guid: 8a7c562285e30934f82f3786a6880e48, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 240787010}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a7c562285e30934f82f3786a6880e48, type: 3}
 --- !u!1001 &3365621266889273147
@@ -1842,7 +1859,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 138629999}
     m_Modifications:
     - target: {fileID: 154976880495926279, guid: 2c1224de79b561e47850716f11cf50f7, type: 3}
       propertyPath: m_Name
@@ -1956,7 +1973,6 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 2125821267}
   - {fileID: 410087041}
-  - {fileID: 3365621266889273147}
   - {fileID: 618008438177547563}
   - {fileID: 1950263238}
   - {fileID: 1497641767}
