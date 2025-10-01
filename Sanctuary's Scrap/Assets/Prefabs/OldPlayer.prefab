@@ -154,6 +154,7 @@ MonoBehaviour:
   player: {fileID: 4072192809031984529}
   mouseSensitivity: 2
   cameraVerticalRotation: 0
+  lockedCursor: 1
 --- !u!1 &4532354975606952191
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +213,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -320,7 +324,6 @@ CharacterController:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -373,8 +376,12 @@ MonoBehaviour:
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   jumpHeight: 2
+  canMove: 0
+  nearChest: 0
+  shopping: 0
+  currentChest: {fileID: 0}
 --- !u!114 &4102511766141811926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,6 +409,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  maxHealth: 0
+  healthSpeed: 0
+  regenAmount: 0
+  lastHitTime: 0
+  regenDelay: 0
 --- !u!1 &8746597215978454181
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +474,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
