@@ -58,11 +58,11 @@ public class NewPlayerMove : MonoBehaviour
 
         if (nearChest == true && Input.GetKeyDown(KeyCode.E))
         {
-            shopping = true;
+            EventManager.current.onRoomRewardInteract();
         }
         else if (nearChest == false)
         {
-            shopping = false;
+            EventManager.current.onRoomRewardClose();
         }
     }
     private void OnTriggerEnter(Collider other)

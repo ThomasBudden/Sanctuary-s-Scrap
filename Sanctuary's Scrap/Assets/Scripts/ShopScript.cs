@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 
@@ -22,13 +23,14 @@ public class ShopScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        EventManager.current.RoomRewardInteract += StartShopping;
+        EventManager.current.RoomRewardClose += ShopExit;
     }
 
     // Update is called once per frame
     void Update()
     {
-        shopping = player.GetComponent<NewPlayerMove>().shopping;
+        /*shopping = player.GetComponent<NewPlayerMove>().shopping;
         if (shopping == true)
         {
             if (shopRolled == false)
@@ -41,7 +43,21 @@ public class ShopScript : MonoBehaviour
             playerCam.GetComponent<TurretCameraScript>().lockedCursor = false;
             Cursor.visible = true;
             player.GetComponent<HitScanShootingScript>().canShoot = false;
+        }*/
+
+    }
+    public void StartShopping()
+    {
+        if (shopRolled == false)
+        {
+            RollTheShop();
+            shopRolled = true;
         }
+        shopPanel.SetActive(true);
+        player.GetComponent<NewPlayerMove>().canMove = false;
+        playerCam.GetComponent<TurretCameraScript>().lockedCursor = false;
+        Cursor.visible = true;
+        player.GetComponent<HitScanShootingScript>().canShoot = false;
     }
     public void RollTheShop()
     {

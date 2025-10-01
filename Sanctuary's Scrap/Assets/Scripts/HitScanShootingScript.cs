@@ -103,7 +103,7 @@ public class HitScanShootingScript : MonoBehaviour
                 lineRenderer.startColor = Color.red;
                 lineRenderer.endColor = Color.yellow;
                 lineRenderer.SetPosition(0, muzzle.transform.position);
-                lineRenderer.SetPosition(1, (muzzle.transform.forward * 100));
+                lineRenderer.SetPosition(1, (aimPoint.transform.forward * 100));
                 timeList.Add(Time.time);
                 lineList.Add(lastLine);
             }
