@@ -32,8 +32,11 @@ public class HitScanShootingScript : MonoBehaviour
     public float reloadTime;
     private float reloadStart;
     public bool canShoot;
-    public List<float> timeList = new List<float>();
+    public bool doLines;
+    public List<float> timeList = new List<float>(); //time list for line render
     public List<GameObject> lineList = new List<GameObject>();
+    public List<float> bTimeList = new List<float>(); //time list for bullet particals
+    public List<GameObject> bulletList = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +64,8 @@ public class HitScanShootingScript : MonoBehaviour
             float bulletRandX = (Mathf.Cos(bulletRandAngle) * bulletRand);
             currentEulerAngles = aimPoint.transform.forward + new Vector3(bulletRandX * aimPoint.transform.forward.z,bulletRandY, bulletRandX * aimPoint.transform.forward.x);
             GameObject lastBullet = Instantiate(bullet, muzzle.transform.position, muzzle.transform.rotation);
+            bulletList.Add(lastBullet);
+            bTimeList.Add(Time.time);
             RaycastHit hit;
             if (Physics.Raycast(aimPoint.transform.position, currentEulerAngles, out hit, 100))
             {
@@ -74,30 +79,33 @@ public class HitScanShootingScript : MonoBehaviour
                 }
                 //float particalAngleX = Vector2.Angle(new Vector2(muzzle.forward.x,
                 //Debug.Log(particalAngleX);
-                /*lastLine = Instantiate(lineTracer, muzzle.transform.position, Quaternion.identity);
-                lineRenderer = lastLine.GetComponent<LineRenderer>();
-                lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-                lineRenderer.widthMultiplier = 0.02f;
-                lineRenderer.startColor = Color.red;
-                lineRenderer.endColor = Color.yellow;
-                lineRenderer.SetPosition(0, muzzle.transform.position);
-                lineRenderer.SetPosition(1, hitPoint);
-                timeList.Add(Time.time);
-                lineList.Add(lastLine);*/
+                if (doLines == true)
+                {
+                    lastLine = Instantiate(lineTracer, muzzle.transform.position, Quaternion.identity);
+                    lineRenderer = lastLine.GetComponent<LineRenderer>();
+                    lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+                    lineRenderer.widthMultiplier = 0.02f;
+                    lineRenderer.startColor = Color.red;
+                    lineRenderer.endColor = Color.yellow;
+                    lineRenderer.SetPosition(0, muzzle.transform.position);
+                    lineRenderer.SetPosition(1, hitPoint);
+                    timeList.Add(Time.time);
+                    lineList.Add(lastLine);
+                }
             }
-            else
+            else if (doLines == true)
             {
                 lastBullet.transform.forward = aimPoint.transform.forward + new Vector3(bulletRandX * aimPoint.transform.forward.z, bulletRandY, bulletRandX * aimPoint.transform.forward.x);
-                /*lastLine = Instantiate(lineTracer, muzzle.transform.position, Quaternion.identity);
+                lastLine = Instantiate(lineTracer, muzzle.transform.position, Quaternion.identity);
                 lineRenderer = lastLine.GetComponent<LineRenderer>();
                 lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
                 lineRenderer.widthMultiplier = 0.02f;
                 lineRenderer.startColor = Color.red;
                 lineRenderer.endColor = Color.yellow;
                 lineRenderer.SetPosition(0, muzzle.transform.position);
-                lineRenderer.SetPosition(1, muzzle.transform.forward * 100);
+                lineRenderer.SetPosition(1, (muzzle.transform.forward * 100));
                 timeList.Add(Time.time);
-                lineList.Add(lastLine);*/
+                lineList.Add(lastLine);
             }
             ammoCount -= 1;
             /*float recoilRandHori = Random.Range(-0.5f, 0.5f);
@@ -130,6 +138,15 @@ public class HitScanShootingScript : MonoBehaviour
                 Destroy(lineList[i].gameObject);
                 lineList.Remove(lineList[i]);
                 timeList.Remove(timeList[i]);
+            }
+        }
+        for (int i = 0; i < bTimeList.Count; i++)
+        {
+            if (bTimeList[i] + 1 < Time.time)
+            {
+                Destroy(bulletList[i].gameObject);
+                bulletList.Remove(bulletList[i]);
+                bTimeList.Remove(bTimeList[i]);
             }
         }
         for (int i = 0; i < crosshair.Length; i++)
