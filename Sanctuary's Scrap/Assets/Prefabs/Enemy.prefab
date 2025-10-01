@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8541807098192671368}
   - component: {fileID: 124793492667379672}
   m_Layer: 7
-  m_Name: Enemy1
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fab548576f44ad34f95f9af3eb1e3080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stoppingDistance: 15
+  stoppingDistance: 0
+  enemyStats: {fileID: 0}
 --- !u!114 &124793492667379672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +148,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -236,7 +240,6 @@ GameObject:
   - component: {fileID: 5892083945715376355}
   - component: {fileID: 8466219388142264127}
   - component: {fileID: 150210204696395131}
-  - component: {fileID: 1063402242735241458}
   m_Layer: 7
   m_Name: EnemyBody
   m_TagString: Enemy
@@ -285,6 +288,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -310,19 +316,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1063402242735241458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4478831701810630128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1bf95257cd5dbd47aca3f3c033ee9f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontalAngle: 0
-  verticalAngle: 0
-  bullet: {fileID: 605254340737493363, guid: 37301f88ad6ec884399551add10bef97, type: 3}
-  bulletDiv: 15

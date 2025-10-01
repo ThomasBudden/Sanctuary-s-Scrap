@@ -20,6 +20,10 @@ public class NewPlayerMove : MonoBehaviour
     public bool shopping;
     public GameObject currentChest;
 
+    public GameObject enemy;
+    private GameObject lastEnemy;
+    public EnemyScriptable enemy1;
+
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +67,11 @@ public class NewPlayerMove : MonoBehaviour
         else if (nearChest == false)
         {
             EventManager.current.onRoomRewardClose();
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            lastEnemy = Instantiate(enemy);
+            lastEnemy.GetComponent<NewAiNavScript>().enemyStats = enemy1;
         }
     }
     private void OnTriggerEnter(Collider other)
