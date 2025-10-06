@@ -9,43 +9,74 @@ public class NewAiNavScript : MonoBehaviour
     private GameObject body;
     private NavMeshAgent agent;
     private Vector3 direction;
+    private float distance;
+    private bool lineOfSight;
+    private float lastShotTime;
+
     public EnemyScriptable enemyStats;
-    private int range;
     private float attackSpeed;
     private int stoppingDistance;
     private int retreatDistance;
+    private int attackDistance;
     private int health;
     private int damage;
     private int movementSpeed;
+    private GameObject proj;
+    private float projSize;
+    private float projSpeed;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         agent = this.GetComponent<NavMeshAgent>();
-        body = this.transform.GetChild(1).gameObject;
-        range = enemyStats.range;
+        body = this.transform.GetChild(0).gameObject;
         attackSpeed = enemyStats.attackSpeed;
         stoppingDistance = enemyStats.stoppingDistance;
         retreatDistance = enemyStats.retreatDistance;
+        attackDistance = enemyStats.attackDistance;
         health = enemyStats.health;
         damage = enemyStats.damage;
         movementSpeed = enemyStats.movementSpeed;
+        proj = enemyStats.Projectile;
+        projSize = enemyStats.projSize;
+        projSpeed = enemyStats.projSpeed;
 }
 
     // Update is called once per frame
     void Update()
     {
-        float distance = Vector3.Distance(this.transform.position, player.transform.position);
-        direction = player.transform.position - this.transform.position;
-        if (distance > stoppingDistance)
+        direction = (player.transform.position - this.transform.position).normalized;
+        distance = Vector3.Distance(this.transform.position, player.transform.position);
+        Debug.DrawLine(this.transform.position, this.transform.position + direction * 10, color: Color.red, Mathf.Infinity);
+        RaycastHit hit;
+        if (Physics.Raycast(this.transform.position, direction, out hit, Mathf.Infinity))
+        {
+            if (hit.collider.tag == "Player")
+            {
+                body.transform.forward = Vector3.RotateTowards(body.transform.forward, direction, 1f * Time.deltaTime, 1f * Time.deltaTime);
+                lineOfSight = true;
+                if (distance < attackDistance && lastShotTime + attackSpeed < Time.time && Vector3.Angle(body.transform.forward, direction) < 30)
+                {
+                    Attack();
+                    lastShotTime = Time.time;
+                }
+            }
+            else if (hit.collider.tag != "Player")
+            {
+                lineOfSight = false;
+            }
+        }
+
+
+        if ((distance > stoppingDistance) || (lineOfSight == false))
         {
             Advance();
         }
-        else if (distance < stoppingDistance - retreatDistance)
+        else if (distance < stoppingDistance - retreatDistance && lineOfSight == true)
         {
             Retreat();
         }
-        else if (distance < stoppingDistance && distance > stoppingDistance - retreatDistance)
+        else if (distance < stoppingDistance && distance > stoppingDistance - retreatDistance && lineOfSight == true)
         {
             Stop();
         }
@@ -61,5 +92,11 @@ public class NewAiNavScript : MonoBehaviour
     public void Stop()
     {
         agent.destination = this.transform.position;
+    }
+    public void Attack()
+    {
+        GameObject lastProj = Instantiate(proj, this.transform.position, body.transform.rotation);
+        lastProj.GetComponent<BulletScript>().moveSpeed = projSpeed;
+        lastProj.GetComponent<BulletScript>().damage = damage;
     }
 }

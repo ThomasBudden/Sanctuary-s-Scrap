@@ -28,6 +28,7 @@ public class DebugManager : MonoBehaviour
     private void CloseMenu()
     {
         debugPanel.SetActive(false);
+        EventManager.current.onPlayerCloseMenu();
     }
     public void InputButtonPress()
     {
@@ -44,12 +45,19 @@ public class DebugManager : MonoBehaviour
             {
                 if (enemyStatArray[i].name == command)
                 {
-                    commandStep = 2;
-                    commandState = "Spawn";
-                    holder = command;
-                    inputField.text = "";
+                    GameObject aimPoint = this.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).gameObject;
+                    RaycastHit hit;
+                    if (Physics.Raycast(aimPoint.transform.position, aimPoint.transform.forward, out hit, 100))
+                    {
+                        Vector3 hitPoint = hit.point;
+                        GameObject lastEnemy = Instantiate(enemy, hitPoint, Quaternion.identity);
+                        lastEnemy.GetComponent<NewAiNavScript>().enemyStats = enemyStatArray[i];
+                        commandStep = 0;
+                        CloseMenu();
+                    }
                 }
             }
+            inputField.text = "";
         }
     }
 }
