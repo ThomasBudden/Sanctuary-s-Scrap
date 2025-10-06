@@ -2714,6 +2714,10 @@ PrefabInstance:
       propertyPath: doLines
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8353645104161322172, guid: 8a7c562285e30934f82f3786a6880e48, type: 3}
+      propertyPath: lineTracer
+      value: 
+      objectReference: {fileID: 8225327627547650666, guid: 654dfa7a351f9244bb5a9b23557beffb, type: 3}
     - target: {fileID: 8775117740442024016, guid: 8a7c562285e30934f82f3786a6880e48, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
