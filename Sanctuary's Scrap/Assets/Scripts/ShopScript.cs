@@ -54,10 +54,6 @@ public class ShopScript : MonoBehaviour
             shopRolled = true;
         }
         shopPanel.SetActive(true);
-        player.GetComponent<NewPlayerMove>().canMove = false;
-        playerCam.GetComponent<TurretCameraScript>().lockedCursor = false;
-        Cursor.visible = true;
-        player.GetComponent<HitScanShootingScript>().canShoot = false;
     }
     public void RollTheShop()
     {
@@ -113,12 +109,7 @@ public class ShopScript : MonoBehaviour
 
     public void ShopExit()
     {
-        player.GetComponent<NewPlayerMove>().shopping = false;
+        EventManager.current.onPlayerCloseMenu();
         shopPanel.SetActive(false);
-        player.GetComponent<NewPlayerMove>().canMove = true;
-        playerCam.GetComponent<TurretCameraScript>().lockedCursor = true;
-        Cursor.visible = false;
-        player.GetComponent<HitScanShootingScript>().canShoot = true;
-        shopRolled = false;
     }
 }

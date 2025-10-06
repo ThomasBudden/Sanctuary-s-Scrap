@@ -28,4 +28,36 @@ public class EventManager : MonoBehaviour
             RoomRewardClose();
         }
     }
+    public event Action PlayerOpenMenu;
+    public void onPlayerOpenMenu()
+    {
+        if (PlayerOpenMenu != null)
+        {
+            PlayerOpenMenu();
+        }
+    }
+    public event Action PlayerCloseMenu;
+    public void onPlayerCloseMenu()
+    {
+        if (PlayerCloseMenu != null)
+        {
+            PlayerCloseMenu();
+        }
+    }
+    public event Action PlayerOpenDebugMenu;
+    public void onPlayerOpenDebugMenu()
+    {
+        if (PlayerOpenDebugMenu != null)
+        {
+            PlayerOpenDebugMenu();
+        }
+    }
+    public event Action PlayerCloseDebugMenu;
+    public void onPlayerCloseDebugMenu()
+    {
+        if (PlayerCloseDebugMenu != null)
+        {
+            PlayerCloseDebugMenu();
+        }
+    }
 }

@@ -29,6 +29,8 @@ public class NewPlayerMove : MonoBehaviour
     void Start()
     {
         canMove = true;
+        EventManager.current.PlayerOpenMenu += OnOpenMenu;
+        EventManager.current.PlayerCloseMenu += OnCloseMenu;
     }
 
     // Update is called once per frame
@@ -48,7 +50,10 @@ public class NewPlayerMove : MonoBehaviour
         }
         Vector3 move = transform.right * x + transform.forward * z;
         move = Vector3.ClampMagnitude(move, 1f);
-        controller.Move(move * speed * Time.deltaTime);
+        if (canMove == true)
+        {
+            controller.Move(move * speed * Time.deltaTime);
+        }
         velocity.y += gravity * Time.deltaTime;
         if (canMove == true)
         {
@@ -63,16 +68,36 @@ public class NewPlayerMove : MonoBehaviour
         if (nearChest == true && Input.GetKeyDown(KeyCode.E))
         {
             EventManager.current.onRoomRewardInteract();
+            EventManager.current.onPlayerOpenMenu();
+            shopping = true;
         }
-        else if (nearChest == false)
+        else if (nearChest == false && shopping == true)
         {
             EventManager.current.onRoomRewardClose();
+            EventManager.current.onPlayerCloseMenu();
+            shopping = false;
         }
         if (Input.GetKeyDown(KeyCode.G))
         {
-            lastEnemy = Instantiate(enemy);
-            lastEnemy.GetComponent<NewAiNavScript>().enemyStats = enemy1;
+            EventManager.current.onPlayerOpenMenu();
+            EventManager.current.onPlayerOpenDebugMenu();
         }
+    }
+    private void OnOpenMenu()
+    {
+        canMove = false;
+        GameObject playerCam = this.gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
+        playerCam.GetComponent<TurretCameraScript>().lockedCursor = false;
+        Cursor.visible = true;
+        this.GetComponent<HitScanShootingScript>().canShoot = false;
+    }
+    private void OnCloseMenu()
+    {
+        canMove = true;
+        GameObject playerCam = this.gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
+        playerCam.GetComponent<TurretCameraScript>().lockedCursor = true;
+        Cursor.visible = true;
+        this.GetComponent<HitScanShootingScript>().canShoot = true;
     }
     private void OnTriggerEnter(Collider other)
     {
