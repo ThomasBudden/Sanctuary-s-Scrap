@@ -119,6 +119,8 @@ MonoBehaviour:
   nearChest: 0
   shopping: 0
   currentChest: {fileID: 0}
+  enemy: {fileID: 0}
+  enemy1: {fileID: 0}
 --- !u!114 &8353645104161322172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,15 +147,18 @@ MonoBehaviour:
   accuracy: 1
   damage: 5
   muzzle: {fileID: 1997219051199269470}
-  lineTracer: {fileID: 938596567960990300, guid: 4541591c3e33ed04a8ac2026cacc88df, type: 3}
+  lineTracer: {fileID: 8225327627547650666, guid: 654dfa7a351f9244bb5a9b23557beffb, type: 3}
   bullet: {fileID: 4161829880401704214, guid: d078f3cb855f5794fa4867d06fdf51d0, type: 3}
   recoilMult: 1.5
   maxAmmo: 30
   ammoCount: 0
   reloadTime: 3
   canShoot: 1
+  doLines: 0
   timeList: []
   lineList: []
+  bTimeList: []
+  bulletList: []
 --- !u!114 &4726509058671439656
 MonoBehaviour:
   m_ObjectHideFlags: 0

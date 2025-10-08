@@ -33,6 +33,7 @@ public class HitScanShootingScript : MonoBehaviour
     private float reloadStart;
     public bool canShoot;
     public bool doLines;
+    public bool doSpheres;
     public List<float> timeList = new List<float>(); //time list for line render
     public List<GameObject> lineList = new List<GameObject>();
     public List<float> bTimeList = new List<float>(); //time list for bullet particals
@@ -70,6 +71,7 @@ public class HitScanShootingScript : MonoBehaviour
             if (Physics.Raycast(aimPoint.transform.position, currentEulerAngles, out hit, 100))
             {
                 Vector3 hitPoint = hit.point;
+
                 if (hit.collider.gameObject.CompareTag("Target"))
                 {   
                     string damageNumber = damage.ToString();
@@ -79,6 +81,12 @@ public class HitScanShootingScript : MonoBehaviour
                 }
                 //float particalAngleX = Vector2.Angle(new Vector2(muzzle.forward.x,
                 //Debug.Log(particalAngleX);
+                if (doSpheres == true)
+                {
+                    GameObject lastSphere = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), hitPoint, Quaternion.identity);
+                    lastSphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                    lastSphere.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+                }
                 if (doLines == true)
                 {
                     lastLine = Instantiate(lineTracer, muzzle.transform.position, Quaternion.identity);
