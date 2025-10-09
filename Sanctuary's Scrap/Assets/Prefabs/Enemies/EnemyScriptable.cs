@@ -7,7 +7,7 @@ public class EnemyScriptable : ScriptableObject
     public int stoppingDistance;
     public int retreatDistance;
     public int attackDistance;
-    public int health;
+    public float health;
     public int damage;
     public int movementSpeed;
     public GameObject Projectile;

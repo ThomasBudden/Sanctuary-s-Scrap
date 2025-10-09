@@ -31,6 +31,7 @@ public class BulletScript : MonoBehaviour
         if (other.gameObject.tag == ("Player"))
         {
             Debug.Log("Hit player");
+            other.gameObject.GetComponent<NewPlayerMove>().health -= damage;
             Destroy(this.gameObject);
         }
         else if (other.gameObject.tag != ignore)

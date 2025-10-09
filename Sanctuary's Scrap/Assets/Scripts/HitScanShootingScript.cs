@@ -71,8 +71,13 @@ public class HitScanShootingScript : MonoBehaviour
             if (Physics.Raycast(aimPoint.transform.position, currentEulerAngles, out hit, 100))
             {
                 Vector3 hitPoint = hit.point;
-
-                if (hit.collider.gameObject.CompareTag("Target"))
+                if (hit.collider.gameObject.CompareTag("Enemy"))
+                {
+                    GameObject lastEnemy = hit.collider.gameObject;
+                    lastEnemy.GetComponent<NewAiNavScript>().health -= damage;
+                    lastEnemy.GetComponent<NewAiNavScript>().damageTaken = true;
+                }
+                else if (hit.collider.gameObject.CompareTag("Target"))
                 {   
                     string damageNumber = damage.ToString();
                     hit.collider.gameObject.GetComponent<TargetCubeScript>().damageTxt.text = "Damage is " + damageNumber;

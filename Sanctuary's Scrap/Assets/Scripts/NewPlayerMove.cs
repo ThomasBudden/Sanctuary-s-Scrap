@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class NewPlayerMove : MonoBehaviour
@@ -23,6 +24,9 @@ public class NewPlayerMove : MonoBehaviour
     public GameObject enemy;
     private GameObject lastEnemy;
     public EnemyScriptable enemy1;
+    public TMP_Text healthCount;
+    public float health;
+    public float maxHealth;
 
 
     // Start is called before the first frame update
@@ -81,6 +85,14 @@ public class NewPlayerMove : MonoBehaviour
         {
             EventManager.current.onPlayerOpenMenu();
             EventManager.current.onPlayerOpenDebugMenu();
+        }
+        if (health > 0)
+        {
+            healthCount.text = (health + "/ " + maxHealth);
+        }
+        else if (health <= 0)
+        {
+            Debug.Log("KILLED");
         }
     }
     private void OnOpenMenu()

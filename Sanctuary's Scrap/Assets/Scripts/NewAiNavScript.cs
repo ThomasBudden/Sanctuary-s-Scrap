@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
+using TMPro.Examples;
+using UnityEngine.UIElements;
 
 public class NewAiNavScript : MonoBehaviour
 {
@@ -12,13 +15,18 @@ public class NewAiNavScript : MonoBehaviour
     private float distance;
     private bool lineOfSight;
     private float lastShotTime;
+    private float hitTime;
+    public bool damageTaken;
+    public Material enemyMat;
+    public Material hitMat;
 
     public EnemyScriptable enemyStats;
     private float attackSpeed;
     private int stoppingDistance;
     private int retreatDistance;
     private int attackDistance;
-    private int health;
+    public float health;
+    private float maxHealth;
     private int damage;
     private int movementSpeed;
     private GameObject proj;
@@ -35,12 +43,14 @@ public class NewAiNavScript : MonoBehaviour
         retreatDistance = enemyStats.retreatDistance;
         attackDistance = enemyStats.attackDistance;
         health = enemyStats.health;
+        maxHealth = enemyStats.health;
         damage = enemyStats.damage;
         movementSpeed = enemyStats.movementSpeed;
         proj = enemyStats.Projectile;
         projSize = enemyStats.projSize;
         projSpeed = enemyStats.projSpeed;
-}
+        this.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (health + "/ " + maxHealth);
+    }
 
     // Update is called once per frame
     void Update()
@@ -80,6 +90,15 @@ public class NewAiNavScript : MonoBehaviour
         {
             Stop();
         }
+        if (damageTaken == true)
+        {
+            TakeDamage();
+        }
+        if (hitTime + 0.1f < Time.time)
+        {
+                this.transform.GetChild(0).GetComponent<Renderer>().material = enemyMat;
+        }
+        this.transform.GetChild(1).transform.LookAt(new Vector3(this.transform.position.x - (player.transform.position.x - this.transform.position.x), this.transform.position.y + 0.5f, this.transform.position.z - (player.transform.position.z - this.transform.position.z)));
     }
     public void Advance()
     {
@@ -98,5 +117,19 @@ public class NewAiNavScript : MonoBehaviour
         GameObject lastProj = Instantiate(proj, this.transform.position, body.transform.rotation);
         lastProj.GetComponent<BulletScript>().moveSpeed = projSpeed;
         lastProj.GetComponent<BulletScript>().damage = damage;
+    }
+    public void TakeDamage()
+    {
+        if (health > 0)
+        {
+            hitTime = Time.time;
+            this.transform.GetChild(0).GetComponent<Renderer>().material = hitMat;
+        }
+        else if (health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+        this.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (health + "/ " + maxHealth);
+        damageTaken = false;
     }
 }
