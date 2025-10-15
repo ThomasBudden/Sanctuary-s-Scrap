@@ -127,7 +127,8 @@ public class NewAiNavScript : MonoBehaviour
         }
         else if (health <= 0)
         {
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
+            GameManagerScript.enemysActive -= 1;
         }
         this.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (health + "/ " + maxHealth);
         damageTaken = false;

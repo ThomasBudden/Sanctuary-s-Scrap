@@ -424,6 +424,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eb500d628c78ea4baa11b119da2afbb, type: 3}
+--- !u!1 &1812906331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1812906333}
+  - component: {fileID: 1812906332}
+  m_Layer: 0
+  m_Name: EnemyPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1812906332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812906331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cc6ee67ddb495140b1d6d5087635b10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 3439357468677119390, guid: 4b831d7b02373a84aaa164a85686a6a8, type: 3}
+  ePSize: 30
+--- !u!4 &1812906333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812906331}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1953572740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -486,7 +532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8353645104161322172, guid: 8a7c562285e30934f82f3786a6880e48, type: 3}
       propertyPath: doSpheres
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8353645104161322172, guid: 8a7c562285e30934f82f3786a6880e48, type: 3}
       propertyPath: lineTracer
@@ -596,4 +642,5 @@ SceneRoots:
   - {fileID: 1611434545}
   - {fileID: 1581453617}
   - {fileID: 1127462876}
+  - {fileID: 1812906333}
   - {fileID: 1953572740}

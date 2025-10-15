@@ -15,8 +15,8 @@ public class GameManagerScript : MonoBehaviour
     public int wave;
     public int spawnTest;
     public int randSpawn;
+    public static int enemysActive;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         wave = 0;
@@ -33,9 +33,10 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (wave == 0)
+        if (wave == 0 && enemysActive <= 0)
         {
-            wave = wave + 1;
+            //wave = wave + 1;
+            usedSpawns = new List<GameObject>();
             spawnTest = Random.Range((enemySpawns.Count / 2), enemySpawns.Count);
             for (int i = 0; i < spawnTest; i++)
             {
@@ -57,9 +58,14 @@ public class GameManagerScript : MonoBehaviour
                 }
                 if (clear == usedSpawns.Count && usedSpawns.Count != spawnTest)
                 {
-                    GameObject lastEnemy = Instantiate(enemy, enemySpawns[randSpawn].transform.position, Quaternion.identity);
+                    //GameObject lastEnemy = Instantiate(enemy, enemySpawns[randSpawn].transform.position, Quaternion.identity);
+                    GameObject lastEnemy = EnemyPoolManager.ePInstance.GetEnemy();
+                    lastEnemy.transform.position = enemySpawns[randSpawn].transform.position;
+                    lastEnemy.transform.rotation = Quaternion.identity;
+                    lastEnemy.SetActive(true);
                     lastEnemy.GetComponent<NewAiNavScript>().enemyStats = enemyStats[0];
                     usedSpawns.Add(enemySpawns[randSpawn]);
+                    enemysActive += 1;
                 }
                 else if (clear < usedSpawns.Count)
                 {
