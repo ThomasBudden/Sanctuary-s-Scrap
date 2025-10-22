@@ -49,7 +49,7 @@ public class NewAiNavScript : MonoBehaviour
         proj = enemyStats.Projectile;
         projSize = enemyStats.projSize;
         projSpeed = enemyStats.projSpeed;
-        this.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (health + "/ " + maxHealth);
+        this.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (health + " / " + maxHealth);
     }
 
     // Update is called once per frame
@@ -130,7 +130,7 @@ public class NewAiNavScript : MonoBehaviour
             gameObject.SetActive(false);
             GameManagerScript.enemysActive -= 1;
         }
-        this.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (health + "/ " + maxHealth);
+        this.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (health + " / " + maxHealth);
         damageTaken = false;
     }
 }

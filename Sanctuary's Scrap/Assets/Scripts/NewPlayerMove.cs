@@ -13,9 +13,11 @@ public class NewPlayerMove : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance;
     public bool isGrounded;
+    public bool isGrounded2;
     public LayerMask groundMask;
     public float jumpHeight;
     public bool canMove;
+    public float jumpTime;
 
     [SerializeField] private bool nearChest;
     public bool shopping;
@@ -42,6 +44,11 @@ public class NewPlayerMove : MonoBehaviour
     {
         //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         isGrounded = Physics.CheckBox(groundCheck.position, new Vector3(0.3535533906f, 0.1f, 0.3535533906f), Quaternion.identity, groundMask);
+        isGrounded2 = Physics.CheckBox(groundCheck.position, new Vector3(0.3535533906f, 0.75f, 0.3535533906f), Quaternion.identity, groundMask);
+        if (jumpTime + 0.1f > Time.time)
+        {
+            isGrounded = false;
+        }
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -61,15 +68,16 @@ public class NewPlayerMove : MonoBehaviour
         }
         if (isGrounded == true)
         {
-            velocity.y = 1f * Time.deltaTime;
+            velocity.y = 0;
         }
         else if (isGrounded == false)
         {
             velocity.y += gravity * Time.deltaTime;
         }
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded2)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            jumpTime = Time.time;
         }
         Debug.Log(velocity.y);
         if (canMove == true)
