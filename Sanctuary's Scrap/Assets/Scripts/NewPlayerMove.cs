@@ -11,8 +11,8 @@ public class NewPlayerMove : MonoBehaviour
     Vector3 velocity;
 
     public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    bool isGrounded;
+    public float groundDistance;
+    public bool isGrounded;
     public LayerMask groundMask;
     public float jumpHeight;
     public bool canMove;
@@ -40,7 +40,8 @@ public class NewPlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        isGrounded = Physics.CheckBox(groundCheck.position, new Vector3(0.3535533906f, 0.1f, 0.3535533906f), Quaternion.identity, groundMask);
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -58,15 +59,22 @@ public class NewPlayerMove : MonoBehaviour
         {
             controller.Move(move * speed * Time.deltaTime);
         }
-        velocity.y += gravity * Time.deltaTime;
-        if (canMove == true)
+        if (isGrounded == true)
         {
-            controller.Move(velocity * Time.deltaTime);
+            velocity.y = 1f * Time.deltaTime;
         }
-
+        else if (isGrounded == false)
+        {
+            velocity.y += gravity * Time.deltaTime;
+        }
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+        Debug.Log(velocity.y);
+        if (canMove == true)
+        {
+            controller.Move(velocity * Time.deltaTime);
         }
 
         if (nearChest == true && Input.GetKeyDown(KeyCode.E))

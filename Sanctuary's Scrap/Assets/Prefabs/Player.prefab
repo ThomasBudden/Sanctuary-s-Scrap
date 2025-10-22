@@ -644,7 +644,8 @@ MonoBehaviour:
   speed: 10
   gravity: -9.81
   groundCheck: {fileID: 9021928605775795014}
-  groundDistance: 0.4
+  groundDistance: 0.01
+  isGrounded: 0
   groundMask:
     serializedVersion: 2
     m_Bits: 1

@@ -566,7 +566,7 @@ PrefabInstance:
       objectReference: {fileID: 1953572741}
     - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: roomArray.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: enemyStats.Array.size
@@ -576,6 +576,10 @@ PrefabInstance:
       propertyPath: 'roomArray.Array.data[0]'
       value: 
       objectReference: {fileID: 6792186103627746801, guid: a0919cec08eb8054c8b7eb86dcc88e5b, type: 3}
+    - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
+      propertyPath: 'roomArray.Array.data[1]'
+      value: 
+      objectReference: {fileID: 5861488244926392046, guid: 6dcf15b6a792f034a9564fcc66eb7209, type: 3}
     - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: 'enemyStats.Array.data[0]'
       value: 
