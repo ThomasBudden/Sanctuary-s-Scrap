@@ -7,6 +7,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject player;
     public GameObject enemy;
     public EnemyScriptable[] enemyStats;
+    public GameObject[] room0Array;
     public GameObject[] roomArray;
     public GameObject currentRoom;
     public List<GameObject> enemySpawns;
@@ -17,14 +18,28 @@ public class GameManagerScript : MonoBehaviour
     public int spawnTest;
     public int randSpawn;
     public static int enemysActive;
+    public bool enemySpawning;
+    public GameObject rewardSpawn;
+    public GameObject rewardChest;
+    public GameObject currentChest;
+    public bool roomClear;
 
     void Start()
     {
-        roomSpawn();
+        EventManager.current.RoomRewardChosen += OnRoomRewardChosen;
+        StartRoomSpawn();
         startTime = Time.time;
     }
-
-    public void roomSpawn()
+    public void StartRoomSpawn()
+    {
+        currentRoom = Instantiate(room0Array[0], new Vector3(0, 0, 0), Quaternion.identity);
+        player.transform.position = currentRoom.transform.GetChild(0).transform.position;
+        rewardSpawn = currentRoom.transform.GetChild(2).transform.gameObject;
+        enemySpawning = false;
+        roomClear = false;
+        SpawnReward();
+    }
+    public void RoomSpawn()
     {
         if (enemySpawns.Count != 0)
         {
@@ -38,10 +53,13 @@ public class GameManagerScript : MonoBehaviour
         {
             enemySpawns.Add(roomArray[roomRand].transform.GetChild(1).GetChild(i).gameObject);
         }
+        rewardSpawn = currentRoom.transform.GetChild(2).transform.gameObject;
+        enemySpawning = true;
+        roomClear = false;
     }
     void Update()
     {
-        if (wave < 2 && enemysActive <= 0)
+        if (wave < 2 && enemysActive <= 0 && enemySpawning == true)
         {
             usedSpawns = new List<GameObject>();
             spawnTest = Random.Range((enemySpawns.Count / 2), enemySpawns.Count);
@@ -88,7 +106,16 @@ public class GameManagerScript : MonoBehaviour
         else if (wave >= 2)
         {
             Destroy(currentRoom.gameObject);
-            roomSpawn();
+            EventManager.current.onFinishRoom();
         }
+    }
+    public void SpawnReward()
+    {
+        currentChest = Instantiate(rewardChest, rewardSpawn.transform.position, Quaternion.identity);
+    }
+    public void OnRoomRewardChosen()
+    {
+        Destroy(currentChest.gameObject);
+        roomClear = true;
     }
 }

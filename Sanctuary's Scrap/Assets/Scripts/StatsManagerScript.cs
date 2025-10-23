@@ -45,10 +45,10 @@ public class StatsManagerScript : MonoBehaviour
             }
             else if(currentCard == 3) //heavy armour (x500% heath, +2 heath recharge speed, -15% reload speed, -20% movement speed)
             {
-                float lastHealth = player.GetComponent<HealthManager>().maxHealth;
-                player.GetComponent<HealthManager>().maxHealth *= 5;
-                player.GetComponent<HealthManager>().health += (player.GetComponent<HealthManager>().maxHealth - lastHealth);
-                player.GetComponent<HealthManager>().regenAmount += 2;
+                float lastHealth = player.GetComponent<NewPlayerMove>().maxHealth;
+                player.GetComponent<NewPlayerMove>().maxHealth *= 5;
+                player.GetComponent<NewPlayerMove>().health += (player.GetComponent<NewPlayerMove>().maxHealth - lastHealth);
+                player.GetComponent<NewPlayerMove>().regenAmount += 2;
                 player.GetComponent<HitScanShootingScript>().reloadTime += (player.GetComponent<HitScanShootingScript>().reloadTime * 0.15f);
                 player.GetComponent<NewPlayerMove>().speed -= (player.GetComponent<NewPlayerMove>().speed * 0.2f);
             }

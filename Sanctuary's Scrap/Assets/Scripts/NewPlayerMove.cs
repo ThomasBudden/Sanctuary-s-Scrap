@@ -29,6 +29,9 @@ public class NewPlayerMove : MonoBehaviour
     public TMP_Text healthCount;
     public float health;
     public float maxHealth;
+    public float regenAmount;
+
+    [SerializeField] private bool nearExit;
 
 
     // Start is called before the first frame update
@@ -79,7 +82,6 @@ public class NewPlayerMove : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             jumpTime = Time.time;
         }
-        Debug.Log(velocity.y);
         if (canMove == true)
         {
             controller.Move(velocity * Time.deltaTime);
@@ -133,6 +135,10 @@ public class NewPlayerMove : MonoBehaviour
         {
             nearChest = true;
             currentChest = other.gameObject;
+        }
+        else if (other.gameObject.tag == ("Exit"))
+        {
+            nearExit = true;
         }
     }
     private void OnTriggerExit(Collider other)

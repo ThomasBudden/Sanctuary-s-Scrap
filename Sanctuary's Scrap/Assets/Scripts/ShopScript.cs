@@ -92,18 +92,21 @@ public class ShopScript : MonoBehaviour
     {
         currentCard = slotCard[0];
         statsManager.GetComponent<StatsManagerScript>().applyCard = true;
+        EventManager.current.onRoomRewardChosen();
         ShopExit();
     }
     public void OnClick1()
     {
         currentCard = slotCard[1];
         statsManager.GetComponent<StatsManagerScript>().applyCard = true;
+        EventManager.current.onRoomRewardChosen();
         ShopExit();
     }
     public void OnClick2()
     {
         currentCard = slotCard[2];
         statsManager.GetComponent<StatsManagerScript>().applyCard = true;
+        EventManager.current.onRoomRewardChosen();
         ShopExit();
     }
 

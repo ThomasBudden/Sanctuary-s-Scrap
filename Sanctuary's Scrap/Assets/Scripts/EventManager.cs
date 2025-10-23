@@ -20,6 +20,14 @@ public class EventManager : MonoBehaviour
             RoomRewardInteract();
         }
     }
+    public event Action RoomRewardChosen;
+    public void onRoomRewardChosen()
+    {
+        if (RoomRewardChosen != null)
+        {
+            RoomRewardChosen();
+        }
+    }
     public event Action RoomRewardClose;
     public void onRoomRewardClose()
     {
@@ -58,6 +66,14 @@ public class EventManager : MonoBehaviour
         if (PlayerCloseDebugMenu != null)
         {
             PlayerCloseDebugMenu();
+        }
+    }
+    public event Action FinishRoom;
+    public void onFinishRoom()
+    {
+        if (FinishRoom != null)
+        {
+            FinishRoom();
         }
     }
 }
