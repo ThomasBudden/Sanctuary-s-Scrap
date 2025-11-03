@@ -32,6 +32,7 @@ public class NewPlayerMove : MonoBehaviour
     public float regenAmount;
 
     [SerializeField] private bool nearExit;
+    public bool roomFinished;
 
 
     // Start is called before the first frame update
@@ -40,6 +41,9 @@ public class NewPlayerMove : MonoBehaviour
         canMove = true;
         EventManager.current.PlayerOpenMenu += OnOpenMenu;
         EventManager.current.PlayerCloseMenu += OnCloseMenu;
+        EventManager.current.FinishRoom += OnFinishRoom;
+        EventManager.current.StartRoom += OnStartRoom;
+        EventManager.current.RoomRewardChosen += OnRoomRewardChosen;
     }
 
     // Update is called once per frame
@@ -87,11 +91,18 @@ public class NewPlayerMove : MonoBehaviour
             controller.Move(velocity * Time.deltaTime);
         }
 
-        if (nearChest == true && Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            EventManager.current.onRoomRewardInteract();
-            EventManager.current.onPlayerOpenMenu();
-            shopping = true;
+            if (nearChest == true)
+            {
+                EventManager.current.onRoomRewardInteract();
+                EventManager.current.onPlayerOpenMenu();
+                shopping = true;
+            }
+            if (nearExit == true && roomFinished == true)
+            {
+                EventManager.current.onStartRoom();
+            }
         }
         else if (nearChest == false && shopping == true)
         {
@@ -129,6 +140,20 @@ public class NewPlayerMove : MonoBehaviour
         Cursor.visible = true;
         this.GetComponent<HitScanShootingScript>().canShoot = true;
     }
+    private void OnFinishRoom()
+    {
+        roomFinished = true;
+    }
+    private void OnStartRoom()
+    {
+        roomFinished = false;
+        nearExit = false;
+    }
+    private void OnRoomRewardChosen()
+    {
+        nearChest = false;
+        shopping = false;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == ("Chest"))
@@ -147,6 +172,10 @@ public class NewPlayerMove : MonoBehaviour
         {
             nearChest = false;
             currentChest = null;
+        }
+        else if (other.gameObject.tag == ("Exit"))
+        {
+            nearExit = false;
         }
     }
 }

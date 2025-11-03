@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1559162722573829392}
   - component: {fileID: 8310786451629529461}
   - component: {fileID: 4772918798024388297}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Prism
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,9 +324,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1552375853361667099}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ramp2
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

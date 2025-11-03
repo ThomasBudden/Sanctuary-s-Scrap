@@ -28,6 +28,7 @@ public class GameManagerScript : MonoBehaviour
     {
         EventManager.current.RoomRewardChosen += OnRoomRewardChosen;
         StartRoomSpawn();
+        EventManager.current.StartRoom += RoomSpawn;
         startTime = Time.time;
     }
     public void StartRoomSpawn()
@@ -41,6 +42,7 @@ public class GameManagerScript : MonoBehaviour
     }
     public void RoomSpawn()
     {
+        Destroy(currentRoom);
         if (enemySpawns.Count != 0)
         {
             enemySpawns.Clear();
@@ -61,6 +63,7 @@ public class GameManagerScript : MonoBehaviour
     {
         if (wave < 2 && enemysActive <= 0 && enemySpawning == true)
         {
+            wave = wave + 1;
             usedSpawns = new List<GameObject>();
             spawnTest = Random.Range((enemySpawns.Count / 2), enemySpawns.Count);
             for (int i = 0; i < spawnTest; i++)
@@ -101,12 +104,13 @@ public class GameManagerScript : MonoBehaviour
                     break;
                 }
             }
-            wave = wave + 1;
         }
-        else if (wave >= 2)
+        else if (wave == 2 && enemysActive == 0)
         {
-            Destroy(currentRoom.gameObject);
-            EventManager.current.onFinishRoom();
+            enemySpawning = false;
+            roomClear = true;
+            SpawnReward();
+            wave = wave + 1;
         }
     }
     public void SpawnReward()
@@ -116,6 +120,6 @@ public class GameManagerScript : MonoBehaviour
     public void OnRoomRewardChosen()
     {
         Destroy(currentChest.gameObject);
-        roomClear = true;
+        EventManager.current.onFinishRoom();
     }
 }

@@ -9,11 +9,12 @@ TagManager:
   - Enemy
   - Proj
   - Exit
+  - Floor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 

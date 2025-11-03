@@ -76,4 +76,12 @@ public class EventManager : MonoBehaviour
             FinishRoom();
         }
     }
+    public event Action StartRoom;
+    public void onStartRoom()
+    {
+        if (StartRoom != null)
+        {
+            StartRoom();
+        }
+    }
 }

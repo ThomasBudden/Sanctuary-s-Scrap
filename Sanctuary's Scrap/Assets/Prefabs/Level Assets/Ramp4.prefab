@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7760510536957901948}
   - component: {fileID: 1905196172880104362}
   - component: {fileID: 5351931142795021036}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,9 +361,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7977306503081361154}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ramp4
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

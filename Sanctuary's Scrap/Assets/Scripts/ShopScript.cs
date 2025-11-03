@@ -114,5 +114,6 @@ public class ShopScript : MonoBehaviour
     {
         EventManager.current.onPlayerCloseMenu();
         shopPanel.SetActive(false);
+        EventManager.current.onFinishRoom();
     }
 }

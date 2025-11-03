@@ -9,6 +9,7 @@ public class EnemyPoolManager : MonoBehaviour
     public GameObject enemy;
     public int ePSize = 30;
     private List<GameObject> enemyPool;
+    public GameObject startPlat;
     void Awake()
     {
         ePInstance = this;
@@ -19,6 +20,7 @@ public class EnemyPoolManager : MonoBehaviour
             enemyPoolSpawn.SetActive(false);
             enemyPool.Add(enemyPoolSpawn);
         }
+        startPlat.SetActive(false);
     }
 
     public GameObject GetEnemy()

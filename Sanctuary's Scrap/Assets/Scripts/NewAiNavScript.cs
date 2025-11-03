@@ -57,7 +57,7 @@ public class NewAiNavScript : MonoBehaviour
     {
         direction = (player.transform.position - this.transform.position).normalized;
         distance = Vector3.Distance(this.transform.position, player.transform.position);
-        Debug.DrawLine(this.transform.position, this.transform.position + direction * 10, color: Color.red, Mathf.Infinity);
+        //Debug.DrawLine(this.transform.position, this.transform.position + direction * 10, color: Color.red, Mathf.Infinity);
         RaycastHit hit;
         if (Physics.Raycast(this.transform.position, direction, out hit, Mathf.Infinity))
         {
@@ -76,7 +76,6 @@ public class NewAiNavScript : MonoBehaviour
                 lineOfSight = false;
             }
         }
-
 
         if ((distance > stoppingDistance) || (lineOfSight == false))
         {
@@ -129,6 +128,7 @@ public class NewAiNavScript : MonoBehaviour
         {
             gameObject.SetActive(false);
             GameManagerScript.enemysActive -= 1;
+            health = maxHealth;
         }
         this.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (health + " / " + maxHealth);
         damageTaken = false;
