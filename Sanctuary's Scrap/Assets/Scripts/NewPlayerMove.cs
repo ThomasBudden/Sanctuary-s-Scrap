@@ -117,7 +117,7 @@ public class NewPlayerMove : MonoBehaviour
         }
         if (health > 0)
         {
-            healthCount.text = (health + "/ " + maxHealth);
+            healthCount.text = (health + "/" + maxHealth);
         }
         else if (health <= 0)
         {
