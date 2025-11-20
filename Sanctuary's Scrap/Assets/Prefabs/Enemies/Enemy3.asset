@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77480c339fdd2594097c3bc445ac110e, type: 3}
-  m_Name: Enemy2
+  m_Name: Enemy3
   m_EditorClassIdentifier: 
-  size: 1
-  attackSpeed: 0.2
-  stoppingDistance: 5
-  retreatDistance: 1
-  attackDistance: 10
-  health: 10
-  damage: 1
-  movementSpeed: 3
-  turnSpeed: 5
+  size: 1.5
+  attackSpeed: 0.75
+  stoppingDistance: 20
+  retreatDistance: 7.5
+  attackDistance: 100
+  health: 100
+  damage: 10
+  movementSpeed: 0.5
+  turnSpeed: 1
   Projectile: {fileID: 6765069755389801197, guid: cd82ac32f8cddfb489294ab4a4e56330, type: 3}
-  projSize: 0.5
-  projSpeed: 10
+  projSize: 1.5
+  projSpeed: 50

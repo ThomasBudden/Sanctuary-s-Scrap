@@ -19,16 +19,18 @@ public class NewAiNavScript : MonoBehaviour
     public bool damageTaken;
     public Material enemyMat;
     public Material hitMat;
+    public int roomCount;
 
     public EnemyScriptable enemyStats;
     private float attackSpeed;
-    private int stoppingDistance;
-    private int retreatDistance;
-    private int attackDistance;
+    private float stoppingDistance;
+    private float retreatDistance;
+    private float attackDistance;
     public float health;
     private float maxHealth;
-    private int damage;
-    private int movementSpeed;
+    private float damage;
+    private float movementSpeed;
+    private float turnSpeed;
     private GameObject proj;
     private float projSize;
     private float projSpeed;
@@ -42,10 +44,11 @@ public class NewAiNavScript : MonoBehaviour
         stoppingDistance = enemyStats.stoppingDistance;
         retreatDistance = enemyStats.retreatDistance;
         attackDistance = enemyStats.attackDistance;
-        health = enemyStats.health;
         maxHealth = enemyStats.health;
+        health = enemyStats.health;
         damage = enemyStats.damage;
         movementSpeed = enemyStats.movementSpeed;
+        turnSpeed = enemyStats.turnSpeed;
         proj = enemyStats.Projectile;
         projSize = enemyStats.projSize;
         projSpeed = enemyStats.projSpeed;
@@ -63,7 +66,7 @@ public class NewAiNavScript : MonoBehaviour
         {
             if (hit.collider.tag == "Player")
             {
-                body.transform.forward = Vector3.RotateTowards(body.transform.forward, direction, 1f * Time.deltaTime, 1f * Time.deltaTime);
+                body.transform.forward = Vector3.RotateTowards(body.transform.forward, direction, turnSpeed * Time.deltaTime, turnSpeed * Time.deltaTime);
                 lineOfSight = true;
                 if (distance < attackDistance && lastShotTime + attackSpeed < Time.time && Vector3.Angle(body.transform.forward, direction) < 30)
                 {
@@ -128,6 +131,7 @@ public class NewAiNavScript : MonoBehaviour
         {
             gameObject.SetActive(false);
             GameManagerScript.enemysActive -= 1;
+            this.transform.position = new Vector3(0, -10, 0);
             health = maxHealth;
         }
         this.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (health + " / " + maxHealth);

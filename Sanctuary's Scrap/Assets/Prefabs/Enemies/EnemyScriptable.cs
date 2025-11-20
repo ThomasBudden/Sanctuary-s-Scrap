@@ -3,13 +3,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewEnemyData", menuName = "Enemy Data", order = 1)]
 public class EnemyScriptable : ScriptableObject
 {
+    public float size;
     public float attackSpeed;
-    public int stoppingDistance;
-    public int retreatDistance;
-    public int attackDistance;
+    public float stoppingDistance;
+    public float retreatDistance;
+    public float attackDistance;
     public float health;
-    public int damage;
-    public int movementSpeed;
+    public float damage;
+    public float movementSpeed;
+    public float turnSpeed;
     public GameObject Projectile;
     public float projSize;
     public float projSpeed;

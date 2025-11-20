@@ -1,10 +1,13 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
     public GameObject player;
+    public TMP_Text roomCountUI;
     public GameObject enemy;
     public EnemyScriptable[] enemyStats;
     public GameObject[] room0Array;
@@ -23,6 +26,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject rewardChest;
     public GameObject currentChest;
     public bool roomClear;
+    public int roomCount;
 
     void Start()
     {
@@ -39,6 +43,8 @@ public class GameManagerScript : MonoBehaviour
         enemySpawning = false;
         roomClear = false;
         SpawnReward();
+        roomCount = 0;
+        roomCountUI.text = roomCount.ToString();
     }
     public void RoomSpawn()
     {
@@ -58,6 +64,8 @@ public class GameManagerScript : MonoBehaviour
         rewardSpawn = currentRoom.transform.GetChild(2).transform.gameObject;
         enemySpawning = true;
         roomClear = false;
+        roomCount += 1;
+        roomCountUI.text = roomCount.ToString();
     }
     void Update()
     {
@@ -65,7 +73,14 @@ public class GameManagerScript : MonoBehaviour
         {
             wave = wave + 1;
             usedSpawns = new List<GameObject>();
-            spawnTest = Random.Range((enemySpawns.Count / 2), enemySpawns.Count);
+            if ((enemySpawns.Count / 2) + (roomCount - 1) < enemySpawns.Count)
+            {
+                spawnTest = (enemySpawns.Count / 2) + (roomCount - 1);
+            }
+            else if ((enemySpawns.Count / 2) + (roomCount - 1) >= enemySpawns.Count)
+            {
+                spawnTest = enemySpawns.Count;
+            }
             for (int i = 0; i < spawnTest; i++)
             {
                 clear = 0;
@@ -91,7 +106,10 @@ public class GameManagerScript : MonoBehaviour
                     lastEnemy.transform.position = enemySpawns[randSpawn].transform.position;
                     lastEnemy.transform.rotation = Quaternion.identity;
                     lastEnemy.SetActive(true);
-                    lastEnemy.GetComponent<NewAiNavScript>().enemyStats = enemyStats[0];
+                    int enemyTypeRand = Random.Range(0, enemyStats.Length);
+                    lastEnemy.GetComponent<NewAiNavScript>().enemyStats = enemyStats[enemyTypeRand];
+                    lastEnemy.gameObject.transform.localScale = new Vector3(lastEnemy.GetComponent<NewAiNavScript>().enemyStats.size, lastEnemy.GetComponent<NewAiNavScript>().enemyStats.size, lastEnemy.GetComponent<NewAiNavScript>().enemyStats.size);
+                    lastEnemy.GetComponent<NewAiNavScript>().roomCount = roomCount;
                     usedSpawns.Add(enemySpawns[randSpawn]);
                     enemysActive += 1;
                 }
