@@ -126,7 +126,7 @@ public class HitScanShootingScript : MonoBehaviour
             this.transform.localEulerAngles = this.transform.localEulerAngles + new Vector3(0, (recoilRandHori * recoilMult), 0);*/
             shotTime = Time.time;
         }
-        if (((Input.GetKeyDown(KeyCode.R) && ammoCount != maxAmmo) || Input.GetMouseButtonDown(0) && ammoCount == 0) && reloading != true)
+        if (((Input.GetKeyDown(KeyCode.R) && ammoCount != maxAmmo) || Input.GetMouseButtonUp(0) && ammoCount == 0) && reloading != true)
         {
             reloadStart = Time.time;
             reloading = true;
