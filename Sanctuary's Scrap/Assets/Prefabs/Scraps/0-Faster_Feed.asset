@@ -12,24 +12,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad765d26e548c9844b94803b1294721b, type: 3}
   m_Name: 0-Faster_Feed
   m_EditorClassIdentifier: 
+  relStatsCount: 15
   scrapName: Faster Feed
   scrapId: 0
   scrapRarity: 0
   scrapType: 0
   description: Replace the feed mechanism to allow for faster firing
+  statsDescPos: x250% fire speed\n+30  mag size
+  statsDescMid: 
+  statsDescBad: 'x250% fire speed\n+30  mag size '
   fireSpeed: 250
+  fireSpeedRel: 1
   bulletDamage: -15
+  bulletDamageRel: 1
   accuracy: -35
+  accuracyRel: 1
   magSizeAdd: 0
+  magSizeAddRel: 0
   magSizeMult: 0
+  magSizeMultRel: 0
   reloadSpeed: -15
-  speed: 0
+  reloadSpeedRel: 1
   health: 0
+  healthRel: 0
   healthRecharge: 0
+  healthRechargeRel: 0
   movementSpeed: 0
+  movementSpeedRel: 0
   damageResistance: 0
+  damageResistanceRel: 0
   ability: 0
+  abilityRel: 0
   weakSpot: 0
+  weakSpotRel: 0
   critChance: 0
+  critChanceRel: 0
   dodgeChance: 0
+  dodgeChanceRel: 0
+  extraInfo: 
+  extraInfoRel: 0
+  effectTime: 0
+  onEnemy: 0
   whileReload: 0
+  onGetHit: 0
+  onKillEnemy: 0
+  diminishing: 0
+  diminishStat: 
+  diminishMax: 0

@@ -12,24 +12,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad765d26e548c9844b94803b1294721b, type: 3}
   m_Name: 3-Rusty_Metal_Sheet
   m_EditorClassIdentifier: 
+  relStatsCount: 15
   scrapName: Rusty Metal Sheet
   scrapId: 3
   scrapRarity: 0
   scrapType: 3
   description: Fix a heavy metal sheet to your body to act as armour
+  statsDescPos: 'x175% heath\n+2 heath recharge '
+  statsDescMid: 
+  statsDescBad: '-15% reload speed\n-20% movement speed '
   fireSpeed: 0
+  fireSpeedRel: 0
   bulletDamage: 0
+  bulletDamageRel: 0
   accuracy: 0
+  accuracyRel: 0
   magSizeAdd: 0
+  magSizeAddRel: 0
   magSizeMult: 0
+  magSizeMultRel: 0
   reloadSpeed: -15
-  speed: -20
+  reloadSpeedRel: 1
   health: 175
+  healthRel: 1
   healthRecharge: 2
-  movementSpeed: 0
+  healthRechargeRel: 1
+  movementSpeed: -20
+  movementSpeedRel: 1
   damageResistance: 0
+  damageResistanceRel: 0
   ability: 0
+  abilityRel: 0
   weakSpot: 0
+  weakSpotRel: 0
   critChance: 0
+  critChanceRel: 0
   dodgeChance: 0
+  dodgeChanceRel: 0
+  extraInfo: 
+  extraInfoRel: 0
+  effectTime: 0
+  onEnemy: 0
   whileReload: 0
+  onGetHit: 0
+  onKillEnemy: 0
+  diminishing: 0
+  diminishStat: 
+  diminishMax: 0

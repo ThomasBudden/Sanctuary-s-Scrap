@@ -55,7 +55,7 @@ public class HitScanShootingScript : MonoBehaviour
         {
             bulletDiv = 0;
         }
-        if (Input.GetMouseButton(0) && shotTime + shotSpeed < Time.time && ammoCount > 0 && reloading == false && canShoot == true)
+        if (Input.GetMouseButton(0) && shotTime + (1 / shotSpeed) < Time.time && ammoCount > 0 && reloading == false && canShoot == true)
         {
             /*float bulletRandVert = Random.Range(-bulletDiv, bulletDiv);
             float bulletRandHori = Random.Range(-bulletDiv, bulletDiv);*/
@@ -131,8 +131,12 @@ public class HitScanShootingScript : MonoBehaviour
             reloadStart = Time.time;
             reloading = true;
         }
-        else if (reloadStart + reloadTime < Time.time && reloading == true)
+        else if (reloadStart + (1 / reloadTime) < Time.time && reloading == true)
         {
+            if (maxAmmo <= 1)
+            {
+                maxAmmo = 1;
+            }
             ammoCount = maxAmmo;
             reloading = false;
         }
@@ -142,7 +146,7 @@ public class HitScanShootingScript : MonoBehaviour
         }
         else if (reloading == true)
         {
-            ammoCountTxt.text = (((reloadTime + (reloadStart - Time.time))).ToString("f1"));
+            ammoCountTxt.text = ((((1/ reloadTime) + (reloadStart - Time.time))).ToString("f1"));
         }
         for (int i = 0; i < timeList.Count; i++)
         {

@@ -12,24 +12,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad765d26e548c9844b94803b1294721b, type: 3}
   m_Name: 1-Caliber_Upgrader
   m_EditorClassIdentifier: 
+  relStatsCount: 15
   scrapName: Caliber Upgrader
   scrapId: 1
   scrapRarity: 0
   scrapType: 0
   description: Use old world technology to make the bullets in the chamber larger
+  statsDescPos: 'x300% damage\nx250% accuracy\nx110% movement speed '
+  statsDescMid: 
+  statsDescBad: '-5 mag size\n-90% fire speed '
   fireSpeed: -90
+  fireSpeedRel: 1
   bulletDamage: 300
+  bulletDamageRel: 1
   accuracy: 250
+  accuracyRel: 1
   magSizeAdd: -5
+  magSizeAddRel: 1
   magSizeMult: 0
+  magSizeMultRel: 0
   reloadSpeed: 0
-  speed: 110
+  reloadSpeedRel: 0
   health: 0
+  healthRel: 0
   healthRecharge: 0
-  movementSpeed: 0
+  healthRechargeRel: 0
+  movementSpeed: 110
+  movementSpeedRel: 1
   damageResistance: 0
+  damageResistanceRel: 0
   ability: 0
+  abilityRel: 0
   weakSpot: 0
+  weakSpotRel: 0
   critChance: 0
+  critChanceRel: 0
   dodgeChance: 0
+  dodgeChanceRel: 0
+  extraInfo: 
+  extraInfoRel: 0
+  effectTime: 0
+  onEnemy: 0
   whileReload: 0
+  onGetHit: 0
+  onKillEnemy: 0
+  diminishing: 0
+  diminishStat: 
+  diminishMax: 0

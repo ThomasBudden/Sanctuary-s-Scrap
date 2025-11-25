@@ -5,61 +5,179 @@ using UnityEngine;
 public class StatsManagerScript : MonoBehaviour
 {
     public GameObject player;
+    public NewPlayerMove move;
+    public HitScanShootingScript shooting;
     public GameObject shopManager;
-    public bool applyCard;
-    public int currentCard;
+    public bool applyScrap;
+    public ScrapScriptable currentScrap;
     // Start is called before the first frame update
     void Start()
     {
-        
+        move = player.GetComponent<NewPlayerMove>();
+        shooting = player.GetComponent<HitScanShootingScript>();
     }
-
+    /*
+    public int relStatsCount;
+    public string scrapName;
+    public int scrapId;
+    public int scrapRarity;
+    public int scrapType;
+    public string description;
+    public string statsDescPos;
+    public string statsDescMid;
+    public string statsDescBad;
+    public int fireSpeed;
+    public bool fireSpeedRel;
+    public int bulletDamage;
+    public bool bulletDamageRel;
+    public int accuracy;
+    public bool accuracyRel;
+    public int magSizeAdd;
+    public bool magSizeAddRel;
+    public int magSizeMult;
+    public bool magSizeMultRel;
+    public int reloadSpeed;
+    public bool reloadSpeedRel;
+    public int health;
+    public bool healthRel;
+    public int healthRecharge;
+    public bool healthRechargeRel;
+    public int movementSpeed;
+    public bool movementSpeedRel;
+    public int damageResistance;
+    public bool damageResistanceRel;
+    public int ability;
+    public bool abilityRel;
+    public int weakSpot;
+    public bool weakSpotRel;
+    public int critChance;
+    public bool critChanceRel;
+    public float dodgeChance;
+    public bool dodgeChanceRel;
+    public string extraInfo;
+    public bool extraInfoRel;
+    public float effectTime;
+    public bool onEnemy;
+    public bool whileReload;
+    public bool onGetHit;
+    public bool onKillEnemy;
+    public bool diminishing;
+    public string diminishStat;
+    public float diminishMax;
+    */
     // Update is called once per frame
     void Update()
     {
-        currentCard = shopManager.GetComponent<ShopScript>().currentCard;
-        if (applyCard == true)
+        currentScrap = shopManager.GetComponent<ShopScript>().currentScrap;
+        if (applyScrap == true)
         {
-            if(currentCard == 0) //faster feed (x250% fire speed, +30 mag size, -15% damage, -35% accuracy, -30% reload speed)
+            if (currentScrap.fireSpeed > 0)
             {
-                player.GetComponent<HitScanShootingScript>().shotSpeed = (player.GetComponent<HitScanShootingScript>().shotSpeed / 2.5f);
-                player.GetComponent<HitScanShootingScript>().maxAmmo += 30;
-                player.GetComponent<HitScanShootingScript>().ammoCount = player.GetComponent<HitScanShootingScript>().maxAmmo;
-                player.GetComponent<HitScanShootingScript>().damage -= (player.GetComponent<HitScanShootingScript>().damage * 0.15f);
-                player.GetComponent<HitScanShootingScript>().accuracy -= (player.GetComponent<HitScanShootingScript>().accuracy * 0.35f);
-                player.GetComponent<HitScanShootingScript>().reloadTime += (player.GetComponent<HitScanShootingScript>().reloadTime * 0.3f);
+                shooting.shotSpeed *= (currentScrap.fireSpeed / 100);
             }
-            else if(currentCard == 1) //large caliber (x1000% damage, x500% accuracy, x110% movement speed, -90% fire speed, -5 mag size)
+            else if (currentScrap.fireSpeed < 0)
             {
-                player.GetComponent<HitScanShootingScript>().damage *= 10f;
-                player.GetComponent<HitScanShootingScript>().accuracy *= 5f;
-                player.GetComponent<NewPlayerMove>().speed *= 1.1f;
-                player.GetComponent<HitScanShootingScript>().shotSpeed += (player.GetComponent<HitScanShootingScript>().shotSpeed * 0.9f);
-                player.GetComponent<HitScanShootingScript>().maxAmmo -= 5;
+                shooting.shotSpeed += shooting.shotSpeed * (currentScrap.fireSpeed / 100);
             }
-            else if(currentCard == 2) //grippy grip (x750% accuracy, x125% reload speed, -15% movement speed)
+
+
+            if (currentScrap.bulletDamage > 0)
             {
-                player.GetComponent<HitScanShootingScript>().accuracy *= 7.5f;
-                player.GetComponent<HitScanShootingScript>().reloadTime -= (player.GetComponent<HitScanShootingScript>().reloadTime * 0.25f);
-                player.GetComponent<NewPlayerMove>().speed -= (player.GetComponent<NewPlayerMove>().speed * 0.15f);
+                shooting.damage = shooting.damage * (currentScrap.bulletDamage / 100);
             }
-            else if(currentCard == 3) //heavy armour (x500% heath, +2 heath recharge speed, -15% reload speed, -20% movement speed)
+            else if (currentScrap.bulletDamage < 0)
             {
-                float lastHealth = player.GetComponent<NewPlayerMove>().maxHealth;
-                player.GetComponent<NewPlayerMove>().maxHealth *= 5;
-                player.GetComponent<NewPlayerMove>().health += (player.GetComponent<NewPlayerMove>().maxHealth - lastHealth);
-                player.GetComponent<NewPlayerMove>().regenAmount += 2;
-                player.GetComponent<HitScanShootingScript>().reloadTime += (player.GetComponent<HitScanShootingScript>().reloadTime * 0.15f);
-                player.GetComponent<NewPlayerMove>().speed -= (player.GetComponent<NewPlayerMove>().speed * 0.2f);
+                shooting.damage += shooting.damage * (currentScrap.bulletDamage / 100);
             }
-            else if(currentCard == 4) //light frame (x120% reload speed, x135% movement speed, -20% accuracy, -30% health)
+
+            
+            if (currentScrap.accuracy > 0)
             {
-                player.GetComponent<HitScanShootingScript>().reloadTime -= (player.GetComponent<HitScanShootingScript>().reloadTime * 0.2f);
-                player.GetComponent<NewPlayerMove>().speed += (player.GetComponent<NewPlayerMove>().speed * 0.35f);
-                player.GetComponent<HitScanShootingScript>().accuracy -= (player.GetComponent<HitScanShootingScript>().accuracy * 0.2f);
-                player.GetComponent<NewPlayerMove>().maxHealth -= (player.GetComponent<HealthManager>().maxHealth * 0.3f);
+                shooting.accuracy = shooting.accuracy * (currentScrap.accuracy / 100);
             }
-            applyCard = false;
+            else if (currentScrap.accuracy < 0)
+            {
+                shooting.accuracy += shooting.accuracy * (currentScrap.accuracy / 100);
+            }
+
+
+            if (currentScrap.magSizeAddRel == true)
+            {
+                if (shooting.maxAmmo + currentScrap.magSizeAdd >= 1)
+                {
+                    shooting.maxAmmo += currentScrap.magSizeAdd;
+                }
+                else if (shooting.maxAmmo + currentScrap.magSizeAdd <= 0)
+                {
+                    shooting.maxAmmo = 1;
+                }
+            }
+
+
+            if (currentScrap.magSizeMult > 0)
+            {
+                shooting.maxAmmo = shooting.maxAmmo * (currentScrap.magSizeMult / 100);
+            }
+            else if (currentScrap.magSizeMult < 0)
+            {
+                shooting.maxAmmo += shooting.maxAmmo * (currentScrap.magSizeMult / 100);
+            }
+
+
+            if (currentScrap.reloadSpeed > 0)
+            {
+                shooting.reloadTime *= (currentScrap.reloadSpeed / 100);
+            }
+            else if (currentScrap.reloadSpeed < 0)
+            {
+                shooting.reloadTime += shooting.reloadTime * (currentScrap.reloadSpeed / 100);
+            }
+
+
+            if (currentScrap.health > 0)
+            {
+                move.maxHealth *= (currentScrap.health / 100);
+                move.health *= (currentScrap.health / 100);
+            }
+            else if (currentScrap.health < 0)
+            {
+                move.maxHealth += move.maxHealth * (currentScrap.health / 100);
+                if (move.health > move.maxHealth)
+                {
+                    move.health = move.maxHealth;
+                }
+            }
+
+
+            // Health Recharge
+
+
+            if (currentScrap.movementSpeed > 0)
+            {
+                move.speed *= (currentScrap.movementSpeed / 100);
+            }
+            else if (currentScrap.movementSpeed < 0)
+            {
+                move.speed += move.speed * (currentScrap.movementSpeed / 100);
+            }
+
+
+            //Damage Resistance
+
+
+            //Ability
+
+
+            //Weak Spot
+
+
+            // Crit Chance
+
+
+            //Dodge Chance
+
+
+            applyScrap = false;
         }
     }
 }

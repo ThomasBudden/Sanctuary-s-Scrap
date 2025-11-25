@@ -10,35 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad765d26e548c9844b94803b1294721b, type: 3}
-  m_Name: 4-Light_Frame_Replacement
+  m_Name: 6-Destruction_Protocol
   m_EditorClassIdentifier: 
   relStatsCount: 15
-  scrapName: Light Frame Replacement
-  scrapId: 4
-  scrapRarity: 0
-  scrapType: 2
-  description: Replace your frame with a light weight alternative
-  statsDescPos: 'x135% movement speed\n+5 dodge chance '
-  statsDescMid: 
-  statsDescBad: '-10% accuracy\n-15% health '
+  scrapName: Destruction Protocol
+  scrapId: 6
+  scrapRarity: 2
+  scrapType: 0
+  description: You infect enemies with a virus that detonates them upon death
+  statsDescPos: 
+  statsDescMid: Enemies explode upon death
+  statsDescBad: '-15% reload speed '
   fireSpeed: 0
   fireSpeedRel: 0
   bulletDamage: 0
   bulletDamageRel: 0
-  accuracy: -10
-  accuracyRel: 1
+  accuracy: 0
+  accuracyRel: 0
   magSizeAdd: 0
   magSizeAddRel: 0
   magSizeMult: 0
   magSizeMultRel: 0
-  reloadSpeed: 0
-  reloadSpeedRel: 0
-  health: -15
-  healthRel: 1
+  reloadSpeed: -15
+  reloadSpeedRel: 1
+  health: 0
+  healthRel: 0
   healthRecharge: 0
   healthRechargeRel: 0
-  movementSpeed: 135
-  movementSpeedRel: 1
+  movementSpeed: 0
+  movementSpeedRel: 0
   damageResistance: 0
   damageResistanceRel: 0
   ability: 0
@@ -47,15 +47,15 @@ MonoBehaviour:
   weakSpotRel: 0
   critChance: 0
   critChanceRel: 0
-  dodgeChance: 5
+  dodgeChance: 0
   dodgeChanceRel: 0
   extraInfo: 
   extraInfoRel: 0
   effectTime: 0
-  onEnemy: 0
+  onEnemy: 1
   whileReload: 0
   onGetHit: 0
-  onKillEnemy: 0
+  onKillEnemy: 1
   diminishing: 0
   diminishStat: 
   diminishMax: 0

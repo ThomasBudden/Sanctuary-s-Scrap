@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShopScript : MonoBehaviour
@@ -11,42 +13,23 @@ public class ShopScript : MonoBehaviour
     private GameObject currentChest;
     public GameObject shopPanel;
     public GameObject statsManager;
-    public bool shopping;
     public bool shopRolled;
     public GameObject[] shopSlot = new GameObject[3]; //child 0 is name, child 1 is stats
     public ScrapScriptable[] scraps;
     public bool[] usedScraps;
-    public string[] names = new string[5];
-    public string[] stats = new string[5];
-    private bool[] cardUsed = new bool[5];
-    public int[] slotCard = new int[3];
-    private int numCardsUsed;
-    public int currentCard;
+    public List<ScrapScriptable> rarityScraps;
+    public ScrapScriptable[] slotScrap = new ScrapScriptable[3];
+    private int currentRarity;
+    private ScrapScriptable chosenScrap;
+    private int numScrapsUsed;
+    public ScrapScriptable currentScrap;
     // Start is called before the first frame update
     void Start()
     {
         EventManager.current.RoomRewardInteract += StartShopping;
         EventManager.current.RoomRewardClose += ShopExit;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        /*shopping = player.GetComponent<NewPlayerMove>().shopping;
-        if (shopping == true)
-        {
-            if (shopRolled == false)
-            {
-                RollTheShop();
-                shopRolled = true;
-            }
-            shopPanel.SetActive(true);
-            player.GetComponent<NewPlayerMove>().canMove = false;
-            playerCam.GetComponent<TurretCameraScript>().lockedCursor = false;
-            Cursor.visible = true;
-            player.GetComponent<HitScanShootingScript>().canShoot = false;
-        }*/
-
+        EventManager.current.RoomRewardChosen += onRoomRewardChosen;
+        usedScraps = new bool[scraps.Length];
     }
     public void StartShopping()
     {
@@ -59,55 +42,122 @@ public class ShopScript : MonoBehaviour
     }
     public void RollTheShop()
     {
-        for (int i = 0; i < cardUsed.Length; i++)
+        for (int i = 0; i < usedScraps.Length; i++)
         {
-            if (cardUsed[i] == true)
+            if (usedScraps[i] == true)
             {
-                numCardsUsed += 1;
+                numScrapsUsed += 1;
             }
         }
-        if (cardUsed.Length - numCardsUsed >= shopSlot.Length)
+        if (usedScraps.Length - numScrapsUsed >= shopSlot.Length)
         {
             for (int i = 0; i < shopSlot.Length; i++)
             {
-                int randCard = Random.Range(0, stats.Length);
-                if (cardUsed[randCard] == false)
+                rarityScraps = new List<ScrapScriptable>();
+                int rarityRand = Random.Range(1, 101);
+                if (rarityRand > 94)
                 {
-                    shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().text = names[randCard];
-                    shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().text = stats[randCard];
-                    cardUsed[randCard] = true;
-                    slotCard[i] = randCard;
-                    
+                    currentRarity = 3;
                 }
-                else if (cardUsed[randCard] == true)
+                else if (rarityRand > 84)
                 {
-                    i -= 1;
+                    currentRarity = 2;
+                }
+                else if (rarityRand > 59)
+                {
+                    currentRarity = 1;
+                }
+                else if (rarityRand > 0)
+                {
+                    currentRarity = 0;
+                }
+                for (int j = 0; j < scraps.Length; j++)
+                {
+                    if (scraps[j].scrapRarity == currentRarity)
+                    {
+                        rarityScraps.Add(scraps[j]);
+                    }
+                }
+                int randScrap = Random.Range(0, rarityScraps.Count);
+                for (int j = 0; j < usedScraps.Length; j++)
+                {
+                    if (rarityScraps[randScrap].scrapId == scraps[j].scrapId && usedScraps[j] == true)
+                    {
+                        i -= 1;
+                    }
+                    else if (rarityScraps[randScrap].scrapId == scraps[j].scrapId && usedScraps[j] == false)
+                    {
+                        chosenScrap = rarityScraps[randScrap];
+                        shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().text = chosenScrap.scrapName;
+                        if (chosenScrap.scrapType == 0)
+                        {
+                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.red;
+                        }
+                        else if (chosenScrap.scrapType == 1)
+                        {
+                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.blue;
+                        }
+                        else if (chosenScrap.scrapType == 2)
+                        {
+                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.purple;
+                        }
+                        else if (chosenScrap.scrapType == 3)
+                        {
+                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.green;
+                        }
+                        else if (chosenScrap.scrapType == 4)
+                        {
+                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.yellow;
+                        }
+                        shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().text = chosenScrap.description;
+                        if (chosenScrap.scrapRarity == 0)
+                        {
+                            shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.black;
+                        }
+                        else if (chosenScrap.scrapRarity == 1)
+                        {
+                            shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.blue;
+                        }
+                        else if (chosenScrap.scrapRarity == 2)
+                        {
+                            shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.purple;
+                        }
+                        else if (chosenScrap.scrapRarity == 3)
+                        {
+                            shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.gold;
+                        }
+                        shopSlot[i].transform.GetChild(2).GetComponent<TMP_Text>().text = chosenScrap.statsDescPos;
+                        shopSlot[i].transform.GetChild(3).GetComponent<TMP_Text>().text = chosenScrap.statsDescBad;
+                        shopSlot[i].transform.GetChild(4).GetComponent<TMP_Text>().text = chosenScrap.statsDescMid;
+                        usedScraps[j] = true;
+                        slotScrap[i] = chosenScrap;
+                    }
                 }
             }
         }
-        else if (cardUsed.Length - numCardsUsed < shopSlot.Length)
+        else if (usedScraps.Length - numScrapsUsed < shopSlot.Length)
         {
             Debug.Log("No shop");
         }
     }
     public void OnClick0()
     {
-        currentCard = slotCard[0];
-        statsManager.GetComponent<StatsManagerScript>().applyCard = true;
+        currentScrap = slotScrap[0];
+        statsManager.GetComponent<StatsManagerScript>().applyScrap = true;
         EventManager.current.onRoomRewardChosen();
         ShopExit();
     }
     public void OnClick1()
     {
-        currentCard = slotCard[1];
-        statsManager.GetComponent<StatsManagerScript>().applyCard = true;
+        currentScrap = slotScrap[1];
+        statsManager.GetComponent<StatsManagerScript>().applyScrap = true;
         EventManager.current.onRoomRewardChosen();
         ShopExit();
     }
     public void OnClick2()
     {
-        currentCard = slotCard[2];
-        statsManager.GetComponent<StatsManagerScript>().applyCard = true;
+        currentScrap = slotScrap[2];
+        statsManager.GetComponent<StatsManagerScript>().applyScrap = true;
         EventManager.current.onRoomRewardChosen();
         ShopExit();
     }
@@ -117,5 +167,13 @@ public class ShopScript : MonoBehaviour
         EventManager.current.onPlayerCloseMenu();
         shopPanel.SetActive(false);
         EventManager.current.onFinishRoom();
+    }
+    public void onRoomRewardChosen()
+    {
+        shopRolled = false;
+        for (int i = 0;  i < usedScraps.Length; i++)
+        {
+            usedScraps[i] = false;
+        }
     }
 }

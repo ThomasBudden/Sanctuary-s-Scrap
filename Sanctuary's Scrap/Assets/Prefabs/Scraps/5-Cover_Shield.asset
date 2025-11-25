@@ -12,24 +12,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad765d26e548c9844b94803b1294721b, type: 3}
   m_Name: 5-Cover_Shield
   m_EditorClassIdentifier: 
+  relStatsCount: 15
   scrapName: Cover Shield
   scrapId: 5
   scrapRarity: 1
   scrapType: 3
   description: Add a shield generator that covers you while you reload
+  statsDescPos: 
+  statsDescMid: 'Active during reload (x250% damage resistance, +10 dodge Chance) '
+  statsDescBad: 
   fireSpeed: 0
+  fireSpeedRel: 0
   bulletDamage: 0
+  bulletDamageRel: 0
   accuracy: 0
+  accuracyRel: 0
   magSizeAdd: 0
+  magSizeAddRel: 0
   magSizeMult: 0
+  magSizeMultRel: 0
   reloadSpeed: 0
-  speed: 0
+  reloadSpeedRel: 0
   health: 0
+  healthRel: 0
   healthRecharge: 0
+  healthRechargeRel: 0
   movementSpeed: 0
+  movementSpeedRel: 0
   damageResistance: 250
+  damageResistanceRel: 1
   ability: 0
+  abilityRel: 0
   weakSpot: 0
+  weakSpotRel: 0
   critChance: 0
-  dodgeChance: 0
+  critChanceRel: 0
+  dodgeChance: 10
+  dodgeChanceRel: 1
+  extraInfo: 
+  extraInfoRel: 0
+  effectTime: 0
+  onEnemy: 0
   whileReload: 1
+  onGetHit: 0
+  onKillEnemy: 0
+  diminishing: 0
+  diminishStat: 
+  diminishMax: 0
