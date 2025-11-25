@@ -10,18 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad765d26e548c9844b94803b1294721b, type: 3}
-  m_Name: Scrap1
+  m_Name: 1-Caliber_Upgrader
   m_EditorClassIdentifier: 
-  scrapName: 
-  scrapId: 0
+  scrapName: Caliber Upgrader
+  scrapId: 1
   scrapRarity: 0
   scrapType: 0
-  fireSpeed: 0
-  bulletDamage: 0
-  accuracy: 0
-  magSize: 0
-  reloadSpread: 0
-  speed: 0
+  description: Use old world technology to make the bullets in the chamber larger
+  fireSpeed: -90
+  bulletDamage: 300
+  accuracy: 250
+  magSizeAdd: -5
+  magSizeMult: 0
+  reloadSpeed: 0
+  speed: 110
   health: 0
   healthRecharge: 0
   movementSpeed: 0
@@ -29,3 +31,5 @@ MonoBehaviour:
   ability: 0
   weakSpot: 0
   critChance: 0
+  dodgeChance: 0
+  whileReload: 0

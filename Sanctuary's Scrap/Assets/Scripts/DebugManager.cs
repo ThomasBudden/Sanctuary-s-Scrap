@@ -59,5 +59,15 @@ public class DebugManager : MonoBehaviour
             }
             inputField.text = "";
         }
+        else if (commandStep == 0 && command == "Scrap")
+        {
+            commandStep = 1;
+            commandState = "Scrap";
+            inputField.text = "";
+        }
+        else if ( commandStep == 1 && commandState == "Scrap")
+        {
+
+        }
     }
 }

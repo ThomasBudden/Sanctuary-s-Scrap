@@ -14,6 +14,8 @@ public class ShopScript : MonoBehaviour
     public bool shopping;
     public bool shopRolled;
     public GameObject[] shopSlot = new GameObject[3]; //child 0 is name, child 1 is stats
+    public ScrapScriptable[] scraps;
+    public bool[] usedScraps;
     public string[] names = new string[5];
     public string[] stats = new string[5];
     private bool[] cardUsed = new bool[5];

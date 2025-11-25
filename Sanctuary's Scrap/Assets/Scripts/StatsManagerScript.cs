@@ -20,12 +20,12 @@ public class StatsManagerScript : MonoBehaviour
         currentCard = shopManager.GetComponent<ShopScript>().currentCard;
         if (applyCard == true)
         {
-            if(currentCard == 0) //spray'n'pray (x500% fire speed, +30 mag size, -75% damage, -35% accuracy, -30% reload speed)
+            if(currentCard == 0) //faster feed (x250% fire speed, +30 mag size, -15% damage, -35% accuracy, -30% reload speed)
             {
-                player.GetComponent<HitScanShootingScript>().shotSpeed = (player.GetComponent<HitScanShootingScript>().shotSpeed / 5f);
+                player.GetComponent<HitScanShootingScript>().shotSpeed = (player.GetComponent<HitScanShootingScript>().shotSpeed / 2.5f);
                 player.GetComponent<HitScanShootingScript>().maxAmmo += 30;
                 player.GetComponent<HitScanShootingScript>().ammoCount = player.GetComponent<HitScanShootingScript>().maxAmmo;
-                player.GetComponent<HitScanShootingScript>().damage -= (player.GetComponent<HitScanShootingScript>().damage * 0.75f);
+                player.GetComponent<HitScanShootingScript>().damage -= (player.GetComponent<HitScanShootingScript>().damage * 0.15f);
                 player.GetComponent<HitScanShootingScript>().accuracy -= (player.GetComponent<HitScanShootingScript>().accuracy * 0.35f);
                 player.GetComponent<HitScanShootingScript>().reloadTime += (player.GetComponent<HitScanShootingScript>().reloadTime * 0.3f);
             }
@@ -57,7 +57,7 @@ public class StatsManagerScript : MonoBehaviour
                 player.GetComponent<HitScanShootingScript>().reloadTime -= (player.GetComponent<HitScanShootingScript>().reloadTime * 0.2f);
                 player.GetComponent<NewPlayerMove>().speed += (player.GetComponent<NewPlayerMove>().speed * 0.35f);
                 player.GetComponent<HitScanShootingScript>().accuracy -= (player.GetComponent<HitScanShootingScript>().accuracy * 0.2f);
-                player.GetComponent<HealthManager>().maxHealth -= (player.GetComponent<HealthManager>().maxHealth * 0.3f);
+                player.GetComponent<NewPlayerMove>().maxHealth -= (player.GetComponent<HealthManager>().maxHealth * 0.3f);
             }
             applyCard = false;
         }

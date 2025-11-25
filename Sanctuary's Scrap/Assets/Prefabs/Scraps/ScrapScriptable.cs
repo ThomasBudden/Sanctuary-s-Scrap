@@ -9,11 +9,13 @@ public class ScrapScriptable : ScriptableObject
     public int scrapId;
     public int scrapRarity;
     public int scrapType;
+    public string description;
     public int fireSpeed;
     public int bulletDamage;
     public int accuracy;
-    public int magSize;
-    public int reloadSpread;
+    public int magSizeAdd;
+    public int magSizeMult;
+    public int reloadSpeed;
     public int speed;
     public int health;
     public int healthRecharge;
@@ -22,9 +24,6 @@ public class ScrapScriptable : ScriptableObject
     public int ability;
     public int weakSpot;
     public int critChance;
-
-    void Start()
-    {
-
-    }
+    public float dodgeChance;
+    public bool whileReload;
 }
