@@ -14,7 +14,7 @@ public class ScrapScriptable : ScriptableObject
     public string statsDescPos;
     public string statsDescMid;
     public string statsDescBad;
-    public int fireSpeed;
+    public float fireSpeed;
     public bool fireSpeedRel;
     public int bulletDamage;
     public bool bulletDamageRel;

@@ -27,8 +27,8 @@ MonoBehaviour:
   bulletDamageRel: 1
   accuracy: -35
   accuracyRel: 1
-  magSizeAdd: 0
-  magSizeAddRel: 0
+  magSizeAdd: 30
+  magSizeAddRel: 1
   magSizeMult: 0
   magSizeMultRel: 0
   reloadSpeed: -15

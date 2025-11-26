@@ -108,7 +108,7 @@ public class GameManagerScript : MonoBehaviour
                     lastEnemy.SetActive(true);
                     int enemyTypeRand = Random.Range(0, enemyStats.Length);
                     lastEnemy.GetComponent<NewAiNavScript>().enemyStats = enemyStats[enemyTypeRand];
-                    lastEnemy.gameObject.transform.localScale = new Vector3(lastEnemy.GetComponent<NewAiNavScript>().enemyStats.size, lastEnemy.GetComponent<NewAiNavScript>().enemyStats.size, lastEnemy.GetComponent<NewAiNavScript>().enemyStats.size);
+                    lastEnemy.gameObject.transform.localScale = new Vector3(enemyStats[enemyTypeRand].size, enemyStats[enemyTypeRand].size, enemyStats[enemyTypeRand].size);
                     lastEnemy.GetComponent<NewAiNavScript>().roomCount = roomCount;
                     usedSpawns.Add(enemySpawns[randSpawn]);
                     enemysActive += 1;

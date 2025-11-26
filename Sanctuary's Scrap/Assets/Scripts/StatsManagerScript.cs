@@ -26,7 +26,7 @@ public class StatsManagerScript : MonoBehaviour
     public string statsDescPos;
     public string statsDescMid;
     public string statsDescBad;
-    public int fireSpeed;
+    public float fireSpeed;
     public bool fireSpeedRel;
     public int bulletDamage;
     public bool bulletDamageRel;
@@ -77,7 +77,7 @@ public class StatsManagerScript : MonoBehaviour
             }
             else if (currentScrap.fireSpeed < 0)
             {
-                shooting.shotSpeed += shooting.shotSpeed * (currentScrap.fireSpeed / 100);
+                shooting.shotSpeed += (shooting.shotSpeed * (currentScrap.fireSpeed / 100));
             }
 
 
@@ -87,7 +87,7 @@ public class StatsManagerScript : MonoBehaviour
             }
             else if (currentScrap.bulletDamage < 0)
             {
-                shooting.damage += shooting.damage * (currentScrap.bulletDamage / 100);
+                shooting.damage += (shooting.damage * (currentScrap.bulletDamage / 100));
             }
 
             
@@ -97,7 +97,7 @@ public class StatsManagerScript : MonoBehaviour
             }
             else if (currentScrap.accuracy < 0)
             {
-                shooting.accuracy += shooting.accuracy * (currentScrap.accuracy / 100);
+                shooting.accuracy += (shooting.accuracy * (currentScrap.accuracy / 100));
             }
 
 
@@ -106,10 +106,12 @@ public class StatsManagerScript : MonoBehaviour
                 if (shooting.maxAmmo + currentScrap.magSizeAdd >= 1)
                 {
                     shooting.maxAmmo += currentScrap.magSizeAdd;
+                    shooting.ammoCount = shooting.maxAmmo;
                 }
                 else if (shooting.maxAmmo + currentScrap.magSizeAdd <= 0)
                 {
                     shooting.maxAmmo = 1;
+                    shooting.ammoCount = shooting.maxAmmo;
                 }
             }
 
@@ -120,7 +122,7 @@ public class StatsManagerScript : MonoBehaviour
             }
             else if (currentScrap.magSizeMult < 0)
             {
-                shooting.maxAmmo += shooting.maxAmmo * (currentScrap.magSizeMult / 100);
+                shooting.maxAmmo += (shooting.maxAmmo * (currentScrap.magSizeMult / 100));
             }
 
 
@@ -130,7 +132,7 @@ public class StatsManagerScript : MonoBehaviour
             }
             else if (currentScrap.reloadSpeed < 0)
             {
-                shooting.reloadTime += shooting.reloadTime * (currentScrap.reloadSpeed / 100);
+                shooting.reloadTime += (shooting.reloadTime * (currentScrap.reloadSpeed / 100));
             }
 
 
@@ -141,7 +143,7 @@ public class StatsManagerScript : MonoBehaviour
             }
             else if (currentScrap.health < 0)
             {
-                move.maxHealth += move.maxHealth * (currentScrap.health / 100);
+                move.maxHealth += (move.maxHealth * (currentScrap.health / 100));
                 if (move.health > move.maxHealth)
                 {
                     move.health = move.maxHealth;
@@ -158,7 +160,7 @@ public class StatsManagerScript : MonoBehaviour
             }
             else if (currentScrap.movementSpeed < 0)
             {
-                move.speed += move.speed * (currentScrap.movementSpeed / 100);
+                move.speed += (move.speed * (currentScrap.movementSpeed / 100));
             }
 
 
