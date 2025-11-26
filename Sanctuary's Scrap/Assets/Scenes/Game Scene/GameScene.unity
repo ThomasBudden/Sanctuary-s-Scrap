@@ -375,7 +375,7 @@ PrefabInstance:
     - target: {fileID: 3731293401434919521, guid: 41ffb3a28735f664f9c2be05e49748f6, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1812906331}
+      objectReference: {fileID: 1317758126}
     - target: {fileID: 3731293401434919521, guid: 41ffb3a28735f664f9c2be05e49748f6, type: 3}
       propertyPath: shopManager
       value: 
