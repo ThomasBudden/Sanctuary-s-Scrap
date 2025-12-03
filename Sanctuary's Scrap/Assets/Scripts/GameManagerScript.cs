@@ -1,7 +1,8 @@
 using NUnit.Framework;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
@@ -13,6 +14,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject[] room0Array;
     public GameObject[] roomArray;
     public GameObject currentRoom;
+    public List<GameObject> currentDoors;
     public List<GameObject> enemySpawns;
     private float startTime;
     public List<GameObject> usedSpawns;
@@ -138,6 +140,14 @@ public class GameManagerScript : MonoBehaviour
     public void OnRoomRewardChosen()
     {
         Destroy(currentChest.gameObject);
+        currentDoors = new List<GameObject>();
+        for (int i = 0; i < currentRoom.transform.GetChild(3).GetChild(3).childCount; i++)
+        {
+            if (currentRoom.transform.GetChild(3).GetChild(3).GetChild(i).tag == "Exit")
+            {
+                currentRoom.transform.GetChild(3).GetChild(3).GetChild(i).transform.GetChild(0).GetComponent<Animator>().SetTrigger("DoorOpen");
+            }
+        }
         EventManager.current.onFinishRoom();
     }
 }
