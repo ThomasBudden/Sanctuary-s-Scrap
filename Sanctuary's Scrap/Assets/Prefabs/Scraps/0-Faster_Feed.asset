@@ -20,7 +20,7 @@ MonoBehaviour:
   description: Replace the feed mechanism to allow for faster firing
   statsDescPos: x250% fire speed\n+30  mag size
   statsDescMid: 
-  statsDescBad: 'x250% fire speed\n+30  mag size '
+  statsDescBad: -15% damage\n-35% accuracy\n-15% reload speed
   fireSpeed: 250
   fireSpeedRel: 1
   bulletDamage: -15
