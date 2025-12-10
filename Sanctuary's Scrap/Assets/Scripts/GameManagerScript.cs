@@ -37,6 +37,12 @@ public class GameManagerScript : MonoBehaviour
         EventManager.current.StartRoom += RoomSpawn;
         startTime = Time.time;
     }
+
+    public void StartUp()
+    {
+
+    }
+
     public void StartRoomSpawn()
     {
         currentRoom = Instantiate(room0Array[0], new Vector3(0, 0, 0), Quaternion.identity);
