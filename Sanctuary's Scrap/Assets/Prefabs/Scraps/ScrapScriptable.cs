@@ -24,7 +24,7 @@ public class ScrapScriptable : ScriptableObject
     public bool magSizeAddRel;
     public int magSizeMult;
     public bool magSizeMultRel;
-    public int reloadSpeed;
+    public float reloadSpeed;
     public bool reloadSpeedRel;
     public int health;
     public bool healthRel;
@@ -52,4 +52,10 @@ public class ScrapScriptable : ScriptableObject
     public bool diminishing;
     public string diminishStat;
     public float diminishMax;
+    public int secondary;
+    public bool secondaryRel;
+    public int mobilty;
+    public bool mobiltyRel;
+    public int core;
+    public bool coreRel;
 }

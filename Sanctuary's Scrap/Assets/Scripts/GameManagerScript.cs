@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class GameManagerScript : MonoBehaviour
 {
     public GameObject player;
+    public bool charSelect;
+    public GameObject charPanel;
     public TMP_Text roomCountUI;
     public GameObject enemy;
     public EnemyScriptable[] enemyStats;
@@ -33,14 +35,22 @@ public class GameManagerScript : MonoBehaviour
     void Start()
     {
         EventManager.current.RoomRewardChosen += OnRoomRewardChosen;
-        StartRoomSpawn();
         EventManager.current.StartRoom += RoomSpawn;
+        EventManager.current.CharChosen += onCharChosen;
+        StartUp();
         startTime = Time.time;
     }
 
     public void StartUp()
     {
-
+        charPanel.SetActive(true);
+        EventManager.current.onPlayerOpenMenu();
+        StartRoomSpawn();
+    }
+    private void onCharChosen()
+    {
+        charPanel.SetActive(false);
+        EventManager.current.onPlayerCloseMenu();
     }
 
     public void StartRoomSpawn()

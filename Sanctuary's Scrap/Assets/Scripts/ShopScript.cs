@@ -19,6 +19,7 @@ public class ShopScript : MonoBehaviour
     public bool[] usedScraps;
     public List<ScrapScriptable> rarityScraps;
     public ScrapScriptable[] slotScrap = new ScrapScriptable[3];
+    public ScrapScriptable[] charScraps;
     private int currentRarity;
     private ScrapScriptable chosenScrap;
     private int numScrapsUsed;
@@ -29,6 +30,7 @@ public class ShopScript : MonoBehaviour
         EventManager.current.RoomRewardInteract += StartShopping;
         EventManager.current.RoomRewardClose += ShopExit;
         EventManager.current.RoomRewardChosen += onRoomRewardChosen;
+        EventManager.current.CharChosen += onCharChosen;
         usedScraps = new bool[scraps.Length];
     }
     public void StartShopping()
@@ -175,5 +177,16 @@ public class ShopScript : MonoBehaviour
         {
             usedScraps[i] = false;
         }
+    }
+    public void onCharChosen()
+    {
+        for (int i = 0; i < charScraps.Length; i++)
+        {
+            if (i == -(CharSelectScript.currentChar))
+            {
+                currentScrap = charScraps[i];
+            }
+        }
+        statsManager.GetComponent<StatsManagerScript>().applyScrap = true;
     }
 }

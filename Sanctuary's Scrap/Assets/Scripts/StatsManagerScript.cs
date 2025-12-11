@@ -10,6 +10,9 @@ public class StatsManagerScript : MonoBehaviour
     public GameObject shopManager;
     public bool applyScrap;
     public ScrapScriptable currentScrap;
+    public static int currentSecondary;
+    public static int currentMobility;
+    public static int currentCore;
     // Start is called before the first frame update
     void Start()
     {
@@ -177,6 +180,27 @@ public class StatsManagerScript : MonoBehaviour
 
 
             //Dodge Chance
+            if (currentScrap.secondaryRel == true)
+            {
+                if (currentScrap.secondary == 0)
+                {
+                    currentSecondary = 0;
+                }
+            }
+            if (currentScrap.mobiltyRel == true)
+            {
+                if (currentScrap.mobilty == 0)
+                {
+                    currentMobility = 0;
+                }
+            }
+            if (currentScrap.coreRel == true)
+            {
+                if (currentScrap.core == 0)
+                {
+                    currentCore = 0;
+                }
+            }
 
 
             applyScrap = false;

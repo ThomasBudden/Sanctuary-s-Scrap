@@ -84,4 +84,12 @@ public class EventManager : MonoBehaviour
             StartRoom();
         }
     }
+    public event Action CharChosen;
+    public void onCharChosen()
+    {
+        if (CharChosen != null)
+        {
+            CharChosen();
+        }
+    }
 }

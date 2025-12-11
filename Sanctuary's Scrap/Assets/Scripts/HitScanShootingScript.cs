@@ -31,6 +31,7 @@ public class HitScanShootingScript : MonoBehaviour
     private bool reloading = false;
     public float reloadTime;
     private float reloadStart;
+    private bool overChargeReload;
     public bool canShoot;
     public bool doLines;
     public bool doSpheres;
@@ -129,15 +130,21 @@ public class HitScanShootingScript : MonoBehaviour
         if (((Input.GetKeyDown(KeyCode.R) && ammoCount != maxAmmo) || Input.GetMouseButtonUp(0) && ammoCount == 0) && reloading != true)
         {
             reloadStart = Time.time;
+            overChargeReload = false;
             reloading = true;
         }
-        else if (reloadStart + (1 / reloadTime) < Time.time && reloading == true)
+        if (StatsManagerScript.currentSecondary == 0 && Input.GetMouseButtonDown(1) && reloading != true && ammoCount != maxAmmo)
+        {
+            overChargeReload = true;
+        }
+        else if ((reloadStart + (1 / reloadTime) < Time.time && reloading == true ) || (overChargeReload == true && reloading == true && reloadStart + (1 / reloadTime) < Time.time))
         {
             if (maxAmmo <= 1)
             {
                 maxAmmo = 1;
             }
             ammoCount = maxAmmo;
+            overChargeReload = false;
             reloading = false;
         }
         if (reloading == false)
