@@ -12,7 +12,6 @@ public class CharSelectScript : MonoBehaviour
     public void charSelect0()
     {
         currentChar = 0;
-        Debug.Log("Clicked");
         buttonPressed();
     }
     public void charSelect1()

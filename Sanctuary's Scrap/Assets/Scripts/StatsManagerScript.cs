@@ -72,138 +72,141 @@ public class StatsManagerScript : MonoBehaviour
     void Update()
     {
         currentScrap = shopManager.GetComponent<ShopScript>().currentScrap;
-        if (applyScrap == true)
-        {
-            if (currentScrap.fireSpeed > 0)
+        /*if (currentScrap != null)
+        {*/
+            if (applyScrap == true)
             {
-                shooting.shotSpeed *= (currentScrap.fireSpeed / 100);
-            }
-            else if (currentScrap.fireSpeed < 0)
-            {
-                shooting.shotSpeed += (shooting.shotSpeed * (currentScrap.fireSpeed / 100));
-            }
-
-
-            if (currentScrap.bulletDamage > 0)
-            {
-                shooting.damage = shooting.damage * (currentScrap.bulletDamage / 100);
-            }
-            else if (currentScrap.bulletDamage < 0)
-            {
-                shooting.damage += (shooting.damage * (currentScrap.bulletDamage / 100));
-            }
-
-            
-            if (currentScrap.accuracy > 0)
-            {
-                shooting.accuracy = shooting.accuracy * (currentScrap.accuracy / 100);
-            }
-            else if (currentScrap.accuracy < 0)
-            {
-                shooting.accuracy += (shooting.accuracy * (currentScrap.accuracy / 100));
-            }
-
-
-            if (currentScrap.magSizeAddRel == true)
-            {
-                if (shooting.maxAmmo + currentScrap.magSizeAdd >= 1)
+                if (currentScrap.fireSpeed > 0)
                 {
-                    shooting.maxAmmo += currentScrap.magSizeAdd;
-                    shooting.ammoCount = shooting.maxAmmo;
+                    shooting.shotSpeed *= (currentScrap.fireSpeed / 100);
                 }
-                else if (shooting.maxAmmo + currentScrap.magSizeAdd <= 0)
+                else if (currentScrap.fireSpeed < 0)
                 {
-                    shooting.maxAmmo = 1;
-                    shooting.ammoCount = shooting.maxAmmo;
+                    shooting.shotSpeed += (shooting.shotSpeed * (currentScrap.fireSpeed / 100));
                 }
-            }
 
 
-            if (currentScrap.magSizeMult > 0)
-            {
-                shooting.maxAmmo = shooting.maxAmmo * (currentScrap.magSizeMult / 100);
-            }
-            else if (currentScrap.magSizeMult < 0)
-            {
-                shooting.maxAmmo += (shooting.maxAmmo * (currentScrap.magSizeMult / 100));
-            }
-
-
-            if (currentScrap.reloadSpeed > 0)
-            {
-                shooting.reloadTime *= (currentScrap.reloadSpeed / 100);
-            }
-            else if (currentScrap.reloadSpeed < 0)
-            {
-                shooting.reloadTime += (shooting.reloadTime * (currentScrap.reloadSpeed / 100));
-            }
-
-
-            if (currentScrap.health > 0)
-            {
-                move.maxHealth *= (currentScrap.health / 100);
-                move.health *= (currentScrap.health / 100);
-            }
-            else if (currentScrap.health < 0)
-            {
-                move.maxHealth += (move.maxHealth * (currentScrap.health / 100));
-                if (move.health > move.maxHealth)
+                if (currentScrap.bulletDamage > 0)
                 {
-                    move.health = move.maxHealth;
+                    shooting.damage = shooting.damage * (currentScrap.bulletDamage / 100);
                 }
-            }
-
-
-            // Health Recharge
-
-
-            if (currentScrap.movementSpeed > 0)
-            {
-                move.speed *= (currentScrap.movementSpeed / 100);
-            }
-            else if (currentScrap.movementSpeed < 0)
-            {
-                move.speed += (move.speed * (currentScrap.movementSpeed / 100));
-            }
-
-
-            //Damage Resistance
-
-
-            //Ability
-
-
-            //Weak Spot
-
-
-            // Crit Chance
-
-
-            //Dodge Chance
-            if (currentScrap.secondaryRel == true)
-            {
-                if (currentScrap.secondary == 0)
+                else if (currentScrap.bulletDamage < 0)
                 {
-                    currentSecondary = 0;
+                    shooting.damage += (shooting.damage * (currentScrap.bulletDamage / 100));
                 }
-            }
-            if (currentScrap.mobiltyRel == true)
-            {
-                if (currentScrap.mobilty == 0)
-                {
-                    currentMobility = 0;
-                }
-            }
-            if (currentScrap.coreRel == true)
-            {
-                if (currentScrap.core == 0)
-                {
-                    currentCore = 0;
-                }
-            }
 
 
-            applyScrap = false;
-        }
+                if (currentScrap.accuracy > 0)
+                {
+                    shooting.accuracy = shooting.accuracy * (currentScrap.accuracy / 100);
+                }
+                else if (currentScrap.accuracy < 0)
+                {
+                    shooting.accuracy += (shooting.accuracy * (currentScrap.accuracy / 100));
+                }
+
+
+                if (currentScrap.magSizeAddRel == true)
+                {
+                    if (shooting.maxAmmo + currentScrap.magSizeAdd >= 1)
+                    {
+                        shooting.maxAmmo += currentScrap.magSizeAdd;
+                        shooting.ammoCount = shooting.maxAmmo;
+                    }
+                    else if (shooting.maxAmmo + currentScrap.magSizeAdd <= 0)
+                    {
+                        shooting.maxAmmo = 1;
+                        shooting.ammoCount = shooting.maxAmmo;
+                    }
+                }
+
+
+                if (currentScrap.magSizeMult > 0)
+                {
+                    shooting.maxAmmo = shooting.maxAmmo * (currentScrap.magSizeMult / 100);
+                }
+                else if (currentScrap.magSizeMult < 0)
+                {
+                    shooting.maxAmmo += (shooting.maxAmmo * (currentScrap.magSizeMult / 100));
+                }
+
+
+                if (currentScrap.reloadSpeed > 0)
+                {
+                    shooting.reloadTime *= (currentScrap.reloadSpeed / 100);
+                }
+                else if (currentScrap.reloadSpeed < 0)
+                {
+                    shooting.reloadTime += (shooting.reloadTime * (currentScrap.reloadSpeed / 100));
+                }
+
+
+                if (currentScrap.health > 0)
+                {
+                    move.maxHealth *= (currentScrap.health / 100);
+                    move.health *= (currentScrap.health / 100);
+                }
+                else if (currentScrap.health < 0)
+                {
+                    move.maxHealth += (move.maxHealth * (currentScrap.health / 100));
+                    if (move.health > move.maxHealth)
+                    {
+                        move.health = move.maxHealth;
+                    }
+                }
+
+
+                // Health Recharge
+
+
+                if (currentScrap.movementSpeed > 0)
+                {
+                    move.speed *= (currentScrap.movementSpeed / 100);
+                }
+                else if (currentScrap.movementSpeed < 0)
+                {
+                    move.speed += (move.speed * (currentScrap.movementSpeed / 100));
+                }
+
+
+                //Damage Resistance
+
+
+                //Ability
+
+
+                //Weak Spot
+
+
+                // Crit Chance
+
+
+                //Dodge Chance
+                if (currentScrap.secondaryRel == true)
+                {
+                    if (currentScrap.secondary == 0)
+                    {
+                        currentSecondary = 0;
+                    }
+                }
+                if (currentScrap.mobiltyRel == true)
+                {
+                    if (currentScrap.mobilty == 0)
+                    {
+                        currentMobility = 0;
+                    }
+                }
+                if (currentScrap.coreRel == true)
+                {
+                    if (currentScrap.core == 0)
+                    {
+                        currentCore = 0;
+                    }
+                }
+
+
+                applyScrap = false;
+            }
+        //}
     }
 }

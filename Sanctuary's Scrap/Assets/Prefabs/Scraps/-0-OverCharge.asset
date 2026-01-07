@@ -22,23 +22,23 @@ MonoBehaviour:
   statsDescMid: 
   statsDescBad: 
   fireSpeed: 4
-  fireSpeedRel: 0
+  fireSpeedRel: 1
   bulletDamage: 5
-  bulletDamageRel: 0
+  bulletDamageRel: 1
   accuracy: 1
-  accuracyRel: 0
+  accuracyRel: 1
   magSizeAdd: 30
-  magSizeAddRel: 0
+  magSizeAddRel: 1
   magSizeMult: 0
   magSizeMultRel: 0
   reloadSpeed: 0.5
-  reloadSpeedRel: 0
+  reloadSpeedRel: 1
   health: 100
-  healthRel: 0
+  healthRel: 1
   healthRecharge: 0
   healthRechargeRel: 0
   movementSpeed: 15
-  movementSpeedRel: 0
+  movementSpeedRel: 1
   damageResistance: 0
   damageResistanceRel: 0
   ability: 0

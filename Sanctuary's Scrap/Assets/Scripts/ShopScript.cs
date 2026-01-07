@@ -182,11 +182,11 @@ public class ShopScript : MonoBehaviour
     {
         for (int i = 0; i < charScraps.Length; i++)
         {
-            if (i == -(CharSelectScript.currentChar))
+            if (i == (CharSelectScript.currentChar))
             {
                 currentScrap = charScraps[i];
+                statsManager.GetComponent<StatsManagerScript>().applyScrap = true;
             }
         }
-        statsManager.GetComponent<StatsManagerScript>().applyScrap = true;
     }
 }

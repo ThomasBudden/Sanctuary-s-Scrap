@@ -31,6 +31,8 @@ public class NewPlayerMove : MonoBehaviour
     public float maxHealth;
     public float regenAmount;
 
+    public bool dead;
+
     [SerializeField] private bool nearExit;
     public bool roomFinished;
 
@@ -119,9 +121,10 @@ public class NewPlayerMove : MonoBehaviour
         {
             healthCount.text = (health + "/" + maxHealth);
         }
-        else if (health <= 0)
+        else if (health <= 0 && dead != true)
         {
             Debug.Log("KILLED");
+            dead = true;
         }
     }
     private void OnOpenMenu()
