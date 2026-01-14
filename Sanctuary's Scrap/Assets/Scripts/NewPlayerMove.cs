@@ -36,6 +36,14 @@ public class NewPlayerMove : MonoBehaviour
     [SerializeField] private bool nearExit;
     public bool roomFinished;
 
+    public int mobility;
+    public float mobilityRecharge;
+    public float mobilityRechargeStart;
+    public float mobilityActiveTime;
+    public float mobilityActiveTimeStart;
+    public GameObject abilityPanel;
+    private GameObject mobilityPanel;
+
 
     // Start is called before the first frame update
     void Start()
@@ -46,12 +54,36 @@ public class NewPlayerMove : MonoBehaviour
         EventManager.current.FinishRoom += OnFinishRoom;
         EventManager.current.StartRoom += OnStartRoom;
         EventManager.current.RoomRewardChosen += OnRoomRewardChosen;
+
+        mobilityPanel = abilityPanel.transform.GetChild(1).gameObject;
+    }
+    public void onCharChosen()
+    {
+        if (StatsManagerScript.currentMobility == 0)
+        {
+            mobility = 0;
+            mobilityRechargeStart = -100;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        //Secondary Ability
+        if (mobilityRecharge + mobilityRechargeStart > Time.time)
+        {
+            mobilityPanel.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (((mobilityRecharge) + (mobilityRechargeStart - Time.time))).ToString("f1");
+        }
+        else if (mobilityRecharge + mobilityRechargeStart <= Time.time)
+        {
+            if (mobility == 0)
+            {
+                mobilityRecharge = (10 - ((speed - 10) / 2));
+            }
+            mobilityPanel.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = ("Ready");
+        }
+
+        // Jumping
         isGrounded = Physics.CheckBox(groundCheck.position, new Vector3(0.3535533906f, 0.1f, 0.3535533906f), Quaternion.identity, groundMask);
         isGrounded2 = Physics.CheckBox(groundCheck.position, new Vector3(0.3535533906f, 0.75f, 0.3535533906f), Quaternion.identity, groundMask);
         if (jumpTime + 0.1f > Time.time)
@@ -59,6 +91,7 @@ public class NewPlayerMove : MonoBehaviour
             isGrounded = false;
         }
 
+        // Walking
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
@@ -93,6 +126,7 @@ public class NewPlayerMove : MonoBehaviour
             controller.Move(velocity * Time.deltaTime);
         }
 
+        // Shopping
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (nearChest == true)
@@ -117,6 +151,8 @@ public class NewPlayerMove : MonoBehaviour
             EventManager.current.onPlayerOpenMenu();
             EventManager.current.onPlayerOpenDebugMenu();
         }
+
+        // Health
         if (health > 0)
         {
             healthCount.text = (health + "/" + maxHealth);
@@ -125,6 +161,23 @@ public class NewPlayerMove : MonoBehaviour
         {
             Debug.Log("KILLED");
             dead = true;
+        }
+
+        // Mobility
+        if (mobility == 0 && Input.GetKeyDown(KeyCode.LeftShift) && mobilityRechargeStart + mobilityRecharge <= Time.time && canMove == true)
+        {
+            float mX = Input.GetAxis("Horizontal");
+            float mZ = Input.GetAxis("Vertical");
+            Vector3 mMove = transform.right * x + transform.forward * z;
+            mMove = Vector3.ClampMagnitude(mMove, 1f);
+
+            mobilityActiveTime = (0.5f);
+            mobilityActiveTimeStart = Time.time;
+            mobilityRechargeStart = Time.time;
+        }
+        if (mobilityActiveTimeStart + mobilityActiveTime > Time.time)
+        {
+            controller.Move(move * (100 * ((mobilityActiveTime + mobilityActiveTimeStart - Time.time))) * Time.deltaTime);
         }
     }
     private void OnOpenMenu()

@@ -5,6 +5,9 @@ using TMPro;
 using static UnityEngine.GraphicsBuffer;
 using Unity.VisualScripting;
 using System.Linq;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using UnityEditor.ShaderGraph;
 
 public class HitScanShootingScript : MonoBehaviour
 {
@@ -40,6 +43,8 @@ public class HitScanShootingScript : MonoBehaviour
     public List<float> bTimeList = new List<float>(); //time list for bullet particals
     public List<GameObject> bulletList = new List<GameObject>();
 
+    public GameObject abilityPanel;
+    private GameObject secondaryPanel;
     public int secondary;
 
     public float secondaryRecharge;
@@ -49,22 +54,37 @@ public class HitScanShootingScript : MonoBehaviour
     {
         ammoCount = maxAmmo;
         EventManager.current.CharChosen += onCharChosen;
+        secondaryPanel = abilityPanel.transform.GetChild(0).gameObject;
     }
     public void onCharChosen()
     {
         if (StatsManagerScript.currentSecondary == 0)
         {
             secondary = 0;
-            secondaryRecharge = (30 - reloadTime);
             secondaryRechargeStart = (0 - secondaryRecharge);
         }
     }
     // Update is called once per frame
     void Update()
     {
+        //Secondary Ability
+        if (secondaryRecharge + secondaryRechargeStart > Time.time)
+        {
+            secondaryPanel.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (((secondaryRecharge) + (secondaryRechargeStart - Time.time))).ToString("f1");
+        }
+        else if (secondaryRecharge + secondaryRechargeStart <= Time.time)
+        {
+            if (secondary == 0)
+            {
+                secondaryRecharge = (30 - reloadTime);
+            }
+            secondaryPanel.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = ("Ready");
+        }
+
+
         if (accuracy != 0)
         {
-            bulletDiv = (1/(accuracy * 40));
+            bulletDiv = (1 / (accuracy * 40));
         }
         else if (accuracy <= 0)
         {
@@ -72,8 +92,6 @@ public class HitScanShootingScript : MonoBehaviour
         }
         if (Input.GetMouseButton(0) && shotTime + (1 / shotSpeed) < Time.time && ammoCount > 0 && reloading == false && canShoot == true)
         {
-            /*float bulletRandVert = Random.Range(-bulletDiv, bulletDiv);
-            float bulletRandHori = Random.Range(-bulletDiv, bulletDiv);*/
             float bulletRand = Random.Range(-bulletDiv, bulletDiv);
             float bulletRandAngle = Random.Range(0, 90);
             float bulletRandY = (Mathf.Sin(bulletRandAngle) * bulletRand);
@@ -136,11 +154,10 @@ public class HitScanShootingScript : MonoBehaviour
                 lineList.Add(lastLine);
             }
             ammoCount -= 1;
-            /*float recoilRandHori = Random.Range(-0.5f, 0.5f);
-            playerCam.GetComponent<TurretCameraScript>().cameraVerticalRotation -= 1 * recoilMult; 
-            this.transform.localEulerAngles = this.transform.localEulerAngles + new Vector3(0, (recoilRandHori * recoilMult), 0);*/
             shotTime = Time.time;
         }
+
+        // Reloading Code
         if (((Input.GetKeyDown(KeyCode.R) && ammoCount != maxAmmo) || Input.GetMouseButtonUp(0) && ammoCount == 0) && reloading != true)
         {
             reloadStart = Time.time;
@@ -171,6 +188,8 @@ public class HitScanShootingScript : MonoBehaviour
         {
             ammoCountTxt.text = ((((1/ reloadTime) + (reloadStart - Time.time))).ToString("f1"));
         }
+
+
         for (int i = 0; i < timeList.Count; i++)
         {
             if (timeList[i] + 0.1 < Time.time)

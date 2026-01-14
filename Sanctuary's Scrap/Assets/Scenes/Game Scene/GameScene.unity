@@ -316,6 +316,22 @@ PrefabInstance:
       propertyPath: healthCount
       value: 
       objectReference: {fileID: 4721738402250281364}
+    - target: {fileID: 6254936207828885099, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
+      propertyPath: AbilityPanel
+      value: 
+      objectReference: {fileID: 806272970}
+    - target: {fileID: 6254936207828885099, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
+      propertyPath: abilityPanel
+      value: 
+      objectReference: {fileID: 806272970}
+    - target: {fileID: 6254936207828885099, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
+      propertyPath: mobilityPanel
+      value: 
+      objectReference: {fileID: 806272970}
+    - target: {fileID: 6254936207828885099, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
+      propertyPath: mobilityRechargeStart
+      value: -100
+      objectReference: {fileID: 0}
     - target: {fileID: 7029001031938314795, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
       propertyPath: damage
       value: 0
@@ -336,6 +352,10 @@ PrefabInstance:
       propertyPath: reloadTime
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7029001031938314795, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
+      propertyPath: abilityPanel
+      value: 
+      objectReference: {fileID: 806272970}
     - target: {fileID: 7029001031938314795, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
       propertyPath: ammoCountTxt
       value: 
@@ -401,6 +421,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
+--- !u!1 &806272970 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1719021797318160191, guid: 2c1224de79b561e47850716f11cf50f7, type: 3}
+  m_PrefabInstance: {fileID: 2614807046759300408}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &844817540
 GameObject:
   m_ObjectHideFlags: 0
@@ -2160,7 +2185,7 @@ SceneRoots:
   - {fileID: 1127462876}
   - {fileID: 1812906333}
   - {fileID: 2081420974}
-  - {fileID: 2614807046759300408}
   - {fileID: 776791010}
+  - {fileID: 2614807046759300408}
   - {fileID: 1834903946}
   - {fileID: 1584571518070132889}
