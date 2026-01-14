@@ -87,6 +87,10 @@ public class GameManagerScript : MonoBehaviour
     }
     void Update()
     {
+        if (charPanel.activeInHierarchy == true)
+        {
+            EventManager.current.onPlayerOpenMenu();
+        }
         if (wave < 2 && enemysActive <= 0 && enemySpawning == true)
         {
             wave = wave + 1;

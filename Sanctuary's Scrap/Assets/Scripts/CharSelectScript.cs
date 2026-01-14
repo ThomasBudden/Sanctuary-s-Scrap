@@ -26,6 +26,7 @@ public class CharSelectScript : MonoBehaviour
     }
     public void buttonPressed()
     {
+        Debug.Log("Pressed");
         EventManager.current.onCharChosen();
     }
 }

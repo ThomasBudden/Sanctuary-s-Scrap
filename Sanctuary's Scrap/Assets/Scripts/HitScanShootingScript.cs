@@ -39,12 +39,26 @@ public class HitScanShootingScript : MonoBehaviour
     public List<GameObject> lineList = new List<GameObject>();
     public List<float> bTimeList = new List<float>(); //time list for bullet particals
     public List<GameObject> bulletList = new List<GameObject>();
+
+    public int secondary;
+
+    public float secondaryRecharge;
+    public float secondaryRechargeStart;
     // Start is called before the first frame update
     void Start()
     {
         ammoCount = maxAmmo;
+        EventManager.current.CharChosen += onCharChosen;
     }
-
+    public void onCharChosen()
+    {
+        if (StatsManagerScript.currentSecondary == 0)
+        {
+            secondary = 0;
+            secondaryRecharge = (30 - reloadTime);
+            secondaryRechargeStart = (0 - secondaryRecharge);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -133,11 +147,13 @@ public class HitScanShootingScript : MonoBehaviour
             overChargeReload = false;
             reloading = true;
         }
-        if (StatsManagerScript.currentSecondary == 0 && Input.GetMouseButtonDown(1) && reloading != true && ammoCount != maxAmmo)
+        if (Input.GetMouseButtonDown(1) && secondary == 0 && reloading != true && ammoCount != maxAmmo && secondaryRecharge + secondaryRechargeStart <= Time.time)
         {
             overChargeReload = true;
+            reloading = true;
+            secondaryRechargeStart = Time.time;
         }
-        else if ((reloadStart + (1 / reloadTime) < Time.time && reloading == true ) || (overChargeReload == true && reloading == true && reloadStart + (1 / reloadTime) < Time.time))
+        else if ((reloadStart + (1 / reloadTime) < Time.time && reloading == true ) || (overChargeReload == true && reloading == true && reloadStart + (0.1 / reloadTime) < Time.time))
         {
             if (maxAmmo <= 1)
             {

@@ -22,7 +22,6 @@ public class BulletScript : MonoBehaviour
     {
         if (startTime + 10 < Time.time)
         {
-            Debug.Log("Missed");
             Destroy(this.gameObject);
         }
     }
@@ -30,13 +29,11 @@ public class BulletScript : MonoBehaviour
     {
         if (other.gameObject.tag == ("Player"))
         {
-            Debug.Log("Hit player");
             other.gameObject.GetComponent<NewPlayerMove>().health -= damage;
             Destroy(this.gameObject);
         }
         else if (other.gameObject.tag != ignore)
         {
-            Debug.Log("Hit wall");
             Destroy(this.gameObject);
         }
     }

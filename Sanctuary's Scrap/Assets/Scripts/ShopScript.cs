@@ -184,6 +184,7 @@ public class ShopScript : MonoBehaviour
         {
             if (i == (CharSelectScript.currentChar))
             {
+                statsManager.GetComponent<StatsManagerScript>().scrapIsCharSelect = true;
                 currentScrap = charScraps[i];
                 statsManager.GetComponent<StatsManagerScript>().applyScrap = true;
             }
