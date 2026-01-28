@@ -365,8 +365,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2121693654}
     - target: {fileID: 7029001031938314795, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
+      propertyPath: coreDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7029001031938314795, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
+      propertyPath: coreRecharge
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7029001031938314795, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
       propertyPath: shotSpeedMult
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7029001031938314795, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
+      propertyPath: coreDurationStart
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7029001031938314795, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
+      propertyPath: coreRechargeStart
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 7029001031938314795, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
       propertyPath: 'crosshair.Array.data[0]'

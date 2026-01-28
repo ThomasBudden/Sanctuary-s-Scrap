@@ -24,6 +24,7 @@ public class HitScanShootingScript : MonoBehaviour
     public bool reduceAccuracy;
 
     private float bulletDiv;
+    private float bulletDivMult;
     private Quaternion currentRotation;
     private Vector3 currentEulerAngles;
     public float damage;
@@ -84,6 +85,7 @@ public class HitScanShootingScript : MonoBehaviour
         {
             core = 0;
             coreRechargeStart = (0 - coreRecharge);
+            coreDuration = 5;
         }
     }
     // Update is called once per frame
@@ -127,16 +129,22 @@ public class HitScanShootingScript : MonoBehaviour
         }
         if (reduceAccuracy == true)
         {
-            if (overChargeReloadStart + overChargeReloadDuration > Time.time || ((1 / (accuracy * 40)) * ((overChargeReloadStart + overChargeReloadDuration) - Time.time) * StatsManagerScript.secondaryDimnish) > (1 / (accuracy * 40)))
+            bulletDiv = 0;
+            if (overChargeReloadStart + overChargeReloadDuration > (Time.time + 1) || ((1 / (accuracy * 40)) * ((overChargeReloadStart + overChargeReloadDuration) - Time.time) * StatsManagerScript.secondaryDimnish) > (1 / (accuracy * 40)))
             {
-                bulletDiv = (1 / (accuracy * 40)) * (((overChargeReloadStart + overChargeReloadDuration) - Time.time) * StatsManagerScript.secondaryDimnish);
+                bulletDiv += (1 / (accuracy * 40)) * (((overChargeReloadStart + overChargeReloadDuration) - Time.time) * StatsManagerScript.secondaryDimnish);
             }
-            else if (overChargeReloadStart + overChargeReloadDuration <= Time.time || ((1 / (accuracy * 40)) * ((overChargeReloadStart + overChargeReloadDuration) - Time.time) * StatsManagerScript.secondaryDimnish) <= (1 / (accuracy * 40)))
+            if (core == 0 && coreDuration + coreDurationStart > Time.time)
+            {
+                bulletDiv += (1 / (accuracy * 40)) * 1.5f;
+            }
+
+            else if ((overChargeReloadStart + overChargeReloadDuration <= Time.time || ((1 / (accuracy * 40)) * ((overChargeReloadStart + overChargeReloadDuration) - Time.time) * StatsManagerScript.secondaryDimnish) <= (1 / (accuracy * 40))) && (core == 0 && coreDuration + coreDurationStart <= Time.time))
             {
                 reduceAccuracy = false;
             }
         }
-        if (Input.GetMouseButton(0) && shotTime + (1 / shotSpeed * shotSpeedMult) < Time.time && ammoCount > 0 && reloading == false && canShoot == true)
+        if (Input.GetMouseButton(0) && shotTime + (1 / (shotSpeed * shotSpeedMult)) < Time.time && ammoCount > 0 && reloading == false && canShoot == true)
         {
             float bulletRand = Random.Range(-bulletDiv, bulletDiv);
             float bulletRandAngle = Random.Range(0, 90);
@@ -240,15 +248,16 @@ public class HitScanShootingScript : MonoBehaviour
             ammoCountTxt.text = ((((1/ reloadTime) + (reloadStart - Time.time))).ToString("f1"));
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && coreRecharge + coreRechargeStart <= Time.time)
+        if (Input.GetKeyDown(KeyCode.Q) && coreRecharge + coreRechargeStart <= Time.time)
         {
             if (core == 0)
             {
                 coreDurationStart = Time.time;
                 shotSpeedMult = 2.5f;
+                reduceAccuracy = true;
             }
         }
-        if (coreDurationStart + coreDuration <= Time.time && coreRecharge + coreRechargeStart <= Time.time)
+        if (coreDurationStart + coreDuration <= Time.time && coreRecharge + coreRechargeStart <= Time.time && shotSpeedMult == 2.5f)
         {
             shotSpeedMult = 1;
             coreRechargeStart = Time.time;

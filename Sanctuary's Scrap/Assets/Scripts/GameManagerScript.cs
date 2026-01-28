@@ -32,6 +32,13 @@ public class GameManagerScript : MonoBehaviour
     public bool roomClear;
     public int roomCount;
 
+    public int nextRoom1;
+    public int nextRoom2;
+    public int nextRoomRandScrap1;
+    public int nextRoomRandScrap2;
+
+    public float shopProb;
+
     void Start()
     {
         EventManager.current.RoomRewardChosen += OnRoomRewardChosen;
@@ -159,13 +166,45 @@ public class GameManagerScript : MonoBehaviour
     }
     public void OnRoomRewardChosen()
     {
-        Destroy(currentChest.gameObject);
+        int nextRoomRand = Random.Range(0, 100);
+        if (nextRoomRand >= shopProb)
+        {
+            nextRoom1 = 5;
+        }
+        if (nextRoomRand < shopProb)
+        {
+            nextRoomRandScrap1 = Random.Range(0, 4);
+            nextRoom1 = nextRoomRandScrap1;
+        }
+        nextRoomRandScrap2 = Random.Range(0, 4);
+        if (nextRoomRandScrap2 == nextRoomRandScrap1)
+        {
+            if (nextRoom1 == 4)
+            {
+                nextRoom2 = 0;
+            }
+            else if (nextRoom1 != 4)
+            {
+                nextRoom2 = nextRoom1 + 1;
+            }
+        }
+        else
+        {
+            nextRoom2 = nextRoomRandScrap2;
+        }
+
+
+            Destroy(currentChest.gameObject);
         currentDoors = new List<GameObject>();
         for (int i = 0; i < currentRoom.transform.GetChild(3).GetChild(3).childCount; i++)
         {
             if (currentRoom.transform.GetChild(3).GetChild(3).GetChild(i).tag == "Exit")
             {
                 currentRoom.transform.GetChild(3).GetChild(3).GetChild(i).transform.GetChild(0).GetComponent<Animator>().SetTrigger("DoorOpen");
+                if (i == 0)
+                {                  
+                    currentRoom.transform.GetChild(3).GetChild(3).GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = "";
+                }
             }
         }
         EventManager.current.onFinishRoom();

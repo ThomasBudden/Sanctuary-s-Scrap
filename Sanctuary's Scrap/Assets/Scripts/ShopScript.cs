@@ -24,7 +24,7 @@ public class ShopScript : MonoBehaviour
     private ScrapScriptable chosenScrap;
     private int numScrapsUsed;
     public ScrapScriptable currentScrap;
-    // Start is called before the first frame update
+
     void Start()
     {
         EventManager.current.RoomRewardInteract += StartShopping;
