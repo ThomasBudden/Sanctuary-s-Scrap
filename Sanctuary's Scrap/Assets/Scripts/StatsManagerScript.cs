@@ -13,6 +13,7 @@ public class StatsManagerScript : MonoBehaviour
     public static int currentSecondary;
     public static int currentMobility;
     public static int currentCore;
+    public static float secondaryDimnish;
     public bool scrapIsCharSelect;
     // Start is called before the first frame update
     void Start()
@@ -98,6 +99,7 @@ public class StatsManagerScript : MonoBehaviour
                 if (currentScrap.secondary == 0)
                 {
                     currentSecondary = 0;
+                    secondaryDimnish = currentScrap.diminishMax;
                 }
             }
             if (currentScrap.mobiltyRel == true)

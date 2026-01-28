@@ -18,7 +18,11 @@ public class HitScanShootingScript : MonoBehaviour
     public GameObject[] crosshair = new GameObject[4];
     public float shotTime;
     public float shotSpeed;
+    public float shotSpeedMult;
+
     public float accuracy;
+    public bool reduceAccuracy;
+
     private float bulletDiv;
     private Quaternion currentRotation;
     private Vector3 currentEulerAngles;
@@ -29,12 +33,18 @@ public class HitScanShootingScript : MonoBehaviour
     private LineRenderer lineRenderer;
     public GameObject bullet;
     public float recoilMult;
+
     public int maxAmmo;
     public int ammoCount;
+
     private bool reloading = false;
     public float reloadTime;
     private float reloadStart;
+
     private bool overChargeReload;
+    private float overChargeReloadStart = -100;
+    public float overChargeReloadDuration;
+
     public bool canShoot;
     public bool doLines;
     public bool doSpheres;
@@ -46,9 +56,15 @@ public class HitScanShootingScript : MonoBehaviour
     public GameObject abilityPanel;
     private GameObject secondaryPanel;
     public int secondary;
-
     public float secondaryRecharge;
     public float secondaryRechargeStart;
+
+    public GameObject corePanel;
+    public int core;
+    public float coreDuration;
+    public float coreDurationStart;
+    public float coreRecharge;
+    public float coreRechargeStart;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,6 +79,12 @@ public class HitScanShootingScript : MonoBehaviour
             secondary = 0;
             secondaryRechargeStart = (0 - secondaryRecharge);
         }
+
+        if (StatsManagerScript.currentCore == 0)
+        {
+            core = 0;
+            coreRechargeStart = (0 - coreRecharge);
+        }
     }
     // Update is called once per frame
     void Update()
@@ -76,9 +98,22 @@ public class HitScanShootingScript : MonoBehaviour
         {
             if (secondary == 0)
             {
-                secondaryRecharge = (30 - reloadTime);
+                secondaryRecharge = (15 - reloadTime);
             }
             secondaryPanel.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = ("Ready");
+        }
+
+        if (coreRecharge + coreRechargeStart > Time.time)
+        {
+            corePanel.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (((coreRecharge) + (coreRechargeStart - Time.time))).ToString("f1");
+        }
+        else if (coreRecharge + coreRechargeStart <= Time.time)
+        {
+            if (core == 0)
+            {
+                coreRecharge = (30);
+            }
+            corePanel.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = ("Ready");
         }
 
 
@@ -90,7 +125,18 @@ public class HitScanShootingScript : MonoBehaviour
         {
             bulletDiv = 0;
         }
-        if (Input.GetMouseButton(0) && shotTime + (1 / shotSpeed) < Time.time && ammoCount > 0 && reloading == false && canShoot == true)
+        if (reduceAccuracy == true)
+        {
+            if (overChargeReloadStart + overChargeReloadDuration > Time.time || ((1 / (accuracy * 40)) * ((overChargeReloadStart + overChargeReloadDuration) - Time.time) * StatsManagerScript.secondaryDimnish) > (1 / (accuracy * 40)))
+            {
+                bulletDiv = (1 / (accuracy * 40)) * (((overChargeReloadStart + overChargeReloadDuration) - Time.time) * StatsManagerScript.secondaryDimnish);
+            }
+            else if (overChargeReloadStart + overChargeReloadDuration <= Time.time || ((1 / (accuracy * 40)) * ((overChargeReloadStart + overChargeReloadDuration) - Time.time) * StatsManagerScript.secondaryDimnish) <= (1 / (accuracy * 40)))
+            {
+                reduceAccuracy = false;
+            }
+        }
+        if (Input.GetMouseButton(0) && shotTime + (1 / shotSpeed * shotSpeedMult) < Time.time && ammoCount > 0 && reloading == false && canShoot == true)
         {
             float bulletRand = Random.Range(-bulletDiv, bulletDiv);
             float bulletRandAngle = Random.Range(0, 90);
@@ -164,7 +210,7 @@ public class HitScanShootingScript : MonoBehaviour
             overChargeReload = false;
             reloading = true;
         }
-        if (Input.GetMouseButtonDown(1) && secondary == 0 && reloading != true && ammoCount != maxAmmo && secondaryRecharge + secondaryRechargeStart <= Time.time)
+        if (Input.GetMouseButtonDown(1) && secondary == 0 && ammoCount != maxAmmo && secondaryRecharge + secondaryRechargeStart <= Time.time)
         {
             overChargeReload = true;
             reloading = true;
@@ -175,6 +221,11 @@ public class HitScanShootingScript : MonoBehaviour
             if (maxAmmo <= 1)
             {
                 maxAmmo = 1;
+            }
+            if (overChargeReload == true)
+            {
+                overChargeReloadStart = Time.time;
+                reduceAccuracy = true;
             }
             ammoCount = maxAmmo;
             overChargeReload = false;
@@ -187,6 +238,20 @@ public class HitScanShootingScript : MonoBehaviour
         else if (reloading == true)
         {
             ammoCountTxt.text = ((((1/ reloadTime) + (reloadStart - Time.time))).ToString("f1"));
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && coreRecharge + coreRechargeStart <= Time.time)
+        {
+            if (core == 0)
+            {
+                coreDurationStart = Time.time;
+                shotSpeedMult = 2.5f;
+            }
+        }
+        if (coreDurationStart + coreDuration <= Time.time && coreRecharge + coreRechargeStart <= Time.time)
+        {
+            shotSpeedMult = 1;
+            coreRechargeStart = Time.time;
         }
 
 

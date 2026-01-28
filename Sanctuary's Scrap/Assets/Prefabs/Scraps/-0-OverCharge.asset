@@ -56,9 +56,9 @@ MonoBehaviour:
   whileReload: 0
   onGetHit: 0
   onKillEnemy: 0
-  diminishing: 0
+  diminishing: 1
   diminishStat: 
-  diminishMax: 0
+  diminishMax: 1
   secondary: 0
   secondaryRel: 1
   mobilty: 0
