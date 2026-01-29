@@ -23,7 +23,10 @@ public class ShopScript : MonoBehaviour
     private int currentRarity;
     private ScrapScriptable chosenScrap;
     private int numScrapsUsed;
+    private int numScrapType;
+    public bool[] scrapsInType;
     public ScrapScriptable currentScrap;
+    public bool roomIsShop;
 
     void Start()
     {
@@ -32,11 +35,13 @@ public class ShopScript : MonoBehaviour
         EventManager.current.RoomRewardChosen += onRoomRewardChosen;
         EventManager.current.CharChosen += onCharChosen;
         usedScraps = new bool[scraps.Length];
+        scrapsInType = new bool[scraps.Length];
     }
     public void StartShopping()
     {
         if (shopRolled == false)
         {
+            numScrapType = 0;
             RollTheShop();
             shopRolled = true;
         }
@@ -44,11 +49,36 @@ public class ShopScript : MonoBehaviour
     }
     public void RollTheShop()
     {
+        Debug.Log(GameManagerScript.thisRoomRandScrap);
         for (int i = 0; i < usedScraps.Length; i++)
         {
             if (usedScraps[i] == true)
             {
                 numScrapsUsed += 1;
+            }
+        }
+        for (int i = 0; i < scraps.Length; i++)
+        {
+            if (scraps[i].scrapType == GameManagerScript.thisRoomRandScrap)
+            {
+                numScrapType += 1;
+                scrapsInType[i] = true;
+                roomIsShop = false;
+            }
+            else if (GameManagerScript.thisRoomRandScrap == -1)
+            {
+                for (int j = 0; j < scraps.Length; j++)
+                {
+                    scrapsInType[i] = true;
+                }
+            }
+            else if (GameManagerScript.thisRoomRandScrap == 5)
+            {
+                roomIsShop = true;
+            }
+            else if (scraps[i].scrapType == GameManagerScript.thisRoomRandScrap)
+            {
+                scrapsInType[i] = false;
             }
         }
         if (usedScraps.Length - numScrapsUsed >= shopSlot.Length)
@@ -75,7 +105,7 @@ public class ShopScript : MonoBehaviour
                 }
                 for (int j = 0; j < scraps.Length; j++)
                 {
-                    if (scraps[j].scrapRarity == currentRarity)
+                    if (scraps[j].scrapRarity == currentRarity && scrapsInType[j] == true)
                     {
                         rarityScraps.Add(scraps[j]);
                     }

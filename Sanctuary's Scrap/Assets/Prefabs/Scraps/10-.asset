@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad765d26e548c9844b94803b1294721b, type: 3}
+  m_Name: 10-
+  m_EditorClassIdentifier: 
+  relStatsCount: 0
+  scrapName: 10
+  scrapId: 10
+  scrapRarity: 0
+  scrapType: 0
+  description: 
+  statsDescPos: 
+  statsDescMid: 
+  statsDescBad: 
+  fireSpeed: 0
+  fireSpeedRel: 0
+  bulletDamage: 0
+  bulletDamageRel: 0
+  accuracy: 0
+  accuracyRel: 0
+  magSizeAdd: 0
+  magSizeAddRel: 0
+  magSizeMult: 0
+  magSizeMultRel: 0
+  reloadSpeed: 0
+  reloadSpeedRel: 0
+  health: 0
+  healthRel: 0
+  healthRecharge: 0
+  healthRechargeRel: 0
+  movementSpeed: 0
+  movementSpeedRel: 0
+  damageResistance: 0
+  damageResistanceRel: 0
+  ability: 0
+  abilityRel: 0
+  weakSpot: 0
+  weakSpotRel: 0
+  critChance: 0
+  critChanceRel: 0
+  dodgeChance: 0
+  dodgeChanceRel: 0
+  extraInfo: 
+  extraInfoRel: 0
+  effectTime: 0
+  onEnemy: 0
+  whileReload: 0
+  onGetHit: 0
+  onKillEnemy: 0
+  diminishing: 0
+  diminishStat: 
+  diminishMax: 0
+  secondary: 0
+  secondaryRel: 0
+  mobilty: 0
+  mobiltyRel: 0
+  core: 0
+  coreRel: 0

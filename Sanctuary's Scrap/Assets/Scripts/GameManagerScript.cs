@@ -37,6 +37,8 @@ public class GameManagerScript : MonoBehaviour
     public int nextRoomRandScrap1;
     public int nextRoomRandScrap2;
 
+    public static int thisRoomRandScrap;
+
     public float shopProb;
 
     void Start()
@@ -69,6 +71,7 @@ public class GameManagerScript : MonoBehaviour
         roomClear = false;
         SpawnReward();
         roomCount = 0;
+        thisRoomRandScrap = -1;
         roomCountUI.text = roomCount.ToString();
     }
     public void RoomSpawn()
@@ -90,6 +93,14 @@ public class GameManagerScript : MonoBehaviour
         enemySpawning = true;
         roomClear = false;
         roomCount += 1;
+        if (NewPlayerMove.doorChosen == 1)
+        {
+            thisRoomRandScrap = nextRoom1;
+        }
+        else if (NewPlayerMove.doorChosen == 2)
+        {
+            thisRoomRandScrap = nextRoom2;
+        }
         roomCountUI.text = roomCount.ToString();
     }
     void Update()
@@ -179,7 +190,7 @@ public class GameManagerScript : MonoBehaviour
         nextRoomRandScrap2 = Random.Range(0, 4);
         if (nextRoomRandScrap2 == nextRoomRandScrap1)
         {
-            if (nextRoom1 == 4)
+            if (nextRoom1 == 4 || nextRoom1 == 5)
             {
                 nextRoom2 = 0;
             }
@@ -194,16 +205,22 @@ public class GameManagerScript : MonoBehaviour
         }
 
 
-            Destroy(currentChest.gameObject);
+        Destroy(currentChest.gameObject);
         currentDoors = new List<GameObject>();
         for (int i = 0; i < currentRoom.transform.GetChild(3).GetChild(3).childCount; i++)
         {
             if (currentRoom.transform.GetChild(3).GetChild(3).GetChild(i).tag == "Exit")
             {
                 currentRoom.transform.GetChild(3).GetChild(3).GetChild(i).transform.GetChild(0).GetComponent<Animator>().SetTrigger("DoorOpen");
+                Collider[] doorTriggers = currentRoom.transform.GetChild(3).GetChild(3).GetChild(i).GetComponents<Collider>();
+                doorTriggers[1].enabled = true;
                 if (i == 0)
                 {                  
-                    currentRoom.transform.GetChild(3).GetChild(3).GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = "";
+                    currentRoom.transform.GetChild(3).GetChild(3).GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = (nextRoom1).ToString();
+                }
+                if (i == 1)
+                {
+                    currentRoom.transform.GetChild(3).GetChild(3).GetChild(i).GetChild(1).GetComponent<TMP_Text>().text = (nextRoom2).ToString();
                 }
             }
         }

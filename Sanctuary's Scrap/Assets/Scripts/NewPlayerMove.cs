@@ -44,6 +44,8 @@ public class NewPlayerMove : MonoBehaviour
     public GameObject abilityPanel;
     private GameObject mobilityPanel;
 
+    public static int doorChosen;
+
 
     // Start is called before the first frame update
     void Start()
@@ -220,6 +222,7 @@ public class NewPlayerMove : MonoBehaviour
         else if (other.gameObject.tag == ("Exit"))
         {
             nearExit = true;
+            doorChosen = other.gameObject.GetComponent<ExitDoorScript>().doorID;
         }
     }
     private void OnTriggerExit(Collider other)

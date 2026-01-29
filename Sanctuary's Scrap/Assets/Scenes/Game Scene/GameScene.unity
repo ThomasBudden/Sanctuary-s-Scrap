@@ -1250,7 +1250,7 @@ PrefabInstance:
       objectReference: {fileID: 963413104}
     - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
       propertyPath: scraps.Array.size
-      value: 8
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
       propertyPath: 'scraps.Array.data[0]'
@@ -1285,9 +1285,69 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d99e21f6c17928c49b7adcf0d46a8496, type: 2}
     - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[8]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 82afb189e36dc734ab4499c4c2fc30f5, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[9]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 789796ebbe7c0d546ba99bfb934cb6a9, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
       propertyPath: charScraps.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[10]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 943253fe3c4e9054999f551e1b830407, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[11]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1048cd2e1db83d94b8d8a791a9a3658c, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[12]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c78d2449e5c2f245be594177dd040c1, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[13]'
+      value: 
+      objectReference: {fileID: 11400000, guid: ac898d5516081b047bfec0cb1f7e4a0b, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[14]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7fb40c838fec6a040a35cab5d9618126, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[15]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6745d019ae00ca54494eab4984cd2edf, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[16]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c55fe74eb78eab244aa39b608adabe9f, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[17]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d24767ee2e6521d47ac415ce6d663060, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[18]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c467ead9977b5f943b0be0b2ed74cbc4, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[19]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c2b28ef9b5045e94297344f0423bb38f, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[20]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 271c3242615039d42842756e8c194bb2, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[21]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 741fc10a59068f349ace434536b60079, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[22]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f17355ba2b9479844843e1ea064ad6b8, type: 2}
     - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
       propertyPath: 'shopSlot.Array.data[0]'
       value: 
@@ -1984,6 +2044,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1317758126}
+    - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
+      propertyPath: shopProb
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: charPanel
       value: 
