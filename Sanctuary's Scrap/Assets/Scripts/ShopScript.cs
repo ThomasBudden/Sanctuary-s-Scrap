@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShopScript : MonoBehaviour
@@ -21,6 +17,7 @@ public class ShopScript : MonoBehaviour
     public ScrapScriptable[] slotScrap = new ScrapScriptable[3];
     public ScrapScriptable[] charScraps;
     private int currentRarity;
+    private int randScrap;
     private ScrapScriptable chosenScrap;
     private int numScrapsUsed;
     private int numScrapType;
@@ -50,44 +47,45 @@ public class ShopScript : MonoBehaviour
     public void RollTheShop()
     {
         Debug.Log(GameManagerScript.thisRoomRandScrap);
-        for (int i = 0; i < usedScraps.Length; i++)
+        for (int i = 0; i < usedScraps.Length; i++) // checking the number of Scraps that have been used
         {
-            if (usedScraps[i] == true)
+            if (usedScraps[i] == true) // for the number of different scraps, if it is checked as true in the usedScraps array, the number of Scraps that have been used is increased by 1
             {
                 numScrapsUsed += 1;
             }
         }
-        for (int i = 0; i < scraps.Length; i++)
+        for (int i = 0; i < scraps.Length; i++) // checking and making an array of the scraps that are in the rooms scrap type
         {
-            if (scraps[i].scrapType == GameManagerScript.thisRoomRandScrap)
+            Debug.Log("Cheking Type");
+            if (scraps[i].scrapType == GameManagerScript.thisRoomRandScrap) // if i is the same type as the room, the corosponding boolen in the scrapsOfType array is checked as true and the number of scraps in the type is increased by 1
             {
                 numScrapType += 1;
                 scrapsInType[i] = true;
                 roomIsShop = false;
             }
-            else if (GameManagerScript.thisRoomRandScrap == -1)
+            else if (GameManagerScript.thisRoomRandScrap == -1) // if the room type if -1, all scraps are set as scrap in type
             {
-                for (int j = 0; j < scraps.Length; j++)
-                {
-                    scrapsInType[i] = true;
-                }
+                scrapsInType[i] = true;
+                numScrapType += 1;
             }
-            else if (GameManagerScript.thisRoomRandScrap == 5)
+            else if (GameManagerScript.thisRoomRandScrap == 5) // if the room type is 5, the room is a shop
             {
                 roomIsShop = true;
             }
-            else if (scraps[i].scrapType == GameManagerScript.thisRoomRandScrap)
+            else if (scraps[i].scrapType != GameManagerScript.thisRoomRandScrap) // if i is not the same type as the room, the corosponding boolen in the scrapsOfType array is checked as false and the number of scraps in the type is reduced by 1
             {
                 scrapsInType[i] = false;
+                numScrapType -= 1;
             }
         }
-        if (usedScraps.Length - numScrapsUsed >= shopSlot.Length)
+        if (usedScraps.Length - numScrapsUsed >= shopSlot.Length) // if the number of avalible scraps is greater or equal to the number of slots in the shop
         {
-            for (int i = 0; i < shopSlot.Length; i++)
+            for (int i = 0; i < shopSlot.Length; i++) // for every slots in the shop
             {
-                rarityScraps = new List<ScrapScriptable>();
-                int rarityRand = Random.Range(1, 101);
-                if (rarityRand > 94)
+                Debug.Log("doing rarity");
+                rarityScraps = new List<ScrapScriptable>(); // create a new list to hold scraps that qualify
+                int rarityRand = Random.Range(1, 101); // pick a random number
+                if (rarityRand > 94) // check what rarity that makes it
                 {
                     currentRarity = 3;
                 }
@@ -103,23 +101,34 @@ public class ShopScript : MonoBehaviour
                 {
                     currentRarity = 0;
                 }
-                for (int j = 0; j < scraps.Length; j++)
+                for (int j = 0; j < scraps.Length; j++) // for the number of scraps
                 {
-                    if (scraps[j].scrapRarity == currentRarity && scrapsInType[j] == true)
+                    Debug.Log("checking rarity and type");
+                    if (scraps[j].scrapRarity == currentRarity && scrapsInType[j] == true) // check if the scrap qualifies by being the correct rarity and type. Then add it to the rarityScrap list
                     {
                         rarityScraps.Add(scraps[j]);
                     }
                 }
-                int randScrap = Random.Range(0, rarityScraps.Count);
-                for (int j = 0; j < usedScraps.Length; j++)
+                randScrap = Random.Range(0, rarityScraps.Count); // pick a random scrap from the scraps of the correct rarity and type
+                for (int j = 0; j < usedScraps.Length; j++) // for the number of scraps
                 {
-                    if (rarityScraps[randScrap].scrapId == scraps[j].scrapId && usedScraps[j] == true)
+                    Debug.Log("Checking if used");
+                    if (rarityScraps[randScrap].scrapId == scraps[j].scrapId && usedScraps[j] == true) // check whether it was already been selected in this roll of the shop. It if has, go back to the rarity selection
                     {
+                        Debug.Log("Used");
                         i -= 1;
                     }
-                    else if (rarityScraps[randScrap].scrapId == scraps[j].scrapId && usedScraps[j] == false)
+                    else if (rarityScraps.Count < shopSlot.Length)
                     {
+                        Debug.Log("Rarity scraps too small");
+                        i -= 1;
+                    }
+                    else if (rarityScraps[randScrap].scrapId == scraps[j].scrapId && usedScraps[j] == false) // check whether it has not been selected in this roll
+                    {
+                        Debug.Log("Giving slots");
                         chosenScrap = rarityScraps[randScrap];
+                        Debug.Log(chosenScrap);
+                        Debug.Log(rarityScraps.Count);
                         shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().text = chosenScrap.scrapName;
                         if (chosenScrap.scrapType == 0)
                         {
@@ -203,7 +212,7 @@ public class ShopScript : MonoBehaviour
     public void onRoomRewardChosen()
     {
         shopRolled = false;
-        for (int i = 0;  i < usedScraps.Length; i++)
+        for (int i = 0; i < usedScraps.Length; i++)
         {
             usedScraps[i] = false;
         }

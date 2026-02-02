@@ -17,10 +17,10 @@ MonoBehaviour:
   scrapId: 18
   scrapRarity: 0
   scrapType: 3
-  description: 
-  statsDescPos: 
-  statsDescMid: 
-  statsDescBad: 
+  description: .
+  statsDescPos: .
+  statsDescMid: .
+  statsDescBad: .
   fireSpeed: 0
   fireSpeedRel: 0
   bulletDamage: 0

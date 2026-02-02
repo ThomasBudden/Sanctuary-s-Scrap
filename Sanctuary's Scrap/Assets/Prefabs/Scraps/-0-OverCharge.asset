@@ -16,7 +16,7 @@ MonoBehaviour:
   scrapName: OverChargeCharacter
   scrapId: -1
   scrapRarity: 0
-  scrapType: 0
+  scrapType: -2
   description: 
   statsDescPos: 
   statsDescMid: 

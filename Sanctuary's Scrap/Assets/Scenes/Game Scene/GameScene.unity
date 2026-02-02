@@ -337,6 +337,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7029001031938314795, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
+      propertyPath: doLines
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7029001031938314795, guid: 9319f68bc8f5e1146b9d04df15200681, type: 3}
       propertyPath: maxAmmo
       value: 0
       objectReference: {fileID: 0}

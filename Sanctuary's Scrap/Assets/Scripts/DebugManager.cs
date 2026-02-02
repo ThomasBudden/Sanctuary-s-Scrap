@@ -69,5 +69,14 @@ public class DebugManager : MonoBehaviour
         {
 
         }
+        else if (commandStep == 0 && command == "God")
+        {
+            HitScanShootingScript shootingScript = this.GetComponent<HitScanShootingScript>();
+            shootingScript.shotSpeed = 100;
+            shootingScript.maxAmmo = 10000;
+            shootingScript.ammoCount = 10000;
+            commandStep = 0;
+            CloseMenu();
+        }
     }
 }
