@@ -107,73 +107,91 @@ public class ShopScript : MonoBehaviour
                     if (scraps[j].scrapRarity == currentRarity && scrapsInType[j] == true) // check if the scrap qualifies by being the correct rarity and type. Then add it to the rarityScrap list
                     {
                         rarityScraps.Add(scraps[j]);
-                    }
-                }
-                randScrap = Random.Range(0, rarityScraps.Count); // pick a random scrap from the scraps of the correct rarity and type
-                for (int j = 0; j < usedScraps.Length; j++) // for the number of scraps
-                {
-                    Debug.Log("Checking if used");
-                    if (rarityScraps[randScrap].scrapId == scraps[j].scrapId && usedScraps[j] == true) // check whether it was already been selected in this roll of the shop. It if has, go back to the rarity selection
-                    {
-                        Debug.Log("Used");
-                        i -= 1;
-                    }
-                    else if (rarityScraps.Count < shopSlot.Length)
-                    {
-                        Debug.Log("Rarity scraps too small");
-                        i -= 1;
-                    }
-                    else if (rarityScraps[randScrap].scrapId == scraps[j].scrapId && usedScraps[j] == false) // check whether it has not been selected in this roll
-                    {
-                        Debug.Log("Giving slots");
-                        chosenScrap = rarityScraps[randScrap];
-                        Debug.Log(chosenScrap);
                         Debug.Log(rarityScraps.Count);
-                        shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().text = chosenScrap.scrapName;
-                        if (chosenScrap.scrapType == 0)
-                        {
-                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.red;
-                        }
-                        else if (chosenScrap.scrapType == 1)
-                        {
-                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.blue;
-                        }
-                        else if (chosenScrap.scrapType == 2)
-                        {
-                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.purple;
-                        }
-                        else if (chosenScrap.scrapType == 3)
-                        {
-                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.green;
-                        }
-                        else if (chosenScrap.scrapType == 4)
-                        {
-                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.yellow;
-                        }
-                        shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().text = chosenScrap.description;
-                        if (chosenScrap.scrapRarity == 0)
-                        {
-                            shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.black;
-                        }
-                        else if (chosenScrap.scrapRarity == 1)
-                        {
-                            shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.blue;
-                        }
-                        else if (chosenScrap.scrapRarity == 2)
-                        {
-                            shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.purple;
-                        }
-                        else if (chosenScrap.scrapRarity == 3)
-                        {
-                            shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.gold;
-                        }
-                        shopSlot[i].transform.GetChild(2).GetComponent<TMP_Text>().text = chosenScrap.statsDescPos;
-                        shopSlot[i].transform.GetChild(3).GetComponent<TMP_Text>().text = chosenScrap.statsDescBad;
-                        shopSlot[i].transform.GetChild(4).GetComponent<TMP_Text>().text = chosenScrap.statsDescMid;
-                        usedScraps[j] = true;
-                        slotScrap[i] = chosenScrap;
                     }
                 }
+
+
+                //Up to this point we have a list with only the possible scraps that can be used
+                if (rarityScraps.Count <= 0)
+                {
+                    i -= 1;
+                }
+                else if (rarityScraps.Count >= 1)
+                {
+                    randScrap = Random.Range(0, rarityScraps.Count - 1); // pick a random scrap from the scraps of the correct rarity and type
+                    for (int j = 0; j < usedScraps.Length; j++) // for the number of scraps
+                    {
+                        Debug.Log("Checking if used" + "J=" + j + "randScrap =" + randScrap);
+                        if (rarityScraps[randScrap].scrapId == scraps[j].scrapId && usedScraps[j] == true) // check whether it was already been selected in this roll of the shop. It if has, go back to the rarity selection
+                        {
+                            Debug.Log("Used" + i);
+                            i -= 1;
+                        }
+                        /*else if (rarityScraps.Count < shopSlot.Length)
+                        {
+                            Debug.Log("Rarity scraps too small");
+                            if (currentRarity != 0)
+                            {
+                                currentRarity -= 1;
+                                i -= 1;
+                                Debug.Log("Current Rarity " + currentRarity);
+                            }
+                        }*/
+                        else if (rarityScraps[randScrap].scrapId == scraps[j].scrapId && usedScraps[j] == false) // check whether it has not been selected in this roll
+                        {
+                            Debug.Log("Giving slots");
+                            chosenScrap = rarityScraps[randScrap];
+                            Debug.Log(chosenScrap);
+                            Debug.Log(rarityScraps.Count);
+                            Debug.Log(i);
+                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().text = chosenScrap.scrapName;
+                            if (chosenScrap.scrapType == 0)
+                            {
+                                shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.red;
+                            }
+                            else if (chosenScrap.scrapType == 1)
+                            {
+                                shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.blue;
+                            }
+                            else if (chosenScrap.scrapType == 2)
+                            {
+                                shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.purple;
+                            }
+                            else if (chosenScrap.scrapType == 3)
+                            {
+                                shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.green;
+                            }
+                            else if (chosenScrap.scrapType == 4)
+                            {
+                                shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.yellow;
+                            }
+                            shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().text = chosenScrap.description;
+                            if (chosenScrap.scrapRarity == 0)
+                            {
+                                shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.black;
+                            }
+                            else if (chosenScrap.scrapRarity == 1)
+                            {
+                                shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.blue;
+                            }
+                            else if (chosenScrap.scrapRarity == 2)
+                            {
+                                shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.purple;
+                            }
+                            else if (chosenScrap.scrapRarity == 3)
+                            {
+                                shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.gold;
+                            }
+                            shopSlot[i].transform.GetChild(2).GetComponent<TMP_Text>().text = chosenScrap.statsDescPos;
+                            shopSlot[i].transform.GetChild(3).GetComponent<TMP_Text>().text = chosenScrap.statsDescBad;
+                            shopSlot[i].transform.GetChild(4).GetComponent<TMP_Text>().text = chosenScrap.statsDescMid;
+                            usedScraps[j] = true;
+                            slotScrap[i] = chosenScrap;
+                        }
+                    }
+                }
+                
             }
         }
         else if (usedScraps.Length - numScrapsUsed < shopSlot.Length)
