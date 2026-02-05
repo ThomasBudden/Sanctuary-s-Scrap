@@ -102,6 +102,7 @@ public class GameManagerScript : MonoBehaviour
         }
         roomCountUI.text = roomCount.ToString();
         player.transform.position = currentRoom.transform.GetChild(0).transform.position;
+        Debug.Log(("This room rand scrap = ") +thisRoomRandScrap.ToString());
     }
     void Update()
     {
@@ -184,10 +185,10 @@ public class GameManagerScript : MonoBehaviour
         }
         if (nextRoomRand < shopProb)
         {
-            nextRoomRandScrap1 = Random.Range(0, 4);
+            nextRoomRandScrap1 = Random.Range(0, 5);
             nextRoom1 = nextRoomRandScrap1;
         }
-        nextRoomRandScrap2 = Random.Range(0, 4);
+        nextRoomRandScrap2 = Random.Range(0, 5);
         if (nextRoomRandScrap2 == nextRoomRandScrap1)
         {
             if (nextRoom1 == 4 || nextRoom1 == 5)

@@ -25,6 +25,8 @@ public class ShopScript : MonoBehaviour
     public ScrapScriptable currentScrap;
     public bool roomIsShop;
 
+    public int _debugFlag;
+
     void Start()
     {
         EventManager.current.RoomRewardInteract += StartShopping;
@@ -191,7 +193,13 @@ public class ShopScript : MonoBehaviour
                         }
                     }
                 }
-                
+                _debugFlag += 1;
+              
+                if (_debugFlag > 1000)
+                {
+                    Debug.LogError(_debugFlag + "is full... now breaking");
+                    return;
+                }
             }
         }
         else if (usedScraps.Length - numScrapsUsed < shopSlot.Length)

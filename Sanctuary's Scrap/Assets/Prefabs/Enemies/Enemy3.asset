@@ -17,7 +17,7 @@ MonoBehaviour:
   stoppingDistance: 20
   retreatDistance: 7.5
   attackDistance: 100
-  health: 100
+  health: 50
   damage: 10
   movementSpeed: 0.5
   turnSpeed: 1
