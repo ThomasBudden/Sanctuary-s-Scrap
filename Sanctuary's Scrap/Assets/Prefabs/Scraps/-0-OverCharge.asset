@@ -21,7 +21,7 @@ MonoBehaviour:
   statsDescPos: 
   statsDescMid: 
   statsDescBad: 
-  fireSpeed: 4
+  fireSpeed: 8
   fireSpeedRel: 1
   bulletDamage: 5
   bulletDamageRel: 1
