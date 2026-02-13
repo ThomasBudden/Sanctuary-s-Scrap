@@ -1254,7 +1254,7 @@ PrefabInstance:
       objectReference: {fileID: 963413104}
     - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
       propertyPath: scraps.Array.size
-      value: 23
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
       propertyPath: 'scraps.Array.data[0]'
@@ -1352,6 +1352,10 @@ PrefabInstance:
       propertyPath: 'scraps.Array.data[22]'
       value: 
       objectReference: {fileID: 11400000, guid: f17355ba2b9479844843e1ea064ad6b8, type: 2}
+    - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
+      propertyPath: 'scraps.Array.data[23]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a119bbe7fc265a54a8807eb58d341433, type: 2}
     - target: {fileID: 366971973256943838, guid: ddca33f177bda784e8b68538ee185b8e, type: 3}
       propertyPath: 'shopSlot.Array.data[0]'
       value: 

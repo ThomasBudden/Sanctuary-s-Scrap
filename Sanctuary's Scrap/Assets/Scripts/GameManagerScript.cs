@@ -29,6 +29,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject rewardSpawn;
     public GameObject rewardChest;
     public GameObject currentChest;
+    public GameObject currentPlayerSpawn;
     public bool roomClear;
     public int roomCount;
 
@@ -65,7 +66,8 @@ public class GameManagerScript : MonoBehaviour
     public void StartRoomSpawn()
     {
         currentRoom = Instantiate(room0Array[0], new Vector3(0, 0, 0), Quaternion.identity);
-        player.transform.position = currentRoom.transform.GetChild(0).transform.position;
+        currentPlayerSpawn = currentRoom.transform.GetChild(0).gameObject;
+        player.transform.position = currentPlayerSpawn.transform.position;
         rewardSpawn = currentRoom.transform.GetChild(2).transform.gameObject;
         enemySpawning = false;
         roomClear = false;
@@ -101,7 +103,11 @@ public class GameManagerScript : MonoBehaviour
             thisRoomRandScrap = nextRoom2;
         }
         roomCountUI.text = roomCount.ToString();
-        player.transform.position = currentRoom.transform.GetChild(0).transform.position;
+        currentPlayerSpawn = currentRoom.transform.GetChild(0).gameObject;
+        player.GetComponent<CharacterController>().enabled = false;
+        player.transform.position = currentPlayerSpawn.transform.position;
+        player.GetComponent<CharacterController>().enabled = true;
+        //Debug.Log("Player spawn location = " + currentPlayerSpawn.transform.position);
         Debug.Log(("This room rand scrap = ") +thisRoomRandScrap.ToString());
     }
     void Update()
@@ -110,6 +116,8 @@ public class GameManagerScript : MonoBehaviour
         {
             EventManager.current.onPlayerOpenMenu();
         }
+
+
         if (wave < 2 && enemysActive <= 0 && enemySpawning == true)
         {
             wave = wave + 1;
