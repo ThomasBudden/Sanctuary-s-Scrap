@@ -9,7 +9,8 @@ using UnityEngine.UIElements;
 public class NewAiNavScript : MonoBehaviour
 {
     private GameObject player;
-    private GameObject body;
+    public GameObject body;
+    public GameObject head;
     private NavMeshAgent agent;
     private Vector3 direction;
     private float distance;
@@ -19,27 +20,32 @@ public class NewAiNavScript : MonoBehaviour
     public bool damageTaken;
     public Material enemyMat;
     public Material hitMat;
-    public int roomCount;
+    public GameObject model;
 
     public EnemyScriptable enemyStats;
-    private float attackSpeed;
-    private float stoppingDistance;
-    private float retreatDistance;
-    private float attackDistance;
+    public float attackSpeed;
+    public float stoppingDistance;
+    public float retreatDistance;
+    public float attackDistance;
     public float health;
-    private float maxHealth;
-    private float damage;
-    private float movementSpeed;
-    private float turnSpeed;
-    private GameObject proj;
-    private float projSize;
-    private float projSpeed;
+    public float maxHealth;
+    public float damage;
+    public float movementSpeed;
+    public float turnSpeed;
+    public GameObject proj;
+    public float projSize;
+    public float projSpeed;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         agent = this.GetComponent<NavMeshAgent>();
-        body = this.transform.GetChild(0).gameObject;
+    }
+
+    public void OnEnemyActivated()
+    {
+        model = Instantiate(enemyStats.enemyBody, this.transform.position, Quaternion.identity);
+        model.transform.parent = this.transform;
         attackSpeed = enemyStats.attackSpeed;
         stoppingDistance = enemyStats.stoppingDistance;
         retreatDistance = enemyStats.retreatDistance;
@@ -52,7 +58,9 @@ public class NewAiNavScript : MonoBehaviour
         proj = enemyStats.Projectile;
         projSize = enemyStats.projSize;
         projSpeed = enemyStats.projSpeed;
-        this.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (health + " / " + maxHealth);
+        model.transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = (health + " / " + maxHealth);
+        body = model.transform.GetChild(1).gameObject;
+        head = model.transform.GetChild(2).gameObject;
     }
 
     // Update is called once per frame
@@ -98,7 +106,8 @@ public class NewAiNavScript : MonoBehaviour
         }
         if (hitTime + 0.1f < Time.time)
         {
-                this.transform.GetChild(0).GetComponent<Renderer>().material = enemyMat;
+            body.transform.GetChild(0).GetComponent<Renderer>().material = enemyMat;
+            head.transform.GetChild(0).GetComponent<Renderer>().material = enemyMat;
         }
         this.transform.GetChild(1).transform.LookAt(new Vector3(this.transform.position.x - (player.transform.position.x - this.transform.position.x), this.transform.position.y + 0.5f, this.transform.position.z - (player.transform.position.z - this.transform.position.z)));
     }
@@ -125,12 +134,13 @@ public class NewAiNavScript : MonoBehaviour
         if (health > 0)
         {
             hitTime = Time.time;
-            this.transform.GetChild(0).GetComponent<Renderer>().material = hitMat;
+            body.transform.GetChild(0).GetComponent<Renderer>().material = hitMat;
+            head.transform.GetChild(0).GetComponent<Renderer>().material = hitMat;
         }
         else if (health <= 0)
         {
+            EventManager.current.onEnemyKilled();
             gameObject.SetActive(false);
-            GameManagerScript.enemysActive -= 1;
             this.transform.position = new Vector3(0, -10, 0);
             health = maxHealth;
         }

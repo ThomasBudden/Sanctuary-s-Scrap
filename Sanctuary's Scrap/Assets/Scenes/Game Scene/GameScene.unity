@@ -1735,7 +1735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cc6ee67ddb495140b1d6d5087635b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 3439357468677119390, guid: 4b831d7b02373a84aaa164a85686a6a8, type: 3}
+  enemy: {fileID: 5578852971260529820, guid: 2dc2ed19beddd8e4596a7a97c6e1b70a, type: 3}
   ePSize: 30
   startPlat: {fileID: 1834903947}
 --- !u!4 &1812906333
@@ -2047,7 +2047,7 @@ PrefabInstance:
     - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: enemy
       value: 
-      objectReference: {fileID: 3439357468677119390, guid: 4b831d7b02373a84aaa164a85686a6a8, type: 3}
+      objectReference: {fileID: 5578852971260529820, guid: 2dc2ed19beddd8e4596a7a97c6e1b70a, type: 3}
     - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: player
       value: 
@@ -2061,6 +2061,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 999962622}
     - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
+      propertyPath: enemyModels
+      value: 
+      objectReference: {fileID: 3512588549866777935, guid: 040a9390e99e9b94eb6412d744f54bbb, type: 3}
+    - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: rewardChest
       value: 
       objectReference: {fileID: 2081675539140064373, guid: 90667968c9d543743b023456120029d4, type: 3}
@@ -2073,12 +2077,20 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
+      propertyPath: waveStats.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: enemyStats.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: room0Array.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
+      propertyPath: enemyModels.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: 'roomArray.Array.data[0]'
@@ -2092,6 +2104,10 @@ PrefabInstance:
       propertyPath: 'roomArray.Array.data[2]'
       value: 
       objectReference: {fileID: 7117461113189754784, guid: d9e4416966325384887b918c87319988, type: 3}
+    - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
+      propertyPath: 'waveStats.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b8193147a1e25de428575b61a98de524, type: 2}
     - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: 'enemyStats.Array.data[0]'
       value: 
@@ -2108,6 +2124,10 @@ PrefabInstance:
       propertyPath: 'room0Array.Array.data[0]'
       value: 
       objectReference: {fileID: 6562297635808432078, guid: 9ae9d625a14aef84d84c760030d34d25, type: 3}
+    - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
+      propertyPath: 'enemyModels.Array.data[1]'
+      value: 
+      objectReference: {fileID: 3512588549866777935, guid: 040a9390e99e9b94eb6412d744f54bbb, type: 3}
     - target: {fileID: 3157546089800283710, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: m_Name
       value: GameManager

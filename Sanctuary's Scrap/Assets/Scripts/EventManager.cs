@@ -92,4 +92,22 @@ public class EventManager : MonoBehaviour
             CharChosen();
         }
     }
+
+    public event Action StartEnemySpawn;
+    public void onStartEnemySpawn()
+    {
+        if (StartEnemySpawn != null)
+        {
+            StartEnemySpawn();
+        }
+    }
+
+    public event Action EnemyKilled;
+    public void onEnemyKilled()
+    {
+        if(EnemyKilled != null)
+        {
+            EnemyKilled();
+        }
+    }
 }

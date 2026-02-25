@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77480c339fdd2594097c3bc445ac110e, type: 3}
   m_Name: Enemy3
   m_EditorClassIdentifier: 
+  enemyBody: {fileID: 3512588549866777935, guid: 2b71e84c7024de740ad4ed6a53781d69, type: 3}
   size: 1.5
   attackSpeed: 0.75
   stoppingDistance: 20

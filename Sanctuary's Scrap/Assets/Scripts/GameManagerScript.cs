@@ -11,20 +11,31 @@ public class GameManagerScript : MonoBehaviour
     public bool charSelect;
     public GameObject charPanel;
     public TMP_Text roomCountUI;
+
     public GameObject enemy;
     public EnemyScriptable[] enemyStats;
+    public int enemyToSpawn;
+
+    public WaveTypeScriptable[] waveStats;
+    public int waveRand;
+    public int numbEnemy1Used;
+    public int numbEnemy2Used;
+    public int numbEnemy3Used;
+    public int numbEnemy4Used;
+    public int numbEnemy5Used;
+
     public GameObject[] room0Array;
     public GameObject[] roomArray;
     public GameObject currentRoom;
     public List<GameObject> currentDoors;
     public List<GameObject> enemySpawns;
     private float startTime;
-    public List<GameObject> usedSpawns;
-    public int clear;
+    public bool[] usedSpawns;
     public int wave;
+    public WaveTypeScriptable currentWave;
     public int spawnTest;
     public int randSpawn;
-    public static int enemysActive;
+    public static int enemiesActive;
     public bool enemySpawning;
     public GameObject rewardSpawn;
     public GameObject rewardChest;
@@ -46,7 +57,9 @@ public class GameManagerScript : MonoBehaviour
     {
         EventManager.current.RoomRewardChosen += OnRoomRewardChosen;
         EventManager.current.StartRoom += RoomSpawn;
-        EventManager.current.CharChosen += onCharChosen;
+        EventManager.current.CharChosen += OnCharChosen;
+        EventManager.current.StartEnemySpawn += OnStartEnemySpawn;
+        EventManager.current.EnemyKilled += OnEnemyKilled;
         StartUp();
         startTime = Time.time;
     }
@@ -57,7 +70,7 @@ public class GameManagerScript : MonoBehaviour
         EventManager.current.onPlayerOpenMenu();
         StartRoomSpawn();
     }
-    private void onCharChosen()
+    private void OnCharChosen()
     {
         charPanel.SetActive(false);
         EventManager.current.onPlayerCloseMenu();
@@ -109,6 +122,8 @@ public class GameManagerScript : MonoBehaviour
         player.GetComponent<CharacterController>().enabled = true;
         //Debug.Log("Player spawn location = " + currentPlayerSpawn.transform.position);
         Debug.Log(("This room rand scrap = ") +thisRoomRandScrap.ToString());
+        wave = 0;
+        EventManager.current.onStartEnemySpawn();
     }
     void Update()
     {
@@ -118,7 +133,7 @@ public class GameManagerScript : MonoBehaviour
         }
 
 
-        if (wave < 2 && enemysActive <= 0 && enemySpawning == true)
+        /*if (wave < 2 && enemysActive <= 0 && enemySpawning == true)
         {
             wave = wave + 1;
             usedSpawns = new List<GameObject>();
@@ -178,8 +193,104 @@ public class GameManagerScript : MonoBehaviour
             roomClear = true;
             SpawnReward();
             wave = wave + 1;
+        }*/
+    }
+    public void OnStartEnemySpawn()
+    {
+        wave += 1;
+        waveRand = Random.Range(0, (waveStats.Length - 1));
+        currentWave = waveStats[waveRand];
+        usedSpawns = new bool[enemySpawns.Count];
+        enemiesActive = currentWave.totalEnemyCount;
+        numbEnemy1Used = 0;
+        numbEnemy2Used = 0;
+        numbEnemy3Used = 0;
+        numbEnemy4Used = 0;
+        numbEnemy5Used = 0;
+
+        for (int i = 0; i < currentWave.totalEnemyCount; i++) // for the number of enemies in the first wave
+        {
+            if (currentWave.enemy1Count > numbEnemy1Used)
+            {
+                enemyToSpawn = 1;
+                numbEnemy1Used += 1;
+            }
+            else if (currentWave.enemy2Count > numbEnemy2Used)
+            {
+                enemyToSpawn = 2;
+                numbEnemy2Used += 1;
+            }
+            else if (currentWave.enemy3Count > numbEnemy2Used)
+            {
+                enemyToSpawn = 3;
+                numbEnemy2Used += 1;
+            }
+            else if (currentWave.enemy4Count > numbEnemy4Used)
+            {
+                enemyToSpawn = 4;
+                numbEnemy2Used += 1;
+            }
+            else if (currentWave.enemy5Count > numbEnemy5Used)
+            {
+                enemyToSpawn = 5;
+                numbEnemy2Used += 1;
+            }
+            OnRandSpawn();
         }
     }
+    public void OnRandSpawn()
+    {
+        randSpawn = Random.Range(0, (enemySpawns.Count - 1)); // pick a random spawn point
+        OnRandSpawnCheck();
+    }
+    public void OnRandSpawnCheck()
+    {
+        for (int j = 0; j < usedSpawns.Length; j++)
+        {
+            if (j == randSpawn)
+            {
+                if (usedSpawns[j] == true)
+                {
+                    OnRandSpawn();
+                    break;
+                }
+                else if(usedSpawns[j] != true)
+                {
+                    OnSpawnEnemy();
+                    break;
+                }
+            }
+        }
+    }
+    public void OnSpawnEnemy()
+    {
+        GameObject lastEnemy = EnemyPoolManager.ePInstance.GetEnemy();
+        lastEnemy.transform.position = enemySpawns[randSpawn].transform.position;
+        lastEnemy.transform.rotation = Quaternion.identity;
+        lastEnemy.SetActive(true);
+        lastEnemy.GetComponent<NewAiNavScript>().enemyStats = enemyStats[enemyToSpawn - 1];
+        lastEnemy.GetComponent<NewAiNavScript>().OnEnemyActivated();
+        usedSpawns[randSpawn] = true;
+    }
+
+    public void OnEnemyKilled()
+    {
+        enemiesActive -= 1;
+        if (enemiesActive <= 0)
+        {
+            if (wave == 1)
+            {
+                OnStartEnemySpawn();
+            }
+            else if (wave >= 2)
+            {
+                enemySpawning = false;
+                roomClear = true;
+                SpawnReward();
+            }
+        }
+    }
+
     public void SpawnReward()
     {
         currentChest = Instantiate(rewardChest, rewardSpawn.transform.position, Quaternion.identity);
