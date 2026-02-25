@@ -2054,7 +2054,7 @@ PrefabInstance:
       objectReference: {fileID: 1317758126}
     - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: shopProb
-      value: 75
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2195741364388678420, guid: 842ff802f6f46dd45a53f7449c166b4c, type: 3}
       propertyPath: charPanel
@@ -2326,6 +2326,14 @@ PrefabInstance:
     - target: {fileID: 6712414711841782583, guid: 2c1224de79b561e47850716f11cf50f7, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732069068302136471, guid: 2c1224de79b561e47850716f11cf50f7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 107.591064
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732069068302136471, guid: 2c1224de79b561e47850716f11cf50f7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 274.32935
       objectReference: {fileID: 0}
     - target: {fileID: 6741556797623100140, guid: 2c1224de79b561e47850716f11cf50f7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

@@ -92,7 +92,11 @@ public class StatsManagerScript : MonoBehaviour
             move.maxHealth = currentScrap.health;
             move.health = move.maxHealth;
 
+            move.regenAmount = currentScrap.healthRecharge;
+
             move.speed = currentScrap.movementSpeed;
+
+            shooting.critChance = currentScrap.critChance;
 
             if (currentScrap.secondaryRel == true)
             {
@@ -205,7 +209,10 @@ public class StatsManagerScript : MonoBehaviour
             }
 
 
-            // Health Recharge
+            if (currentScrap.healthRecharge > 0)
+            {
+                move.regenAmount += currentScrap.healthRecharge;
+            }
 
 
             if (currentScrap.movementSpeed > 0)

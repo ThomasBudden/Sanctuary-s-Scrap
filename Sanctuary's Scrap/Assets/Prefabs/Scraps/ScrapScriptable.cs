@@ -36,7 +36,7 @@ public class ScrapScriptable : ScriptableObject
     public bool damageResistanceRel;
     public int ability;
     public bool abilityRel;
-    public int weakSpot;
+    public float weakSpot;
     public bool weakSpotRel;
     public int critChance;
     public bool critChanceRel;

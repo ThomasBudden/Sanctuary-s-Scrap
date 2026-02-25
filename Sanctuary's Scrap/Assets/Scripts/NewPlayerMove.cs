@@ -204,6 +204,15 @@ public class NewPlayerMove : MonoBehaviour
     }
     private void OnStartRoom()
     {
+        if (health + regenAmount <= maxHealth)
+        {
+            health += regenAmount;
+        }
+        else if (health + regenAmount > maxHealth)
+        {
+            health = maxHealth;
+        }
+        mobilityRechargeStart = -100;
         roomFinished = false;
         nearExit = false;
     }

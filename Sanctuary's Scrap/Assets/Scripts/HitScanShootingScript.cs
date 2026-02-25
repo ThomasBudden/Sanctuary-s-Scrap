@@ -28,6 +28,7 @@ public class HitScanShootingScript : MonoBehaviour
     private Quaternion currentRotation;
     private Vector3 currentEulerAngles;
     public float damage;
+    public float critChance;
     public Transform muzzle;
     public GameObject lineTracer;
     private GameObject lastLine;
@@ -71,6 +72,7 @@ public class HitScanShootingScript : MonoBehaviour
     {
         ammoCount = maxAmmo;
         EventManager.current.CharChosen += onCharChosen;
+        EventManager.current.StartRoom += onStartRoom;
         secondaryPanel = abilityPanel.transform.GetChild(0).gameObject;
     }
     public void onCharChosen()
@@ -161,7 +163,15 @@ public class HitScanShootingScript : MonoBehaviour
                 if (hit.collider.gameObject.CompareTag("Enemy"))
                 {
                     GameObject lastEnemy = hit.collider.gameObject;
-                    lastEnemy.GetComponent<NewAiNavScript>().health -= damage;
+                    int critRand = Random.Range(1, 101);
+                    if (critRand > critChance)
+                    {
+                        lastEnemy.GetComponent<NewAiNavScript>().health -= damage;
+                    }
+                    else if (critRand <= critChance)
+                    {
+                        lastEnemy.GetComponent<NewAiNavScript>().health -= (damage * 2);
+                    }
                     lastEnemy.GetComponent<NewAiNavScript>().damageTaken = true;
                 }
                 else if (hit.collider.gameObject.CompareTag("Target"))
@@ -301,5 +311,10 @@ public class HitScanShootingScript : MonoBehaviour
                     crosshair[i].gameObject.transform.localPosition = new Vector3(0, -28 * (bulletDiv / 0.025f), 0);
             }
         }
+    }
+    public void onStartRoom()
+    {
+        secondaryRechargeStart = -100;
+        coreRechargeStart = -100;
     }
 }

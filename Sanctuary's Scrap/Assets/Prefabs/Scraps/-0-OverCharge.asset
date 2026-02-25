@@ -35,20 +35,20 @@ MonoBehaviour:
   reloadSpeedRel: 1
   health: 100
   healthRel: 1
-  healthRecharge: 0
-  healthRechargeRel: 0
+  healthRecharge: 3
+  healthRechargeRel: 1
   movementSpeed: 15
   movementSpeedRel: 1
   damageResistance: 0
   damageResistanceRel: 0
   ability: 0
   abilityRel: 0
-  weakSpot: 0
+  weakSpot: 1.5
   weakSpotRel: 0
-  critChance: 0
-  critChanceRel: 0
-  dodgeChance: 0
-  dodgeChanceRel: 0
+  critChance: 5
+  critChanceRel: 1
+  dodgeChance: 1
+  dodgeChanceRel: 1
   extraInfo: 
   extraInfoRel: 0
   effectTime: 0
