@@ -23,6 +23,7 @@ public class NewAiNavScript : MonoBehaviour
     public GameObject model;
 
     public EnemyScriptable enemyStats;
+    public int enemyTypeId;
     public float attackSpeed;
     public float stoppingDistance;
     public float retreatDistance;
@@ -46,6 +47,7 @@ public class NewAiNavScript : MonoBehaviour
     {
         model = Instantiate(enemyStats.enemyBody, this.transform.position, Quaternion.identity);
         model.transform.parent = this.transform;
+        enemyTypeId = enemyStats.enemyTypeId;
         attackSpeed = enemyStats.attackSpeed;
         stoppingDistance = enemyStats.stoppingDistance;
         retreatDistance = enemyStats.retreatDistance;
@@ -68,13 +70,12 @@ public class NewAiNavScript : MonoBehaviour
     {
         direction = (player.transform.position - this.transform.position).normalized;
         distance = Vector3.Distance(this.transform.position, player.transform.position);
-        //Debug.DrawLine(this.transform.position, this.transform.position + direction * 10, color: Color.red, Mathf.Infinity);
+        Debug.DrawLine(this.transform.position, this.transform.position + direction * 10, color: Color.red, Mathf.Infinity);
         RaycastHit hit;
         if (Physics.Raycast(this.transform.position, direction, out hit, Mathf.Infinity))
         {
             if (hit.collider.tag == "Player")
             {
-                body.transform.forward = Vector3.RotateTowards(body.transform.forward, direction, turnSpeed * Time.deltaTime, turnSpeed * Time.deltaTime);
                 lineOfSight = true;
                 if (distance < attackDistance && lastShotTime + attackSpeed < Time.time && Vector3.Angle(body.transform.forward, direction) < 30)
                 {
@@ -109,7 +110,8 @@ public class NewAiNavScript : MonoBehaviour
             body.transform.GetChild(0).GetComponent<Renderer>().material = enemyMat;
             head.transform.GetChild(0).GetComponent<Renderer>().material = enemyMat;
         }
-        this.transform.GetChild(1).transform.LookAt(new Vector3(this.transform.position.x - (player.transform.position.x - this.transform.position.x), this.transform.position.y + 0.5f, this.transform.position.z - (player.transform.position.z - this.transform.position.z)));
+        head.transform.forward = Vector3.RotateTowards(head.transform.forward, direction, turnSpeed * Time.deltaTime, 0.0f);
+        body.transform.LookAt(new Vector3(body.transform.position.x - (body.transform.position.x - player.transform.position.x), body.transform.position.y, body.transform.position.z - (body.transform.position.z - player.transform.position.z)));
     }
     public void Advance()
     {
@@ -125,7 +127,7 @@ public class NewAiNavScript : MonoBehaviour
     }
     public void Attack()
     {
-        GameObject lastProj = Instantiate(proj, this.transform.position, body.transform.rotation);
+        GameObject lastProj = Instantiate(proj, head.transform.position, head.transform.rotation);
         lastProj.GetComponent<BulletScript>().moveSpeed = projSpeed;
         lastProj.GetComponent<BulletScript>().damage = damage;
     }
@@ -141,10 +143,11 @@ public class NewAiNavScript : MonoBehaviour
         {
             EventManager.current.onEnemyKilled();
             gameObject.SetActive(false);
+            Destroy(this.transform.GetChild(0).transform.gameObject);
             this.transform.position = new Vector3(0, -10, 0);
             health = maxHealth;
         }
-        this.transform.GetChild(1).gameObject.GetComponent<TMP_Text>().text = (health + " / " + maxHealth);
+        model.transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = (health + " / " + maxHealth);
         damageTaken = false;
     }
 }

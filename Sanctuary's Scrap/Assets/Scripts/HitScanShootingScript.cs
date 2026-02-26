@@ -162,7 +162,7 @@ public class HitScanShootingScript : MonoBehaviour
                 Vector3 hitPoint = hit.point;
                 if (hit.collider.gameObject.CompareTag("Enemy"))
                 {
-                    GameObject lastEnemy = hit.collider.gameObject;
+                    GameObject lastEnemy = hit.collider.gameObject.transform.parent.transform.gameObject;
                     int critRand = Random.Range(1, 101);
                     if (critRand > critChance)
                     {
@@ -171,6 +171,22 @@ public class HitScanShootingScript : MonoBehaviour
                     else if (critRand <= critChance)
                     {
                         lastEnemy.GetComponent<NewAiNavScript>().health -= (damage * 2);
+                    }
+                    lastEnemy.GetComponent<NewAiNavScript>().damageTaken = true;
+                }
+                else if (hit.collider.gameObject.CompareTag("WeakSpot"))
+                {
+                    GameObject lastEnemy = hit.collider.gameObject.transform.parent.transform.gameObject.transform.parent.transform.gameObject.transform.parent.transform.gameObject;
+                    int critRand = Random.Range(1, 101);
+                    if (critRand > critChance)
+                    {
+                        lastEnemy.GetComponent<NewAiNavScript>().health -= damage;
+                        Debug.Log("Weak Spot hit");
+                    }
+                    else if (critRand <= critChance)
+                    {
+                        lastEnemy.GetComponent<NewAiNavScript>().health -= (damage * 2);
+                        Debug.Log("Weak Spot hit");
                     }
                     lastEnemy.GetComponent<NewAiNavScript>().damageTaken = true;
                 }

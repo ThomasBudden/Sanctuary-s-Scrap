@@ -8,7 +8,8 @@ public class BulletScript : MonoBehaviour
     public float moveSpeed;
     private float startTime;
     public float damage;
-    public string ignore;
+    public string[] ignore;
+    public int ignoreCount;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +33,20 @@ public class BulletScript : MonoBehaviour
             other.gameObject.GetComponent<NewPlayerMove>().health -= damage;
             Destroy(this.gameObject);
         }
-        else if (other.gameObject.tag != ignore)
+        else if (other.gameObject.tag != ("Player"))
         {
-            Destroy(this.gameObject);
+            ignoreCount = 0;
+            for (int i = 0; i < ignore.Length; ++i)
+            {
+                if (other.gameObject.CompareTag(ignore[i]))
+                {
+                    ignoreCount += 1;
+                }
+            }
+            if (ignoreCount == 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }

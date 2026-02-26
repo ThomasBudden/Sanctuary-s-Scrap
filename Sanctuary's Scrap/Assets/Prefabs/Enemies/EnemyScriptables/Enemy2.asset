@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Enemy2
   m_EditorClassIdentifier: 
   enemyBody: {fileID: 3512588549866777935, guid: 040a9390e99e9b94eb6412d744f54bbb, type: 3}
+  enemyTypeId: 2
   size: 1
   attackSpeed: 0.2
   stoppingDistance: 5

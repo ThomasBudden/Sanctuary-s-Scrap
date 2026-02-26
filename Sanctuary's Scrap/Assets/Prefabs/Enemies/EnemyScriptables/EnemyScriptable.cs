@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyScriptable : ScriptableObject
 {
     public GameObject enemyBody;
+    public int enemyTypeId;
     public float size;
     public float attackSpeed;
     public float stoppingDistance;

@@ -45,7 +45,7 @@ MonoBehaviour:
   abilityRel: 0
   weakSpot: 1.5
   weakSpotRel: 0
-  critChance: 5
+  critChance: 1
   critChanceRel: 1
   dodgeChance: 1
   dodgeChanceRel: 1
