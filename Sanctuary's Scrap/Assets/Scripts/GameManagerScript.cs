@@ -198,7 +198,8 @@ public class GameManagerScript : MonoBehaviour
     public void OnStartEnemySpawn()
     {
         wave += 1;
-        waveRand = Random.Range(0, (waveStats.Length - 1));
+        waveRand = Random.Range(0, waveStats.Length);
+        Debug.Log("Wave rand = " + waveRand);
         currentWave = waveStats[waveRand];
         usedSpawns = new bool[enemySpawns.Count];
         enemiesActive = currentWave.totalEnemyCount;
