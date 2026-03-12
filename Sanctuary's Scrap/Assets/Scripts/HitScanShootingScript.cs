@@ -28,6 +28,7 @@ public class HitScanShootingScript : MonoBehaviour
     private Quaternion currentRotation;
     private Vector3 currentEulerAngles;
     public float damage;
+    public float weakSpotDamageMult;
     public float critChance;
     public Transform muzzle;
     public GameObject lineTracer;
@@ -54,6 +55,10 @@ public class HitScanShootingScript : MonoBehaviour
     public List<GameObject> lineList = new List<GameObject>();
     public List<float> bTimeList = new List<float>(); //time list for bullet particals
     public List<GameObject> bulletList = new List<GameObject>();
+    public GameObject hitParticle;
+    public GameObject hitParticleWeak;
+    public GameObject hitParticleCrit;
+    public GameObject hitParticleCritWeak;
 
     public GameObject abilityPanel;
     private GameObject secondaryPanel;
@@ -159,33 +164,44 @@ public class HitScanShootingScript : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(aimPoint.transform.position, currentEulerAngles, out hit, 100))
             {
+                int critRand = Random.Range(1, 101);
                 Vector3 hitPoint = hit.point;
                 if (hit.collider.gameObject.CompareTag("Enemy"))
                 {
                     GameObject lastEnemy = hit.collider.gameObject.transform.parent.transform.gameObject;
-                    int critRand = Random.Range(1, 101);
                     if (critRand > critChance)
                     {
                         lastEnemy.GetComponent<NewAiNavScript>().health -= damage;
+                        GameObject lastParticle = Instantiate(hitParticle, hit.point, Quaternion.identity);
+                        ParticleSystem.MainModule lastParticleSystem = lastParticle.GetComponent<ParticleSystem>().main;
+                        lastParticleSystem.startLifetime = Mathf.Sqrt(damage / 500);
                     }
                     else if (critRand <= critChance)
                     {
                         lastEnemy.GetComponent<NewAiNavScript>().health -= (damage * 2);
+                        GameObject lastParticle = Instantiate(hitParticleCrit, hit.point, Quaternion.identity);
+                        ParticleSystem.MainModule lastParticleSystem = lastParticle.GetComponent<ParticleSystem>().main;
+                        lastParticleSystem.startLifetime = Mathf.Sqrt(damage / 500);
                     }
                     lastEnemy.GetComponent<NewAiNavScript>().damageTaken = true;
                 }
                 else if (hit.collider.gameObject.CompareTag("WeakSpot"))
                 {
                     GameObject lastEnemy = hit.collider.gameObject.transform.parent.transform.gameObject.transform.parent.transform.gameObject.transform.parent.transform.gameObject;
-                    int critRand = Random.Range(1, 101);
                     if (critRand > critChance)
                     {
-                        lastEnemy.GetComponent<NewAiNavScript>().health -= damage;
+                        lastEnemy.GetComponent<NewAiNavScript>().health -= damage * weakSpotDamageMult;
+                        GameObject lastParticle = Instantiate(hitParticleWeak, hit.point, Quaternion.identity);
+                        ParticleSystem.MainModule lastParticleSystem = lastParticle.GetComponent<ParticleSystem>().main;
+                        lastParticleSystem.startLifetime = Mathf.Sqrt(damage / 500);
                         Debug.Log("Weak Spot hit");
                     }
                     else if (critRand <= critChance)
                     {
-                        lastEnemy.GetComponent<NewAiNavScript>().health -= (damage * 2);
+                        lastEnemy.GetComponent<NewAiNavScript>().health -= ((damage * weakSpotDamageMult) * 2);
+                        GameObject lastParticle = Instantiate(hitParticleCritWeak, hit.point, Quaternion.identity);
+                        ParticleSystem.MainModule lastParticleSystem = lastParticle.GetComponent<ParticleSystem>().main;
+                        lastParticleSystem.startLifetime = Mathf.Sqrt(damage / 500);
                         Debug.Log("Weak Spot hit");
                     }
                     lastEnemy.GetComponent<NewAiNavScript>().damageTaken = true;
@@ -217,6 +233,18 @@ public class HitScanShootingScript : MonoBehaviour
                     lineRenderer.SetPosition(1, hitPoint);
                     timeList.Add(Time.time);
                     lineList.Add(lastLine);
+                }
+                if (critRand > critChance)
+                {
+                    GameObject lastParticle = Instantiate(hitParticle, hit.point, Quaternion.identity);
+                    ParticleSystem.MainModule lastParticleSystem = lastParticle.GetComponent<ParticleSystem>().main;
+                    lastParticleSystem.startLifetime = Mathf.Sqrt(damage / 500);
+                }
+                else if (critRand <= critChance)
+                {
+                    GameObject lastParticle = Instantiate(hitParticleCrit, hit.point, Quaternion.identity);
+                    ParticleSystem.MainModule lastParticleSystem = lastParticle.GetComponent<ParticleSystem>().main;
+                    lastParticleSystem.startLifetime = Mathf.Sqrt(damage / 500);
                 }
             }
             else if (doLines == true)

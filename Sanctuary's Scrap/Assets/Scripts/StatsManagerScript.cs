@@ -98,6 +98,8 @@ public class StatsManagerScript : MonoBehaviour
 
             shooting.critChance = currentScrap.critChance;
 
+            shooting.weakSpotDamageMult = currentScrap.weakSpot;
+
             if (currentScrap.secondaryRel == true)
             {
                 if (currentScrap.secondary == 0)
@@ -231,7 +233,10 @@ public class StatsManagerScript : MonoBehaviour
             //Ability
 
 
-            //Weak Spot
+            if (currentScrap.weakSpot > 0)
+            {
+                shooting.weakSpotDamageMult += currentScrap.weakSpot;
+            }
 
 
             // Crit Chance
