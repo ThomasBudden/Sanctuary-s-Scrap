@@ -137,42 +137,44 @@ public class ShopScript : MonoBehaviour
                         //Debug.Log(rarityScraps.Count);
                         //Debug.Log(i);
                         shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().text = chosenScrap.scrapName;
+                        Color scrapTxtColor1 = shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color;
+                        Color scrapTxtColor2 = shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color;
                         if (chosenScrap.scrapType == 0)
                         {
-                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.red;
+                            scrapTxtColor1 = Color.red;
                         }
                         else if (chosenScrap.scrapType == 1)
                         {
-                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.blue;
+                            scrapTxtColor1 = Color.blue;
                         }
                         else if (chosenScrap.scrapType == 2)
                         {
-                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.purple;
+                            scrapTxtColor1 = Color.purple;
                         }
                         else if (chosenScrap.scrapType == 3)
                         {
-                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.green;
+                            scrapTxtColor1 = Color.green;
                         }
                         else if (chosenScrap.scrapType == 4)
                         {
-                            shopSlot[i].transform.GetChild(0).GetComponent<TMP_Text>().color = Color.yellow;
+                            scrapTxtColor1 = Color.yellow;
                         }
                         shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().text = chosenScrap.description;
                         if (chosenScrap.scrapRarity == 0)
                         {
-                            shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.black;
+                            scrapTxtColor2 = Color.black;
                         }
                         else if (chosenScrap.scrapRarity == 1)
                         {
-                            shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.blue;
+                            scrapTxtColor2 = Color.blue;
                         }
                         else if (chosenScrap.scrapRarity == 2)
                         {
-                            shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.purple;
+                            scrapTxtColor2 = Color.purple;
                         }
                         else if (chosenScrap.scrapRarity == 3)
                         {
-                            shopSlot[i].transform.GetChild(1).GetComponent<TMP_Text>().color = Color.gold;
+                            scrapTxtColor2 = Color.gold;
                         }
                         shopSlot[i].transform.GetChild(2).GetComponent<TMP_Text>().text = chosenScrap.statsDescPos;
                         shopSlot[i].transform.GetChild(3).GetComponent<TMP_Text>().text = chosenScrap.statsDescBad;

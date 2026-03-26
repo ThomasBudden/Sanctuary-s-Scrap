@@ -131,69 +131,6 @@ public class GameManagerScript : MonoBehaviour
         {
             EventManager.current.onPlayerOpenMenu();
         }
-
-
-        /*if (wave < 2 && enemysActive <= 0 && enemySpawning == true)
-        {
-            wave = wave + 1;
-            usedSpawns = new List<GameObject>();
-            if ((enemySpawns.Count / 2) + (roomCount - 1) < enemySpawns.Count)
-            {
-                spawnTest = (enemySpawns.Count / 2) + (roomCount - 1);
-            }
-            else if ((enemySpawns.Count / 2) + (roomCount - 1) >= enemySpawns.Count)
-            {
-                spawnTest = enemySpawns.Count;
-            }
-            for (int i = 0; i < spawnTest; i++)
-            {
-                clear = 0;
-                randSpawn = Random.Range(0, enemySpawns.Count);
-                if (usedSpawns.Count != 0)
-                {
-                    for (int j = 0; j < usedSpawns.Count; j++)
-                    {
-                        if (enemySpawns[randSpawn] != usedSpawns[j])
-                        {
-                            clear = clear + 1;
-                        }
-                    }
-                }
-                else if (usedSpawns.Count == 0)
-                {
-                    clear = 0;
-                }
-                if (clear == usedSpawns.Count && usedSpawns.Count != spawnTest)
-                {
-                    //GameObject lastEnemy = Instantiate(enemy, enemySpawns[randSpawn].transform.position, Quaternion.identity);
-                    GameObject lastEnemy = EnemyPoolManager.ePInstance.GetEnemy();
-                    lastEnemy.transform.position = enemySpawns[randSpawn].transform.position;
-                    lastEnemy.transform.rotation = Quaternion.identity;
-                    lastEnemy.SetActive(true);
-                    int enemyTypeRand = Random.Range(0, enemyStats.Length);
-                    lastEnemy.GetComponent<NewAiNavScript>().enemyStats = enemyStats[enemyTypeRand];
-                    lastEnemy.gameObject.transform.localScale = new Vector3(enemyStats[enemyTypeRand].size, enemyStats[enemyTypeRand].size, enemyStats[enemyTypeRand].size);
-                    lastEnemy.GetComponent<NewAiNavScript>().roomCount = roomCount;
-                    usedSpawns.Add(enemySpawns[randSpawn]);
-                    enemysActive += 1;
-                }
-                else if (clear < usedSpawns.Count)
-                {
-                    i = i - 1;
-                }
-                else if (usedSpawns.Count == spawnTest)
-                {
-                    break;
-                }
-            }
-        }
-        else if (wave == 2 && enemysActive == 0)
-        {
-            enemySpawning = false;
-            roomClear = true;
-            SpawnReward();
-            wave = wave + 1;
-        }*/
     }
     public void OnStartEnemySpawn()
     {
