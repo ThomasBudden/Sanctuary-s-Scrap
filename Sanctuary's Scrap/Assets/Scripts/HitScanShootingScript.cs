@@ -40,7 +40,7 @@ public class HitScanShootingScript : MonoBehaviour
     public int maxAmmo;
     public int ammoCount;
 
-    private bool reloading = false;
+    public bool reloading = false;
     public float reloadTime;
     private float reloadStart;
 
@@ -271,6 +271,7 @@ public class HitScanShootingScript : MonoBehaviour
             reloadStart = Time.time;
             overChargeReload = false;
             reloading = true;
+            EventManager.current.onReloadingStart();
         }
         if (Input.GetMouseButtonDown(1) && secondary == 0 && ammoCount != maxAmmo && secondaryRecharge + secondaryRechargeStart <= Time.time)
         {
@@ -292,6 +293,7 @@ public class HitScanShootingScript : MonoBehaviour
             ammoCount = maxAmmo;
             overChargeReload = false;
             reloading = false;
+            EventManager.current.onReloadingEnd();
         }
         if (reloading == false)
         {

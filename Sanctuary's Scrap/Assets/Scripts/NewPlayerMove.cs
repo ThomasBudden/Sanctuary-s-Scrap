@@ -30,6 +30,8 @@ public class NewPlayerMove : MonoBehaviour
     public float health;
     public float maxHealth;
     public float regenAmount;
+    public float damageResist;
+    public float dodgeChance;
 
     public bool dead;
 
@@ -46,6 +48,8 @@ public class NewPlayerMove : MonoBehaviour
 
     public static int doorChosen;
 
+    public int coverShieldCount;
+
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +60,8 @@ public class NewPlayerMove : MonoBehaviour
         EventManager.current.FinishRoom += OnFinishRoom;
         EventManager.current.StartRoom += OnStartRoom;
         EventManager.current.RoomRewardChosen += OnRoomRewardChosen;
+        EventManager.current.ReloadingStart += OnReloadingStart;
+        EventManager.current.ReloadingEnd += OnReloadingEnd;
 
         mobilityPanel = abilityPanel.transform.GetChild(1).gameObject;
     }
@@ -181,6 +187,22 @@ public class NewPlayerMove : MonoBehaviour
         {
             controller.Move(move * (100 * ((mobilityActiveTime + mobilityActiveTimeStart - Time.time))) * Time.deltaTime);
         }
+    }
+
+    // coverShield
+    private void OnReloadingStart()
+    {
+        if (coverShieldCount >= 1)
+        {
+            dodgeChance += 10 * coverShieldCount;
+            damageResist *= Mathf.Pow(0.75f, coverShieldCount);
+        }
+    }
+
+    private void OnReloadingEnd()
+    {
+        dodgeChance -= 10 * coverShieldCount;
+        damageResist /= Mathf.Pow(0.75f, coverShieldCount);
     }
     private void OnOpenMenu()
     {

@@ -39,7 +39,7 @@ MonoBehaviour:
   healthRechargeRel: 1
   movementSpeed: 15
   movementSpeedRel: 1
-  damageResistance: 0
+  damageResistance: 1
   damageResistanceRel: 0
   ability: 0
   abilityRel: 0

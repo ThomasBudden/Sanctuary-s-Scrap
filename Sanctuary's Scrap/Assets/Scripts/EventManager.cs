@@ -110,4 +110,22 @@ public class EventManager : MonoBehaviour
             EnemyKilled();
         }
     }
+
+    public event Action ReloadingStart;
+    public void onReloadingStart()
+    {
+        if(ReloadingStart != null)
+        {
+            ReloadingStart();
+        }
+    }
+
+    public event Action ReloadingEnd;
+    public void onReloadingEnd()
+    {
+        if (ReloadingEnd != null)
+        {
+            ReloadingEnd();
+        }
+    }
 }

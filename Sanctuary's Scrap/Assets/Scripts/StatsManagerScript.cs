@@ -100,6 +100,8 @@ public class StatsManagerScript : MonoBehaviour
 
             shooting.weakSpotDamageMult = currentScrap.weakSpot;
 
+            move.damageResist = currentScrap.damageResistance;
+
             if (currentScrap.secondaryRel == true)
             {
                 if (currentScrap.secondary == 0)
@@ -131,6 +133,11 @@ public class StatsManagerScript : MonoBehaviour
 
         if (applyScrap == true && scrapIsCharSelect == false)
         {
+            if (currentScrap.scrapId == 5)
+            {
+                move.coverShieldCount += 1;
+            }
+
             if (currentScrap.fireSpeed > 0)
             {
                 shooting.shotSpeed *= (currentScrap.fireSpeed / 100);
@@ -242,7 +249,8 @@ public class StatsManagerScript : MonoBehaviour
             // Crit Chance
 
 
-            //Dodge Chance
+            // dodge chance
+
             applyScrap = false;
         }
     }

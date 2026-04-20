@@ -30,7 +30,11 @@ public class BulletScript : MonoBehaviour
     {
         if (other.gameObject.tag == ("Player"))
         {
-            other.gameObject.GetComponent<NewPlayerMove>().health -= damage;
+            int dodgeRand = Random.Range(0, 100);
+            if (dodgeRand >= other.gameObject.GetComponent<NewPlayerMove>().dodgeChance)
+            {
+                other.gameObject.GetComponent<NewPlayerMove>().health -= damage * other.gameObject.GetComponent<NewPlayerMove>().damageResist;
+            }
             Destroy(this.gameObject);
         }
         else if (other.gameObject.tag != ("Player"))
