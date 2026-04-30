@@ -72,6 +72,8 @@ public class HitScanShootingScript : MonoBehaviour
     public float coreDurationStart;
     public float coreRecharge;
     public float coreRechargeStart;
+
+    public int destructionProtocolCount;
     // Start is called before the first frame update
     void Start()
     {

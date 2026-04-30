@@ -138,6 +138,11 @@ public class StatsManagerScript : MonoBehaviour
                 move.coverShieldCount += 1;
             }
 
+            if (currentScrap.scrapId == 6)
+            {
+                shooting.destructionProtocolCount += 1;
+            }
+
             if (currentScrap.fireSpeed > 0)
             {
                 shooting.shotSpeed *= (currentScrap.fireSpeed / 100);

@@ -51,7 +51,9 @@ MonoBehaviour:
   enemyMat: {fileID: 2100000, guid: 6f9f5a549791644479ba2c6e7f07897c, type: 2}
   hitMat: {fileID: 2100000, guid: 0cb839e1aaecc80478351bceeae713b7, type: 2}
   model: {fileID: 0}
+  hitParticle: {fileID: 110790, guid: 0f75f6db4a318f54382e0c98b2226db8, type: 3}
   enemyStats: {fileID: 0}
+  enemyTypeId: 0
   attackSpeed: 0
   stoppingDistance: 0
   retreatDistance: 0

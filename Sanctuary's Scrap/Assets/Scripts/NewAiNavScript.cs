@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using TMPro;
 using TMPro.Examples;
 using UnityEngine.UIElements;
+using System.Linq;
 
 public class NewAiNavScript : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class NewAiNavScript : MonoBehaviour
     public Material enemyMat;
     public Material hitMat;
     public GameObject model;
+    public GameObject hitParticle;
 
     public EnemyScriptable enemyStats;
     public int enemyTypeId;
@@ -36,6 +38,9 @@ public class NewAiNavScript : MonoBehaviour
     public GameObject proj;
     public float projSize;
     public float projSpeed;
+
+    public RaycastHit[] destructionProtocolHits;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -142,6 +147,23 @@ public class NewAiNavScript : MonoBehaviour
         else if (health <= 0)
         {
             EventManager.current.onEnemyKilled();
+            if (player.GetComponent<HitScanShootingScript>().destructionProtocolCount > 0)
+            {
+                Debug.Log("Doing Destruction");
+                destructionProtocolHits = Physics.SphereCastAll(this.transform.position, 50 * player.GetComponent<HitScanShootingScript>().destructionProtocolCount, new Vector3 (0,0,0), 0f);
+                Debug.Log("Destruction array length=" + destructionProtocolHits.Length);
+                for (int i = 0; i < destructionProtocolHits.Length; i++)
+                {
+                    if (destructionProtocolHits[1].collider.gameObject.CompareTag("Enemy"))
+                    {
+                        GameObject lastEnemy = destructionProtocolHits[1].collider.gameObject;
+                        lastEnemy.GetComponent<NewAiNavScript>().health -= player.GetComponent<HitScanShootingScript>().damage;
+                        GameObject lastParticle = Instantiate(hitParticle, this.transform.position, Quaternion.identity);
+                        ParticleSystem.MainModule lastParticleSystem = lastParticle.GetComponent<ParticleSystem>().main;
+                        lastParticleSystem.startLifetime = (player.GetComponent<HitScanShootingScript>().destructionProtocolCount * 100);
+                    }
+                }
+            }
             gameObject.SetActive(false);
             Destroy(this.transform.GetChild(0).transform.gameObject);
             this.transform.position = new Vector3(0, -10, 0);
